@@ -1,43 +1,95 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import rateLimit from 'express-rate-limit';
+import { body, validationResult } from 'express-validator';
+import { apiKeyAuth } from './middleware/auth';
 import { getLegalAssistantResponse, analyzeLegalText, LexCoraChatSession } from './genaiService';
+import { Request, Response } from 'express';
 
 dotenv.config();
 
-const app = express();
+export const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post('/api/assistant', async (req, res) => {
-  const { query, lang = 'en' } = req.body || {};
-  if (!query) return res.status(400).json({ error: 'Missing `query` in request body' });
-
-  const result = await getLegalAssistantResponse(query, lang);
-  res.json(result);
+// Rate limiting and API key auth
+const apiLimiter = rateLimit({
+  windowMs: Number(process.env.API_RATE_WINDOW_MS || 60000),
+  max: Number(process.env.API_RATE_MAX || 20),
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests, please try again later.' }
 });
 
-app.post('/api/analyze', async (req, res) => {
-  const { text, lang = 'en' } = req.body || {};
-  if (!text) return res.status(400).json({ error: 'Missing `text` in request body' });
+// Apply to all /api routes
+app.use('/api', apiLimiter, apiKeyAuth);
 
-  const result = await analyzeLegalText(text, lang);
-  res.json({ text: result });
-});
+app.post('/api/assistant',
+  [
+    body('query').isString().trim().isLength({ min: 1, max: 2000 }),
+    body('lang').optional().isIn(['en', 'ar'])
+  ],
+  async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-app.post('/api/chat', async (req, res) => {
-  const { message, lang = 'en', history } = req.body || {};
-  if (!message) return res.status(400).json({ error: 'Missing `message` in request body' });
-
-  try {
-    const session = new LexCoraChatSession(lang, history || []);
-    const result = await session.sendMessage(message);
-    res.json(result);
-  } catch (err) {
-    console.error('Chat error:', err);
-    res.status(500).json({ error: 'Chat service error' });
+    const { query, lang = 'en' } = req.body;
+    try {
+      const result = await getLegalAssistantResponse(query, lang);
+      res.json(result);
+    } catch (err) {
+      console.error('Assistant error:', err);
+      res.status(500).json({ error: 'Assistant service error' });
+    }
   }
-});
+);
 
-const port = process.env.PORT || 4000;
-app.listen(port, () => console.log(`LEXCORA server listening on port ${port}`));
+app.post('/api/analyze',
+  [
+    body('text').isString().trim().isLength({ min: 1, max: 5000 }),
+    body('lang').optional().isIn(['en', 'ar'])
+  ],
+  async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+    const { text, lang = 'en' } = req.body;
+    try {
+      const result = await analyzeLegalText(text, lang);
+      res.json({ text: result });
+    } catch (err) {
+      console.error('Analyze error:', err);
+      res.status(500).json({ error: 'Analysis service error' });
+    }
+  }
+);
+
+app.post('/api/chat',
+  [
+    body('message').isString().trim().isLength({ min: 1, max: 3000 }),
+    body('lang').optional().isIn(['en', 'ar']),
+    body('history').optional().isArray(),
+    body('history.*.role').optional().isIn(['user', 'model']),
+    body('history.*.text').optional().isString().isLength({ min: 1, max: 2000 })
+  ],
+  async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+    const { message, lang = 'en', history } = req.body;
+    try {
+      const session = new LexCoraChatSession(lang, history || []);
+      const result = await session.sendMessage(message);
+      res.json(result);
+    } catch (err) {
+      console.error('Chat error:', err);
+      res.status(500).json({ error: 'Chat service error' });
+    }
+  }
+);
+
+if (require.main === module) {
+  const port = process.env.PORT || 4000;
+  app.listen(port, () => console.log(`LEXCORA server listening on port ${port}`));
+}
