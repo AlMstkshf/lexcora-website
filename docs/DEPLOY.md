@@ -35,6 +35,18 @@ docker run -d --name redis redis:7
 docker run -d --name lexcora-server -e PORT=4000 -e GEMINI_API_KEY=your_key -e API_KEY=your_key -e REDIS_URL=redis://redis:6379 --link redis:redis -p 4000:4000 lexcora-server
 ```
 
+### CI: build & publish Docker image
+A GitHub Actions workflow (`.github/workflows/docker-publish.yml`) has been added to build and push the **server** Docker image to **GitHub Container Registry (GHCR)** when `main` receives a push. The workflow authenticates using the repository-provided `GITHUB_TOKEN` and requires `packages: write` permission (already set in the workflow).
+
+Image tags produced:
+- `ghcr.io/<owner>/lexcora-server:${{ github.sha }}` (commit-specific)
+- `ghcr.io/<owner>/lexcora-server:latest` (updated on `main` pushes)
+
+If you prefer Docker Hub or another registry, I can add a second workflow or extend this one to support it (requires `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` secrets).
+
+### Smoke tests
+A smoke-test workflow (`.github/workflows/docker-smoke-test.yml`) runs after the Docker image is published to GHCR to pull `ghcr.io/<owner>/lexcora-server:latest`, run it with a temporary `API_KEY`, and assert the `/health` endpoint returns `{ status: "ok" }`. If the health check fails, container logs are shown in the workflow output.
+
 > Note: For serving the frontend we recommend deploying the `dist/` static files to a static host (Vercel, Netlify, Cloudflare Pages) or to a CDN-backed origin. See the "Frontend" section above for build steps.
 
 ## Non-interactive Vercel project creation (PowerShell) ⚙️
