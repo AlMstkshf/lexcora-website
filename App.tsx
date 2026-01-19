@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Features } from './components/Features';
 import { Insights } from './components/Insights';
 import { Footer } from './components/Footer';
-import { LoginModal } from './components/LoginModal';
-import { ContactModal } from './components/ContactModal';
-import { ChatWidget } from './components/ChatWidget';
 import { Testimonials } from './components/Testimonials';
-import { CaseStudies } from './components/CaseStudies';
-import { TrialSignup } from './components/TrialSignup';
-import { InsightsPage } from './components/InsightsPage';
-import { ArticleDetail } from './components/ArticleDetail';
-import { Pricing } from './components/Pricing';
-import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { Language, View } from './types';
 import { Loader2 } from 'lucide-react';
+
+// Lazy-load large route/modal components to keep initial bundle small
+const InsightsPage = React.lazy(() => import('./components/InsightsPage').then(m => ({ default: m.InsightsPage })));
+const ArticleDetail = React.lazy(() => import('./components/ArticleDetail').then(m => ({ default: m.ArticleDetail })));
+const CaseStudies = React.lazy(() => import('./components/CaseStudies').then(m => ({ default: m.CaseStudies })));
+const TrialSignup = React.lazy(() => import('./components/TrialSignup').then(m => ({ default: m.TrialSignup })));
+const Pricing = React.lazy(() => import('./components/Pricing').then(m => ({ default: m.Pricing })));
+const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy').then(m => ({ default: m.PrivacyPolicy })));
+const LoginModal = React.lazy(() => import('./components/LoginModal').then(m => ({ default: m.LoginModal })));
+const ContactModal = React.lazy(() => import('./components/ContactModal').then(m => ({ default: m.ContactModal })));
+const ChatWidget = React.lazy(() => import('./components/ChatWidget').then(m => ({ default: m.ChatWidget })));
+
+// Note: `Insights` (home preview list) remains eagerly loaded for quick home render; full `InsightsPage` is lazy.
 
 function App() {
   const [lang, setLang] = useState<Language>('en');
@@ -109,34 +113,52 @@ function App() {
           </>
         )}
         {currentView === 'case-studies' && (
-          <CaseStudies lang={lang} onNavigate={handleNavigate} />
+          <Suspense fallback={<div className="p-8">Loading...</div>}>
+            <CaseStudies lang={lang} onNavigate={handleNavigate} />
+          </Suspense>
         )}
         {currentView === 'trial' && (
-          <TrialSignup lang={lang} />
+          <Suspense fallback={<div className="p-8">Loading...</div>}>
+            <TrialSignup lang={lang} />
+          </Suspense>
         )}
         {currentView === 'pricing' && (
-          <Pricing lang={lang} onNavigate={handleNavigate} />
+          <Suspense fallback={<div className="p-8">Loading...</div>}>
+            <Pricing lang={lang} onNavigate={handleNavigate} />
+          </Suspense>
         )}
         {currentView === 'privacy' && (
-          <PrivacyPolicy lang={lang} onNavigate={handleNavigate} />
+          <Suspense fallback={<div className="p-8">Loading...</div>}>
+            <PrivacyPolicy lang={lang} onNavigate={handleNavigate} />
+          </Suspense>
         )}
         {currentView === 'insights' && (
-          <InsightsPage lang={lang} onArticleClick={handleArticleClick} />
+          <Suspense fallback={<div className="p-8">Loading insights...</div>}>
+            <InsightsPage lang={lang} onArticleClick={handleArticleClick} />
+          </Suspense>
         )}
         {currentView === 'article' && selectedArticleId && (
-          <ArticleDetail 
-            lang={lang} 
-            articleId={selectedArticleId} 
-            onBack={() => handleNavigate('insights')}
-          />
+          <Suspense fallback={<div className="p-8">Loading article...</div>}>
+            <ArticleDetail 
+              lang={lang} 
+              articleId={selectedArticleId} 
+              onBack={() => handleNavigate('insights')}
+            />
+          </Suspense>
         )}
       </main>
 
       <Footer lang={lang} onNavigate={handleNavigate} />
       
-      <LoginModal isOpen={loginOpen} onClose={() => setLoginOpen(false)} lang={lang} />
-      <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} lang={lang} />
-      <ChatWidget lang={lang} />
+      <Suspense fallback={null}>
+        <LoginModal isOpen={loginOpen} onClose={() => setLoginOpen(false)} lang={lang} />
+      </Suspense>
+      <Suspense fallback={null}>
+        <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} lang={lang} />
+      </Suspense>
+      <Suspense fallback={null}>
+        <ChatWidget lang={lang} />
+      </Suspense>
     </div>
   );
 }
