@@ -15,6 +15,28 @@ Short deployment guidance for the frontend and server.
 - Start: `npm start` (ensure `PORT` is set in environment or default is used).
 - Recommended platforms: Railway, Render, Heroku, Azure App Service, DigitalOcean App Platform, or a container on your own infrastructure.
 
+### Redis (optional, recommended for production rate limiting)
+- To enable a shared rate-limiter store across instances, set `REDIS_URL` (e.g. `redis://:password@redis:6379/0`) in your server environment. If `REDIS_URL` is set the server will use a Redis-backed rate limiter; otherwise it falls back to in-memory limiting (not suitable for multi-instance setups).
+- Example (Docker Compose): use the provided `docker-compose.yml` which launches `redis` and `server` services.
+
+### Containerized deploy (Docker)
+A minimal Docker setup is provided:
+
+- `Dockerfile` (server-only) builds the server and runs `node dist/index.js` in production mode.
+- `docker-compose.yml` provided to run the server with a Redis instance for production-like testing.
+
+Example to build & run:
+```bash
+# Build server image
+docker build -t lexcora-server .
+
+# Run with a Redis container
+docker run -d --name redis redis:7
+docker run -d --name lexcora-server -e PORT=4000 -e GEMINI_API_KEY=your_key -e API_KEY=your_key -e REDIS_URL=redis://redis:6379 --link redis:redis -p 4000:4000 lexcora-server
+```
+
+> Note: For serving the frontend we recommend deploying the `dist/` static files to a static host (Vercel, Netlify, Cloudflare Pages) or to a CDN-backed origin. See the "Frontend" section above for build steps.
+
 ## Non-interactive Vercel project creation (PowerShell) ⚙️
 
 These commands create a Vercel project and parse the response to extract the `project id` and `account id` (org/team). They use the Vercel REST API and assume you have a valid Vercel access token assigned to `$env:VERCEL_TOKEN`.
@@ -74,6 +96,7 @@ Notes:
 ## Security & CI
 - Ensure secrets are stored with the host's secret management (GitHub Secrets, Vercel/Netlify environment settings, etc.).
 - CI should run tests and builds before deploys (we run server tests for Dependabot PRs via `.github/workflows/dependabot-ci.yml`).
+- A PR CI workflow (`.github/workflows/pr-ci.yml`) has been added to run a full frontend build and server tests on pull requests; use branch protection rules to require this check before merging.
 
 ## Advanced
 - You can host both frontend and server together (single host) or split them. If splitting, configure the frontend to call the server's public URL and set CORS accordingly.
