@@ -8,10 +8,18 @@ interface TrialSignupProps {
   lang: Language;
 }
 
+interface FormData {
+  fullName: string;
+  email: string;
+  phone: string;
+  firmName: string;
+  firmSize: string;
+}
+
 export const TrialSignup: React.FC<TrialSignupProps> = ({ lang }) => {
   const t = CONTENT[lang].trial;
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     fullName: '',
     email: '',
     phone: '',
@@ -119,7 +127,7 @@ export const TrialSignup: React.FC<TrialSignupProps> = ({ lang }) => {
                     className="w-full bg-white border border-slate-300 rounded-lg py-3 px-4 focus:outline-none focus:border-lexcora-gold focus:ring-1 focus:ring-lexcora-gold/50"
                     placeholder="e.g. Ahmed Al-Mansoori"
                     value={formData.fullName}
-                    onChange={(e) => setFormData({...formData, fullName: e.target.value})}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, fullName: e.target.value})}
                   />
                 </div>
                 <div>
@@ -129,7 +137,7 @@ export const TrialSignup: React.FC<TrialSignupProps> = ({ lang }) => {
                     className="w-full bg-white border border-slate-300 rounded-lg py-3 px-4 focus:outline-none focus:border-lexcora-gold focus:ring-1 focus:ring-lexcora-gold/50"
                     placeholder="name@firm.ae"
                     value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, email: e.target.value})}
                   />
                 </div>
                 <div>
@@ -139,7 +147,7 @@ export const TrialSignup: React.FC<TrialSignupProps> = ({ lang }) => {
                     className="w-full bg-white border border-slate-300 rounded-lg py-3 px-4 focus:outline-none focus:border-lexcora-gold focus:ring-1 focus:ring-lexcora-gold/50"
                     placeholder="+971 50 123 4567"
                     value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, phone: e.target.value})}
                   />
                 </div>
                 <Button 
@@ -163,7 +171,7 @@ export const TrialSignup: React.FC<TrialSignupProps> = ({ lang }) => {
                     className="w-full bg-white border border-slate-300 rounded-lg py-3 px-4 focus:outline-none focus:border-lexcora-gold focus:ring-1 focus:ring-lexcora-gold/50"
                     placeholder="e.g. Al-Mansoori & Partners"
                     value={formData.firmName}
-                    onChange={(e) => setFormData({...formData, firmName: e.target.value})}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, firmName: e.target.value})}
                   />
                 </div>
                 <div>
@@ -171,7 +179,7 @@ export const TrialSignup: React.FC<TrialSignupProps> = ({ lang }) => {
                   <select 
                     className="w-full bg-white border border-slate-300 rounded-lg py-3 px-4 focus:outline-none focus:border-lexcora-gold focus:ring-1 focus:ring-lexcora-gold/50"
                     value={formData.firmSize}
-                    onChange={(e) => setFormData({...formData, firmSize: e.target.value})}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFormData({...formData, firmSize: e.target.value})}
                   >
                     <option value="">Select Size</option>
                     {t.form.sizes.map((s) => <option key={s} value={s}>{s}</option>)}

@@ -25,3 +25,5 @@ View your app in AI Studio: https://ai.studio/apps/drive/1hipztc01zGP4uBy4qw0_Bj
 Notes:
 - The app now proxies AI requests via `/api/*` to the local server to keep API keys on the server side.
 - If a key was committed, revoke/rotate it and purge history as needed.
+
+**Deployment & envs:** See `docs/DEPLOY.md` for deployment notes; example environment variables are in `server/.env.example` (do not commit secret values).

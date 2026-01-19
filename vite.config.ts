@@ -38,7 +38,7 @@ export default defineConfig(({ mode }) => {
       build: {
         rollupOptions: {
           output: {
-            manualChunks(id) {
+            manualChunks(id: string) {
               if (id.includes('node_modules')) {
                 // Group React into its own vendor chunk
                 if (id.includes('react')) return 'react-vendor';
@@ -48,6 +48,8 @@ export default defineConfig(({ mode }) => {
                 // Fallback vendor chunk
                 return 'vendor';
               }
+              // Explicitly return undefined when not matching to satisfy strict checks
+              return undefined as any;
             }
           }
         }

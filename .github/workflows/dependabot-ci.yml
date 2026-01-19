@@ -1,0 +1,50 @@
+name: Dependabot PR CI & Auto-merge
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: ["main", "master"]
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  test:
+    if: startsWith(github.actor, 'dependabot')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install root deps
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build --if-present
+
+      - name: Install and run server tests
+        run: |
+          cd server
+          npm ci
+          npm test
+
+  automerge:
+    needs: test
+    runs-on: ubuntu-latest
+    if: ${{ needs.test.result == 'success' && github.event.pull_request.user.login == 'dependabot[bot]' && github.event.pull_request.draft == false }}
+    steps:
+      - name: Auto-merge Dependabot PR when checks pass
+        uses: pascalgn/automerge-action@v0.15.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          merge_method: squash
+          merge_when_all_checks_succeed: true

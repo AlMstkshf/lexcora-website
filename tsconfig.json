@@ -10,8 +10,21 @@
       "DOM.Iterable"
     ],
     "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "alwaysStrict": true,
+    "exactOptionalPropertyTypes": true,
     "types": [
-      "node"
+      "node",
+      "vite/client"
     ],
     "moduleResolution": "bundler",
     "isolatedModules": true,
