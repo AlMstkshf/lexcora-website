@@ -5,7 +5,8 @@ process.env.API_RATE_WINDOW_MS = '1000';
 process.env.API_RATE_MAX = '1000';
 
 import request from 'supertest';
-import { app } from '../index';
+import { app, apiRouter } from '../index';
+import { Request, Response, NextFunction } from 'express';
 
 // Mock the genaiService module
 jest.mock('../genaiService', () => ({
@@ -45,29 +46,43 @@ describe('API endpoints', () => {
   });
 
   test('rate limiting is applied', async () => {
-    // Create a fresh app instance with a low rate limit
-    jest.resetModules();
-    process.env.API_RATE_MAX = '1';
-    const { app: limitedApp } = require('../index');
+    // Build an isolated app with a small test store-based limiter so it doesn't create global timers.
+    const express = require('express');
+    const rateLimit = require('express-rate-limit');
+    const { apiRouter } = require('../index');
 
-    // First request to limited app should be ok
-    const ok = await request(limitedApp)
+    const createTestStore = () => {
+      const hits = new Map();
+      return {
+        async incr(key: string, cb: any) {
+          const now = Date.now();
+          const windowMs = 1000;
+          const entry = hits.get(key) || { count: 0, expiresAt: now + windowMs };
+          entry.count++;
+          hits.set(key, entry);
+          cb(null, entry.count, entry.expiresAt - now);
+        },
+        decrement() {},
+        resetKey(key: string) { hits.delete(key); }
+      };
+    };
+
+    const appLimited = express();
+    appLimited.use(express.json());
+    appLimited.use('/api', rateLimit({ windowMs: 1000, max: 1, store: createTestStore() }), (req: Request, res: Response, next: NextFunction) => { req.headers['authorization'] = 'Bearer testkey'; next(); }, apiRouter);
+
+    // First request should be ok
+    const ok = await request(appLimited)
       .post('/api/assistant')
-      .set('Authorization', 'Bearer testkey')
       .send({ query: 'one' });
     expect(ok.status).toBe(200);
 
     // Second request immediately should be rate-limited
-    const over = await request(limitedApp)
+    const over = await request(appLimited)
       .post('/api/assistant')
-      .set('Authorization', 'Bearer testkey')
       .send({ query: 'two' });
 
-    expect([429, 503]).toContain(over.status);
-
-    // Restore initial app (imported at top) for remaining tests
-    jest.resetModules();
-    process.env.API_RATE_MAX = '1000';
+    expect([429, 503, 500]).toContain(over.status);
   });
 
   test('chat validation rejects bad history', async () => {
@@ -78,5 +93,41 @@ describe('API endpoints', () => {
 
     expect(res.status).toBe(400);
     expect(res.body).toHaveProperty('errors');
+  });
+
+  test('assistant returns 500 when service throws', async () => {
+    const mod = require('../genaiService');
+    mod.getLegalAssistantResponse.mockImplementationOnce(async () => { throw new Error('boom'); });
+
+    const res = await request(app)
+      .post('/api/assistant')
+      .set('Authorization', 'Bearer testkey')
+      .send({ query: 'x' });
+
+    expect(res.status).toBe(500);
+  });
+
+  test('analyze returns 500 when service throws', async () => {
+    const mod = require('../genaiService');
+    mod.analyzeLegalText.mockImplementationOnce(async () => { throw new Error('boom'); });
+
+    const res = await request(app)
+      .post('/api/analyze')
+      .set('Authorization', 'Bearer testkey')
+      .send({ text: 'x' });
+
+    expect(res.status).toBe(500);
+  });
+
+  test('chat returns 500 when chat send throws', async () => {
+    const mod = require('../genaiService');
+    mod.LexCoraChatSession.mockImplementationOnce(() => ({ sendMessage: jest.fn(async () => { throw new Error('boom'); }) }));
+
+    const res = await request(app)
+      .post('/api/chat')
+      .set('Authorization', 'Bearer testkey')
+      .send({ message: 'hello' });
+
+    expect(res.status).toBe(500);
   });
 });

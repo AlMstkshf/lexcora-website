@@ -48,7 +48,7 @@ const getSystemInstruction = (lang: 'en' | 'ar', task: 'chat' | 'analysis' = 'ch
        - انتهِ دائماً بـ: 'إخلاء مسؤولية: للأغراض المعلوماتية فقط، ولا يشكل مشورة قانونية رسمية.'`;
 };
 
-function parseGrounding(response: any): Source[] {
+export function parseGrounding(response: any): Source[] {
   try {
     const candidates = response?.candidates;
     const metadata = candidates?.[0]?.groundingMetadata;
