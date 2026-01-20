@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Language } from '../types';
 import { CONTENT } from '../constants';
-import { Linkedin, Twitter, Facebook, Mail, MapPin, Phone, Send, CheckCircle2 } from 'lucide-react';
+import { Linkedin, Instagram, Mail, MapPin, Phone, Send, CheckCircle2 } from 'lucide-react';
 
 interface FooterProps {
   lang: Language;
@@ -70,7 +70,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
             <p className="text-sm leading-relaxed text-slate-400">{t.about}</p>
             <div className="flex gap-4">
               <a 
-                href="https://www.linkedin.com/company/almstkshf/" 
+                href="https://www.linkedin.com/showcase/lexcora-erp-system/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="hover:text-lexcora-gold transition-colors" 
@@ -78,8 +78,15 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
               >
                 <Linkedin size={20} />
               </a>
-              <a href="#" className="hover:text-lexcora-gold transition-colors" aria-label="Twitter"><Twitter size={20} /></a>
-              <a href="#" className="hover:text-lexcora-gold transition-colors" aria-label="Facebook"><Facebook size={20} /></a>
+              <a 
+                href="https://www.instagram.com/lexcora_erp/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-lexcora-gold transition-colors" 
+                aria-label="Instagram"
+              >
+                <Instagram size={20} />
+              </a>
             </div>
           </div>
 

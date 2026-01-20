@@ -36,6 +36,7 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, onLoginClick, cur
     { label: t.caseStudies, to: '/case-studies' },
     { label: t.pricing, to: '/pricing' },
     { label: t.insights, to: '/insights' },
+    { label: t.contact, to: '/contact' },
     { label: lang === 'en' ? 'About' : 'حول', to: '/about' },
   ];
 
@@ -103,21 +104,26 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, onLoginClick, cur
             {lang === 'en' ? 'العربية' : 'English'}
           </button>
 
-          <Button
-            variant="outline"
-            className={`!py-2 !px-4 ${!isScrolled && '!border-lexcora-blue !text-lexcora-blue hover:!bg-lexcora-blue/5'}`}
-            onClick={onLoginClick}
-            aria-label="Open Client Portal Login"
+          <a
+            href="https://user.lexcora-mbh.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`inline-flex items-center gap-2 !py-2 !px-4 rounded-md border font-semibold transition-all duration-300 text-sm tracking-wide uppercase ${
+              !isScrolled
+                ? '!border-lexcora-blue !text-lexcora-blue hover:!bg-lexcora-blue/5'
+                : '!border-white/60 !text-white hover:!bg-white/10'
+            }`}
+            aria-label="Open Client Portal"
           >
             <User size={16} />
             {t.portal}
-          </Button>
+          </a>
 
           <Button
             variant="primary"
             className="!py-2 !px-4"
             aria-label="Start Free Trial"
-            onClick={() => navigate('/trial')}
+            onClick={() => navigate('/free-trial')}
           >
             {t.freeTrial}
           </Button>
@@ -155,16 +161,22 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, onLoginClick, cur
           >
             <Globe size={18} /> {lang === 'en' ? 'العربية' : 'English'}
           </button>
-          <Button onClick={onLoginClick} variant="outline" fullWidth aria-label="Open Client Portal Login">
+          <a
+            href="https://user.lexcora-mbh.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md font-semibold border border-white/60 text-white hover:bg-white/10 transition-colors uppercase text-sm"
+            aria-label="Open Client Portal"
+          >
             {t.portal}
-          </Button>
+          </a>
           <Button
             variant="primary"
             fullWidth
             aria-label="Start Free Trial"
             onClick={() => {
               setMobileMenuOpen(false);
-              navigate('/trial');
+              navigate('/free-trial');
             }}
           >
             {t.freeTrial}

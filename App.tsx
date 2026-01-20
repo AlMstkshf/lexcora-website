@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, useNavigate, useParams, Navigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -157,6 +157,33 @@ const TrialPage: React.FC<{ lang: Language }> = ({ lang }) => (
   </>
 );
 
+
+const ContactRoute: React.FC<{ lang: Language }> = ({ lang }) => {
+  const navigate = useNavigate();
+  const isEnglish = lang === 'en';
+
+  return (
+    <>
+      <PageHelmet
+        title={isEnglish ? 'Contact | Lexcora' : 'اتصل بنا | ليكسورا'}
+        description={
+          isEnglish
+            ? 'Talk with Lexcora about legal operations, pricing, and implementation for your firm.'
+            : 'تواصل مع ليكسورا حول العمليات القانونية، التسعير، والتنفيذ لشركتك.'
+        }
+      />
+      <Suspense fallback={<div className="p-8">Loading contact...</div>}>
+        <ContactModal
+          isOpen
+          variant="page"
+          onClose={() => navigate('/')}
+          lang={lang}
+        />
+      </Suspense>
+    </>
+  );
+};
+
 const PrivacyPage: React.FC<{ lang: Language }> = ({ lang }) => (
   <>
     <PageHelmet
@@ -211,9 +238,10 @@ const AppLayout: React.FC<{
   lang: Language;
   setLang: (lang: Language) => void;
   onLoginClick: () => void;
-  onContactClick: () => void;
-}> = ({ lang, setLang, onLoginClick, onContactClick }) => {
+}> = ({ lang, setLang, onLoginClick }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const handleContactClick = () => navigate('/contact');
 
   return (
     <div className="min-h-screen bg-white transition-opacity duration-1000">
@@ -226,12 +254,14 @@ const AppLayout: React.FC<{
 
       <main className="animate-fade-in">
         <Routes>
-          <Route path="/" element={<HomePage lang={lang} onContactClick={onContactClick} />} />
+          <Route path="/" element={<HomePage lang={lang} onContactClick={handleContactClick} />} />
           <Route path="/features" element={<FeaturesPage lang={lang} />} />
-          <Route path="/pricing" element={<PricingPage lang={lang} onContactClick={onContactClick} />} />
-          <Route path="/case-studies" element={<CaseStudiesPage lang={lang} onContactClick={onContactClick} />} />
+          <Route path="/pricing" element={<PricingPage lang={lang} onContactClick={handleContactClick} />} />
+          <Route path="/case-studies" element={<CaseStudiesPage lang={lang} onContactClick={handleContactClick} />} />
           <Route path="/about" element={<About lang={lang} />} />
-          <Route path="/trial" element={<TrialPage lang={lang} />} />
+          <Route path="/free-trial" element={<TrialPage lang={lang} />} />
+          <Route path="/trial" element={<Navigate to="/free-trial" replace />} />
+          <Route path="/contact" element={<ContactRoute lang={lang} />} />
           <Route path="/privacy" element={<PrivacyPage lang={lang} />} />
           <Route path="/insights" element={<InsightsRoute lang={lang} />} />
           <Route path="/insights/:articleId" element={<ArticleRoute lang={lang} />} />
@@ -247,7 +277,6 @@ const AppLayout: React.FC<{
 function App() {
   const [lang, setLang] = useState<Language>('en');
   const [loginOpen, setLoginOpen] = useState(false);
-  const [contactOpen, setContactOpen] = useState(false);
   const [isAppLoading, setIsAppLoading] = useState(true);
 
   useEffect(() => {
@@ -279,14 +308,10 @@ function App() {
         lang={lang}
         setLang={setLang}
         onLoginClick={() => setLoginOpen(true)}
-        onContactClick={() => setContactOpen(true)}
       />
 
       <Suspense fallback={null}>
         <LoginModal isOpen={loginOpen} onClose={() => setLoginOpen(false)} lang={lang} />
-      </Suspense>
-      <Suspense fallback={null}>
-        <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} lang={lang} />
       </Suspense>
       <Suspense fallback={null}>
         <ChatWidget lang={lang} />

@@ -52,7 +52,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onContactClick }) => {
             <Button 
               variant="primary" 
               className="shadow-xl shadow-lexcora-gold/20"
-              onClick={() => navigate('/trial')}
+              onClick={() => navigate('/free-trial')}
             >
               {t.ctaPrimary}
             </Button>

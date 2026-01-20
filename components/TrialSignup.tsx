@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Language } from '../types';
 import { CONTENT } from '../constants';
-import { Check, CheckCircle2, ChevronRight, ChevronLeft, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Check, CheckCircle2, ChevronRight, ChevronLeft, ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
 import { Button } from './Button';
 
 interface TrialSignupProps {
@@ -27,6 +27,9 @@ export const TrialSignup: React.FC<TrialSignupProps> = ({ lang }) => {
     firmSize: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const handleNext = () => {
     if (step < 3) setStep(step + 1);
   };
@@ -37,6 +40,42 @@ export const TrialSignup: React.FC<TrialSignupProps> = ({ lang }) => {
 
   const isStep1Valid = formData.fullName && formData.email && formData.phone;
   const isStep2Valid = formData.firmName && formData.firmSize;
+
+  const handleSubmit = async (e?: React.FormEvent) => {
+    e?.preventDefault();
+    if (!isStep2Valid || isSubmitting) return;
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const res = await fetch('/api/trial', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          firmName: formData.firmName,
+          firmSize: formData.firmSize,
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        throw new Error(data?.message || 'Request failed');
+      }
+
+      const targetUrl = data?.redirectUrl || 'https://portal.lexcora-mbh.com';
+
+      // Redirect on success
+      window.location.href = targetUrl;
+    } catch (err) {
+      setError(lang === 'en' ? 'Something went wrong. Please try again.' : 'حدث خطأ. يرجى المحاولة مرة أخرى.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const NavArrowNext = lang === 'ar' ? ChevronLeft : ChevronRight;
   const NavArrowBack = lang === 'ar' ? ChevronRight : ChevronLeft;
@@ -196,12 +235,21 @@ export const TrialSignup: React.FC<TrialSignupProps> = ({ lang }) => {
                   <Button 
                     variant="primary" 
                     className="flex-1"
-                    onClick={handleNext}
-                    disabled={!isStep2Valid}
+                    onClick={handleSubmit}
+                    disabled={!isStep2Valid || isSubmitting}
                   >
-                    {t.form.submit}
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 size={18} className="animate-spin" /> {lang === 'en' ? 'Submitting...' : 'جارٍ الإرسال...'}
+                      </>
+                    ) : (
+                      t.form.submit
+                    )}
                   </Button>
                 </div>
+                {error && (
+                  <p className="text-sm text-red-600 mt-3 text-center">{error}</p>
+                )}
               </div>
             )}
 

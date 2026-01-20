@@ -29,7 +29,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, lang })
         <div className="p-8 space-y-6">
           <div className="space-y-4">
             <a 
-              href="https://lexcora-mbh.com/login"
+              href="https://protal.lexcora-mbh.com"
               className="w-full flex items-center justify-between p-4 border border-slate-200 rounded hover:border-lexcora-gold hover:bg-slate-50 transition-all group" 
               aria-label="Login as Attorney or Staff"
             >
@@ -46,7 +46,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, lang })
             </a>
 
             <a 
-              href="https://client.lexcora-mbh.com/login" 
+              href="https://user.lexcora-mbh.com" 
               className="w-full flex items-center justify-between p-4 border border-slate-200 rounded hover:border-lexcora-gold hover:bg-slate-50 transition-all group" 
               aria-label="Login to Client Portal"
             >
