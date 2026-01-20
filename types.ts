@@ -1,12 +1,10 @@
 import { LucideIcon } from 'lucide-react';
 
 export type Language = 'en' | 'ar';
-export type View = 'home' | 'case-studies' | 'trial' | 'insights' | 'article' | 'pricing' | 'privacy';
 
 export interface NavItem {
   label: string;
   href: string;
-  view?: View;
 }
 
 export interface FeatureItem {

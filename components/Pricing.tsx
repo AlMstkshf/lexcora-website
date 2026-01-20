@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Language, PricingTier, View } from '../types';
+import { useNavigate } from 'react-router-dom';
+import { Language, PricingTier } from '../types';
 import { CONTENT } from '../constants';
 import { Check, Star, Users, Gift, BadgePercent, ArrowRight, ArrowLeft } from 'lucide-react';
 import { Button } from './Button';
@@ -8,15 +9,16 @@ import { ReferralModal } from './ReferralModal';
 
 interface PricingProps {
   lang: Language;
-  onNavigate: (view: View, sectionId?: string) => void;
+  onContactClick?: () => void;
 }
 
-export const Pricing: React.FC<PricingProps> = ({ lang, onNavigate }) => {
+export const Pricing: React.FC<PricingProps> = ({ lang, onContactClick }) => {
   const t = CONTENT[lang].pricing;
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annually'>('annually');
   const [selectedTier, setSelectedTier] = useState<PricingTier | null>(null);
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [isReferralOpen, setIsReferralOpen] = useState(false);
+  const navigate = useNavigate();
   
   const Arrow = lang === 'ar' ? ArrowLeft : ArrowRight;
 
@@ -24,14 +26,18 @@ export const Pricing: React.FC<PricingProps> = ({ lang, onNavigate }) => {
     // Logic to route based on tier type
     if (key === 'starter') {
       // Starter usually redirects to free trial sign up
-      onNavigate('trial');
+      navigate('/trial');
     } else if (key === 'professional') {
       // Professional opens payment gateway
       setSelectedTier(tier);
       setIsPaymentOpen(true);
     } else if (key === 'enterprise') {
       // Enterprise redirects to contact
-      onNavigate('home', 'footer');
+      if (onContactClick) {
+        onContactClick();
+      } else {
+        navigate('/about');
+      }
     }
   };
 

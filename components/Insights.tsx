@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Language, View } from '../types';
+import { Language } from '../types';
 import { CONTENT } from '../constants';
 import { Button } from './Button';
 import { getLegalAssistantResponse, AssistantResponse } from '../services/geminiService';
@@ -7,11 +7,11 @@ import { Search, Loader2, Sparkles, ExternalLink, Scale } from 'lucide-react';
 
 interface InsightsProps {
   lang: Language;
-  onNavigate: (view: View) => void;
+  onViewAll: () => void;
   onArticleClick?: (id: string) => void;
 }
 
-export const Insights: React.FC<InsightsProps> = ({ lang, onNavigate, onArticleClick }) => {
+export const Insights: React.FC<InsightsProps> = ({ lang, onViewAll, onArticleClick }) => {
   const t = CONTENT[lang].insights;
   const [query, setQuery] = useState('');
   const [response, setResponse] = useState<AssistantResponse | null>(null);
@@ -30,7 +30,7 @@ export const Insights: React.FC<InsightsProps> = ({ lang, onNavigate, onArticleC
     if (onArticleClick) {
       onArticleClick(id);
     } else {
-      onNavigate('insights');
+      onViewAll();
     }
   };
 
@@ -46,7 +46,7 @@ export const Insights: React.FC<InsightsProps> = ({ lang, onNavigate, onArticleC
           </div>
           <Button 
             variant="outline" 
-            onClick={() => onNavigate('insights')}
+            onClick={onViewAll}
             aria-label="View all insights articles"
           >
             {lang === 'en' ? 'View All Insights' : 'عرض جميع الرؤى'}

@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
-import { Language, View } from '../types';
+import { Link } from 'react-router-dom';
+import { Language } from '../types';
 import { CONTENT } from '../constants';
 import { ArrowLeft, ArrowRight, Shield, Mail } from 'lucide-react';
-import { Button } from './Button';
 
 interface PrivacyPolicyProps {
   lang: Language;
-  onNavigate: (view: View, sectionId?: string) => void;
 }
 
-export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ lang, onNavigate }) => {
+export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ lang }) => {
   const t = CONTENT[lang].privacyPolicy;
   const Arrow = lang === 'ar' ? ArrowRight : ArrowLeft;
 
@@ -22,15 +21,15 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ lang, onNavigate }
       <div className="container mx-auto px-6 max-w-4xl">
         
         {/* Navigation */}
-        <button 
-          onClick={() => onNavigate('home')}
-          className="group flex items-center gap-2 text-slate-500 hover:text-lexcora-blue transition-colors mb-8 font-medium"
+        <Link 
+          to="/"
+          className="group inline-flex items-center gap-2 text-slate-500 hover:text-lexcora-blue transition-colors mb-8 font-medium"
         >
           <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-lexcora-gold group-hover:text-lexcora-blue transition-colors">
             <Arrow size={16} />
           </div>
-          {lang === 'en' ? 'Back to Home' : 'العودة للصفحة الرئيسية'}
-        </button>
+          {lang === 'en' ? 'Back to Home' : 'العودة إلى الصفحة الرئيسية'}
+        </Link>
 
         {/* Header */}
         <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-100 mb-8 animate-fade-in-up">

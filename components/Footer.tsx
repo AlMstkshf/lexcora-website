@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Language, View } from '../types';
+import { Link } from 'react-router-dom';
+import { Language } from '../types';
 import { CONTENT } from '../constants';
 import { Linkedin, Twitter, Facebook, Mail, MapPin, Phone, Send, CheckCircle2 } from 'lucide-react';
 
 interface FooterProps {
   lang: Language;
-  onNavigate: (view: View, sectionId?: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ lang, onNavigate }) => {
+export const Footer: React.FC<FooterProps> = ({ lang }) => {
   const t = CONTENT[lang].footer;
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
@@ -21,11 +21,6 @@ export const Footer: React.FC<FooterProps> = ({ lang, onNavigate }) => {
       setEmail('');
       setTimeout(() => setSubscribed(false), 3000);
     }
-  };
-
-  const handleLinkClick = (e: React.MouseEvent, view: View, sectionId?: string) => {
-    e.preventDefault();
-    onNavigate(view, sectionId);
   };
 
   return (
@@ -112,24 +107,24 @@ export const Footer: React.FC<FooterProps> = ({ lang, onNavigate }) => {
             <h3 className="text-white font-bold mb-6">Product</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <button onClick={(e) => handleLinkClick(e, 'home', 'features-productivity')} className="hover:text-white transition-colors text-left">
+                <Link to="/features#features-productivity" className="hover:text-white transition-colors text-left block">
                   Case Management
-                </button>
+                </Link>
               </li>
               <li>
-                <button onClick={(e) => handleLinkClick(e, 'home', 'features-client')} className="hover:text-white transition-colors text-left">
+                <Link to="/features#features-client" className="hover:text-white transition-colors text-left block">
                   Client Portal
-                </button>
+                </Link>
               </li>
               <li>
-                 <button onClick={(e) => handleLinkClick(e, 'home', 'features-governance')} className="hover:text-white transition-colors text-left">
+                <Link to="/features#features-governance" className="hover:text-white transition-colors text-left block">
                   Security & Governance
-                </button>
+                </Link>
               </li>
               <li>
-                <button onClick={(e) => handleLinkClick(e, 'pricing')} className="hover:text-white transition-colors text-left">
+                <Link to="/pricing" className="hover:text-white transition-colors text-left block">
                   Pricing
-                </button>
+                </Link>
               </li>
             </ul>
           </div>
@@ -139,9 +134,9 @@ export const Footer: React.FC<FooterProps> = ({ lang, onNavigate }) => {
             <h3 className="text-white font-bold mb-6">Legal</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <button onClick={(e) => handleLinkClick(e, 'privacy')} className="hover:text-white transition-colors text-left">
+                <Link to="/privacy" className="hover:text-white transition-colors text-left block">
                   {t.privacy}
-                </button>
+                </Link>
               </li>
               <li><a href="#" className="hover:text-white transition-colors">{t.compliance}</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>

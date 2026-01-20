@@ -1,17 +1,19 @@
 import React from 'react';
-import { Language, View } from '../types';
+import { useNavigate } from 'react-router-dom';
+import { Language } from '../types';
 import { CONTENT } from '../constants';
 import { Button } from './Button';
 import { ArrowRight, ArrowLeft, CheckCircle, Phone, Award } from 'lucide-react';
 
 interface HeroProps {
   lang: Language;
-  onNavigate: (view: View, sectionId?: string) => void;
+  onContactClick: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ lang, onNavigate }) => {
+export const Hero: React.FC<HeroProps> = ({ lang, onContactClick }) => {
   const t = CONTENT[lang].hero;
   const Arrow = lang === 'ar' ? ArrowLeft : ArrowRight;
+  const navigate = useNavigate();
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center pt-28 pb-12 overflow-hidden bg-slate-50">
@@ -50,21 +52,21 @@ export const Hero: React.FC<HeroProps> = ({ lang, onNavigate }) => {
             <Button 
               variant="primary" 
               className="shadow-xl shadow-lexcora-gold/20"
-              onClick={() => onNavigate('trial')}
+              onClick={() => navigate('/trial')}
             >
               {t.ctaPrimary}
             </Button>
             
             <Button 
               variant="secondary"
-              onClick={() => onNavigate('home', 'contact-modal')}
+              onClick={onContactClick}
             >
               <Phone size={18} /> {t.ctaCallback}
             </Button>
 
             <Button 
               variant="outline"
-              onClick={() => onNavigate('home', 'features')}
+              onClick={() => navigate('/features')}
             >
               {t.ctaSecondary} <Arrow size={18} />
             </Button>

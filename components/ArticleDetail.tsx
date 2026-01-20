@@ -3,6 +3,7 @@ import { Language, InsightArticle } from '../types';
 import { CONTENT } from '../constants';
 import { ArrowLeft, ArrowRight, Calendar, Clock, User, Share2, Printer, Bookmark } from 'lucide-react';
 import { Button } from './Button';
+import { PageHelmet } from './PageHelmet';
 
 interface ArticleDetailProps {
   lang: Language;
@@ -37,7 +38,12 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({ lang, articleId, o
   const BackArrow = lang === 'ar' ? ArrowRight : ArrowLeft;
 
   return (
-    <article className="min-h-screen pt-24 pb-20 bg-white">
+    <>
+      <PageHelmet
+        title={`${article.title} | Lexcora Insights`}
+        description={article.excerpt}
+      />
+      <article className="min-h-screen pt-24 pb-20 bg-white">
       {/* Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-slate-100 z-50">
         <div className="h-full bg-lexcora-gold w-0" id="reading-progress"></div>
@@ -148,6 +154,7 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({ lang, articleId, o
         </div>
 
       </div>
-    </article>
+      </article>
+    </>
   );
 };

@@ -1,15 +1,15 @@
 import React from 'react';
-import { Language, View } from '../types';
+import { Language } from '../types';
 import { CONTENT } from '../constants';
 import { ArrowRight, ArrowLeft, Trophy, Target, CheckCircle } from 'lucide-react';
 import { Button } from './Button';
 
 interface CaseStudiesProps {
   lang: Language;
-  onNavigate: (view: View, sectionId?: string) => void;
+  onContactClick: () => void;
 }
 
-export const CaseStudies: React.FC<CaseStudiesProps> = ({ lang, onNavigate }) => {
+export const CaseStudies: React.FC<CaseStudiesProps> = ({ lang, onContactClick }) => {
   const t = CONTENT[lang].caseStudies;
   const Arrow = lang === 'ar' ? ArrowLeft : ArrowRight;
 
@@ -108,7 +108,7 @@ export const CaseStudies: React.FC<CaseStudiesProps> = ({ lang, onNavigate }) =>
                variant="primary" 
                className="mx-auto" 
                aria-label={t.ctaButton}
-               onClick={() => onNavigate('case-studies', 'footer')}
+               onClick={onContactClick}
              >
                {t.ctaButton} <Arrow size={18} />
              </Button>
