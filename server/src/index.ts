@@ -171,69 +171,6 @@ app.get('/health', async (_req, res) => {
   }
   res.json(health);
 });
-app.post('/api/assistant',
-  [
-    body('query').isString().trim().isLength({ min: 1, max: 2000 }),
-    body('lang').optional().isIn(['en', 'ar'])
-  ],
-  async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-
-    const { query, lang = 'en' } = req.body;
-    try {
-      const result = await getLegalAssistantResponse(query, lang);
-      res.json(result);
-    } catch (err) {
-      console.error('Assistant error:', err);
-      res.status(500).json({ error: 'Assistant service error' });
-    }
-  }
-);
-
-app.post('/api/analyze',
-  [
-    body('text').isString().trim().isLength({ min: 1, max: 5000 }),
-    body('lang').optional().isIn(['en', 'ar'])
-  ],
-  async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-
-    const { text, lang = 'en' } = req.body;
-    try {
-      const result = await analyzeLegalText(text, lang);
-      res.json({ text: result });
-    } catch (err) {
-      console.error('Analyze error:', err);
-      res.status(500).json({ error: 'Analysis service error' });
-    }
-  }
-);
-
-app.post('/api/chat',
-  [
-    body('message').isString().trim().isLength({ min: 1, max: 3000 }),
-    body('lang').optional().isIn(['en', 'ar']),
-    body('history').optional().isArray(),
-    body('history.*.role').optional().isIn(['user', 'model']),
-    body('history.*.text').optional().isString().isLength({ min: 1, max: 2000 })
-  ],
-  async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-
-    const { message, lang = 'en', history } = req.body;
-    try {
-      const session = new LexCoraChatSession(lang, history || []);
-      const result = await session.sendMessage(message);
-      res.json(result);
-    } catch (err) {
-      console.error('Chat error:', err);
-      res.status(500).json({ error: 'Chat service error' });
-    }
-  }
-);
 
 if (require.main === module) {
   const port = process.env.PORT || 4000;

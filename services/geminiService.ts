@@ -18,11 +18,19 @@ export interface ChatMessage {
 
 /* Server-only instructions and grounding parsing run on the server. Client uses proxied API calls to `/api/*`. */
 
+const buildAuthHeaders = () => {
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  // Optional client-side API key for dev/local environments; avoid setting this in production bundles
+  const apiKey = import.meta.env.VITE_API_KEY as string | undefined;
+  if (apiKey) headers['Authorization'] = `Bearer ${apiKey}`;
+  return headers;
+};
+
 export const getLegalAssistantResponse = async (query: string, lang: 'en' | 'ar'): Promise<AssistantResponse> => {
   try {
     const res = await fetch('/api/assistant', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: buildAuthHeaders(),
       body: JSON.stringify({ query, lang }),
     });
 
@@ -43,7 +51,7 @@ export const analyzeLegalText = async (text: string, lang: 'en' | 'ar'): Promise
   try {
     const res = await fetch('/api/analyze', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: buildAuthHeaders(),
       body: JSON.stringify({ text, lang }),
     });
 
@@ -74,7 +82,7 @@ export class LexCoraChatSession {
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: buildAuthHeaders(),
         body: JSON.stringify({ message, lang: this.lang, history: this.history }),
       });
 

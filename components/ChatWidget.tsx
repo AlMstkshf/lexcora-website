@@ -8,6 +8,18 @@ interface ChatWidgetProps {
   lang: Language;
 }
 
+const sanitizeSource = (src: Source): Source | null => {
+  try {
+    const url = new URL(src.uri);
+    if (url.protocol === 'http:' || url.protocol === 'https:') {
+      return src;
+    }
+  } catch {
+    return null;
+  }
+  return null;
+};
+
 export const ChatWidget: React.FC<ChatWidgetProps> = ({ lang }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -190,12 +202,18 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({ lang }) => {
                 
                 {/* Sources Display for Model Messages */}
                 {msg.role === 'model' && msg.sources && msg.sources.length > 0 && (
-                  <div className="mt-2 pt-2 border-t border-slate-100">
-                    <p className="text-[10px] text-slate-400 font-bold mb-1 uppercase tracking-wider">
-                      {lang === 'en' ? 'Sources:' : 'المصادر:'}
-                    </p>
-                    <ul className="space-y-1">
-                      {msg.sources.map((src, i) => (
+                  (() => {
+                    const safeSources = msg.sources
+                      .map(sanitizeSource)
+                      .filter((s): s is Source => Boolean(s));
+                    if (safeSources.length === 0) return null;
+                    return (
+                    <div className="mt-2 pt-2 border-t border-slate-100">
+                      <p className="text-[10px] text-slate-400 font-bold mb-1 uppercase tracking-wider">
+                        {lang === 'en' ? 'Sources:' : 'المصادر:'}
+                      </p>
+                      <ul className="space-y-1">
+                      {safeSources.map((src, i) => (
                         <li key={i}>
                           <a 
                             href={src.uri}
@@ -208,7 +226,9 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({ lang }) => {
                         </li>
                       ))}
                     </ul>
-                  </div>
+                    </div>
+                    );
+                  })()
                 )}
 
                 {/* Copy Button (Model Only) */}
