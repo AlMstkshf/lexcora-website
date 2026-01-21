@@ -14,6 +14,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
   const [subscribed, setSubscribed] = useState(false);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
+  const pathWithLang = (path: string) => `/${lang}${path}`;
 
   const emailRegex = useMemo(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/, []);
 
@@ -158,22 +159,22 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
             <h3 className="text-white font-bold mb-6">Product</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link to="/features#features-productivity" className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/features#features-productivity')} className="hover:text-white transition-colors text-left block">
                   Case Management
                 </Link>
               </li>
               <li>
-                <Link to="/features#features-client" className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/features#features-client')} className="hover:text-white transition-colors text-left block">
                   Client Portal
                 </Link>
               </li>
               <li>
-                <Link to="/features#features-governance" className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/features#features-governance')} className="hover:text-white transition-colors text-left block">
                   Security & Governance
                 </Link>
               </li>
               <li>
-                <Link to="/pricing" className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/pricing')} className="hover:text-white transition-colors text-left block">
                   Pricing
                 </Link>
               </li>
@@ -185,7 +186,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
             <h3 className="text-white font-bold mb-6">Legal</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link to="/privacy" className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/privacy')} className="hover:text-white transition-colors text-left block">
                   {t.privacy}
                 </Link>
               </li>

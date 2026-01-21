@@ -18,6 +18,7 @@ export const About: React.FC<AboutProps> = ({ lang }) => {
             ? 'Learn about Lexcora, the UAE-first legal ERP helping firms streamline casework, governance, and client experience.'
             : 'تعرّف على ليكسورا، منصة تخطيط الموارد القانونية المصممة لدولة الإمارات لتبسيط القضايا والحوكمة وتجربة العملاء.'
         }
+        lang={lang}
       />
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="bg-white rounded-3xl shadow-xl border border-slate-100 p-10 md:p-14 relative overflow-hidden">

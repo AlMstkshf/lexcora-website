@@ -22,6 +22,10 @@ const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy').then
 const LoginModal = React.lazy(() => import('./components/LoginModal').then(m => ({ default: m.LoginModal })));
 const ContactModal = React.lazy(() => import('./components/ContactModal').then(m => ({ default: m.ContactModal })));
 const ChatWidget = React.lazy(() => import('./components/ChatWidget').then(m => ({ default: m.ChatWidget })));
+const buildLangPath = (lang: Language, path: string = '/') => {
+  const normalized = path === '/' ? '' : path.startsWith('/') ? path : `/${path}`;
+  return `/${lang}${normalized}`;
+};
 
 const LoadingScreen = () => (
   <div className="fixed inset-0 bg-lexcora-blue flex flex-col items-center justify-center text-white z-[100]">
@@ -59,20 +63,25 @@ const HomePage: React.FC<{ lang: Language; onContactClick: () => void }> = ({ la
   return (
     <>
       <PageHelmet
-        title={isEnglish ? 'Lexcora | UAE-first Legal ERP' : 'ليكسورا | منصة تخطيط الموارد القانونية'}
+        title={
+          isEnglish
+            ? 'Best Law Firm Management System | Lexcora ERP'
+            : 'أفضل نظام لإدارة مكاتب المحاماة | Lexcora ERP'
+        }
         description={
           isEnglish
-            ? 'Streamline UAE legal operations with Lexcora: case management, client portal, and AI insights built for compliance.'
-            : 'بسّط عمليات القانون في الإمارات مع ليكسورا: إدارة القضايا وبوابة العملاء ورؤى الذكاء الاصطناعي المصممة للامتثال.'
+            ? 'Lexcora ERP delivers GCC-ready legal workflows, bilingual client portals, trust accounting, and AI compliance tailored for Middle East law firms.'
+            : 'ليكسورا ERP يقدم مسارات عمل قانونية جاهزة للخليج، بوابة عملاء ثنائية اللغة، إدارة القضايا والفوترة، وذكاءً للامتثال مصمم خصيصًا لمكاتب المحاماة في الشرق الأوسط.'
         }
+        lang={lang}
       />
       <Hero lang={lang} onContactClick={onContactClick} />
       <Features lang={lang} />
       <Testimonials lang={lang} />
       <Insights
         lang={lang}
-        onViewAll={() => navigate('/insights')}
-        onArticleClick={(slug) => navigate(`/insights/${slug}`)}
+        onViewAll={() => navigate(buildLangPath(lang, '/insights'))}
+        onArticleClick={(slug) => navigate(buildLangPath(lang, `/insights/${slug}`))}
       />
     </>
   );
@@ -89,6 +98,7 @@ const FeaturesPage: React.FC<{ lang: Language }> = ({ lang }) => {
             ? 'Explore Lexcora features: productivity, governance, intelligence, and integrations tailored to UAE legal teams.'
             : 'اكتشف مزايا ليكسورا: الإنتاجية والحوكمة والذكاء والتكاملات المخصصة للفرق القانونية في الإمارات.'
         }
+        lang={lang}
       />
       <div className="container mx-auto px-6 max-w-5xl text-center mb-12">
         <span className="text-lexcora-gold font-bold tracking-widest text-sm uppercase">
@@ -118,6 +128,7 @@ const CaseStudiesPage: React.FC<{ lang: Language; onContactClick: () => void }> 
           ? 'See how UAE firms use Lexcora to improve compliance, client delivery, and operational efficiency.'
           : 'اطلع على كيفية استفادة الشركات القانونية في الإمارات من ليكسورا لتحسين الامتثال وتجربة العملاء والكفاءة التشغيلية.'
       }
+      lang={lang}
     />
     <Suspense fallback={<div className="p-8">Loading case studies...</div>}>
       <CaseStudies lang={lang} onContactClick={onContactClick} />
@@ -134,6 +145,7 @@ const PricingPage: React.FC<{ lang: Language; onContactClick: () => void }> = ({
           ? 'Choose a Lexcora plan built for UAE legal teams with transparent tiers, annual savings, and enterprise support.'
           : 'اختر خطة ليكسورا المصممة لفرق القانون في الإمارات مع شرائح واضحة ومدخرات سنوية ودعم للمؤسسات.'
       }
+      lang={lang}
     />
     <Suspense fallback={<div className="p-8">Loading pricing...</div>}>
       <Pricing lang={lang} onContactClick={onContactClick} />
@@ -150,6 +162,7 @@ const TrialPage: React.FC<{ lang: Language }> = ({ lang }) => (
           ? 'Start a guided Lexcora trial to experience UAE-first legal workflows, secure client portal, and AI insights.'
           : 'ابدأ تجربة موجهة لليكسورا لتجربة تدفقات العمل القانونية الأولى في الإمارات وبوابة العملاء الآمنة ورؤى الذكاء الاصطناعي.'
       }
+      lang={lang}
     />
     <Suspense fallback={<div className="p-8">Loading trial...</div>}>
       <TrialSignup lang={lang} />
@@ -171,12 +184,13 @@ const ContactRoute: React.FC<{ lang: Language }> = ({ lang }) => {
             ? 'Talk with Lexcora about legal operations, pricing, and implementation for your firm.'
             : 'تواصل مع ليكسورا حول العمليات القانونية، التسعير، والتنفيذ لشركتك.'
         }
+        lang={lang}
       />
       <Suspense fallback={<div className="p-8">Loading contact...</div>}>
         <ContactModal
           isOpen
           variant="page"
-          onClose={() => navigate('/')}
+          onClose={() => navigate(buildLangPath(lang))}
           lang={lang}
         />
       </Suspense>
@@ -193,6 +207,7 @@ const PrivacyPage: React.FC<{ lang: Language }> = ({ lang }) => (
           ? 'Understand how Lexcora protects legal data with governance, encryption, and transparent privacy controls.'
           : 'تعرف على كيفية حماية ليكسورا للبيانات القانونية عبر الحوكمة والتشفير وضوابط الخصوصية الشفافة.'
       }
+      lang={lang}
     />
     <Suspense fallback={<div className="p-8">Loading policy...</div>}>
       <PrivacyPolicy lang={lang} />
@@ -211,9 +226,10 @@ const InsightsRoute: React.FC<{ lang: Language }> = ({ lang }) => {
             ? 'Read Lexcora insights on UAE legal tech, compliance, and operational excellence.'
             : 'اقرأ رؤى ليكسورا حول تقنيات القانون في الإمارات والامتثال والتميز التشغيلي.'
         }
+        lang={lang}
       />
       <Suspense fallback={<div className="p-8">Loading insights...</div>}>
-        <InsightsPage lang={lang} onArticleClick={(slug) => navigate(`/insights/${slug}`)} />
+        <InsightsPage lang={lang} onArticleClick={(slug) => navigate(buildLangPath(lang, `/insights/${slug}`))} />
       </Suspense>
     </>
   );
@@ -229,7 +245,7 @@ const ArticleRoute: React.FC<{ lang: Language }> = ({ lang }) => {
 
   return (
     <Suspense fallback={<div className="p-8">Loading article...</div>}>
-      <ArticleDetail lang={lang} articleSlug={slug} onBack={() => navigate('/insights')} />
+      <ArticleDetail lang={lang} articleSlug={slug} onBack={() => navigate(buildLangPath(lang, '/insights'))} />
     </Suspense>
   );
 };
@@ -241,7 +257,9 @@ const AppLayout: React.FC<{
 }> = ({ lang, setLang, onLoginClick }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const handleContactClick = () => navigate('/contact');
+  const langPrefix = `/${lang}`;
+  const pathWithLang = (path: string = '/') => buildLangPath(lang, path);
+  const handleContactClick = () => navigate(pathWithLang('/contact'));
 
   return (
     <div className="min-h-screen bg-white transition-opacity duration-1000">
@@ -254,17 +272,18 @@ const AppLayout: React.FC<{
 
       <main className="animate-fade-in">
         <Routes>
-          <Route path="/" element={<HomePage lang={lang} onContactClick={handleContactClick} />} />
-          <Route path="/features" element={<FeaturesPage lang={lang} />} />
-          <Route path="/pricing" element={<PricingPage lang={lang} onContactClick={handleContactClick} />} />
-          <Route path="/case-studies" element={<CaseStudiesPage lang={lang} onContactClick={handleContactClick} />} />
-          <Route path="/about" element={<About lang={lang} />} />
-          <Route path="/free-trial" element={<TrialPage lang={lang} />} />
-          <Route path="/trial" element={<Navigate to="/free-trial" replace />} />
-          <Route path="/contact" element={<ContactRoute lang={lang} />} />
-          <Route path="/privacy" element={<PrivacyPage lang={lang} />} />
-          <Route path="/insights" element={<InsightsRoute lang={lang} />} />
-          <Route path="/insights/:slug" element={<ArticleRoute lang={lang} />} />
+          <Route path="/" element={<Navigate to={pathWithLang('/')} replace />} />
+          <Route path={pathWithLang('/')} element={<HomePage lang={lang} onContactClick={handleContactClick} />} />
+          <Route path={pathWithLang('/features')} element={<FeaturesPage lang={lang} />} />
+          <Route path={pathWithLang('/pricing')} element={<PricingPage lang={lang} onContactClick={handleContactClick} />} />
+          <Route path={pathWithLang('/case-studies')} element={<CaseStudiesPage lang={lang} onContactClick={handleContactClick} />} />
+          <Route path={pathWithLang('/about')} element={<About lang={lang} />} />
+          <Route path={pathWithLang('/free-trial')} element={<TrialPage lang={lang} />} />
+          <Route path={`${langPrefix}/trial`} element={<Navigate to={pathWithLang('/free-trial')} replace />} />
+          <Route path={pathWithLang('/contact')} element={<ContactRoute lang={lang} />} />
+          <Route path={pathWithLang('/privacy')} element={<PrivacyPage lang={lang} />} />
+          <Route path={pathWithLang('/insights')} element={<InsightsRoute lang={lang} />} />
+          <Route path={`${langPrefix}/insights/:slug`} element={<ArticleRoute lang={lang} />} />
           <Route path="*" element={<NotFound lang={lang} />} />
         </Routes>
       </main>
@@ -274,10 +293,20 @@ const AppLayout: React.FC<{
   );
 };
 
-function App() {
-  const [lang, setLang] = useState<Language>('en');
+const AppContainer: React.FC = () => {
+  const [lang, setLang] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const match = window.location.pathname.match(/^\/(en|ar)(?=\/|$)/);
+      if (match) {
+        return match[1] as Language;
+      }
+    }
+    return 'en';
+  });
   const [loginOpen, setLoginOpen] = useState(false);
   const [isAppLoading, setIsAppLoading] = useState(true);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
@@ -297,16 +326,37 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const matched = location.pathname.match(/^\/(en|ar)(?=\/|$)/);
+    if (!matched) {
+      const normalizedPath = location.pathname === '/' ? '' : location.pathname;
+      navigate(`/en${normalizedPath}${location.search}`, { replace: true });
+      return;
+    }
+    const routeLang = matched[1] as Language;
+    if (routeLang !== lang) {
+      setLang(routeLang);
+    }
+  }, [location.pathname, location.search, lang, navigate]);
+
+  const handleLangChange = (target: Language) => {
+    if (target === lang) return;
+    const strippedPath = location.pathname.replace(/^\/(en|ar)/, '') || '/';
+    const suffix = strippedPath === '/' ? '' : strippedPath.startsWith('/') ? strippedPath : `/${strippedPath}`;
+    navigate(`/${target}${suffix}${location.search}`, { replace: true });
+    setLang(target);
+  };
+
   if (isAppLoading) {
     return <LoadingScreen />;
   }
 
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <AppLayout
         lang={lang}
-        setLang={setLang}
+        setLang={handleLangChange}
         onLoginClick={() => setLoginOpen(true)}
       />
 
@@ -316,6 +366,14 @@ function App() {
       <Suspense fallback={null}>
         <ChatWidget lang={lang} />
       </Suspense>
+    </>
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContainer />
     </BrowserRouter>
   );
 }

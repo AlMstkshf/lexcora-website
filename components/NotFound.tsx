@@ -9,6 +9,7 @@ interface NotFoundProps {
 
 export const NotFound: React.FC<NotFoundProps> = ({ lang }) => {
   const isEnglish = lang === 'en';
+  const pathWithLang = (path: string) => `/${lang}${path === '/' ? '' : path}`;
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center px-6 py-24">
@@ -19,6 +20,7 @@ export const NotFound: React.FC<NotFoundProps> = ({ lang }) => {
             ? 'The page you are looking for does not exist. Navigate back to Lexcora home or explore features.'
             : 'الصفحة التي تبحث عنها غير موجودة. يمكنك العودة إلى الرئيسية أو استكشاف المزايا.'
         }
+        lang={lang}
       />
       <div className="bg-white rounded-3xl shadow-xl border border-slate-100 p-10 md:p-14 text-center max-w-xl">
         <div className="w-16 h-16 rounded-full bg-lexcora-gold/20 text-lexcora-blue font-bold text-2xl flex items-center justify-center mx-auto mb-6">
@@ -34,13 +36,13 @@ export const NotFound: React.FC<NotFoundProps> = ({ lang }) => {
         </p>
         <div className="flex justify-center gap-3">
           <Link
-            to="/"
+            to={pathWithLang('/')}
             className="px-5 py-3 rounded-lg border border-lexcora-blue text-lexcora-blue font-semibold hover:bg-lexcora-blue hover:text-white transition-colors"
           >
             {isEnglish ? 'Back to Home' : 'العودة للرئيسية'}
           </Link>
           <Link
-            to="/pricing"
+            to={pathWithLang('/pricing')}
             className="px-5 py-3 rounded-lg bg-lexcora-gold text-lexcora-blue font-semibold hover:bg-yellow-400 transition-colors"
           >
             {isEnglish ? 'View Pricing' : 'عرض الأسعار'}

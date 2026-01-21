@@ -44,6 +44,7 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({ lang, articleSlug,
       <PageHelmet
         title={`${article.title} | Lexcora Insights`}
         description={article.excerpt}
+        lang={lang}
       />
       <article className="min-h-screen pt-24 pb-20 bg-white">
       {/* Progress Bar */}

@@ -14,6 +14,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onContactClick }) => {
   const t = CONTENT[lang].hero;
   const Arrow = lang === 'ar' ? ArrowLeft : ArrowRight;
   const navigate = useNavigate();
+  const pathWithLang = (path: string) => `/${lang}${path}`;
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center pt-28 pb-12 overflow-hidden bg-slate-50">
@@ -52,7 +53,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onContactClick }) => {
             <Button 
               variant="primary" 
               className="shadow-xl shadow-lexcora-gold/20"
-              onClick={() => navigate('/free-trial')}
+              onClick={() => navigate(pathWithLang('/free-trial'))}
             >
               {t.ctaPrimary}
             </Button>
@@ -63,10 +64,10 @@ export const Hero: React.FC<HeroProps> = ({ lang, onContactClick }) => {
             >
               <Phone size={18} /> {t.ctaCallback}
             </Button>
-
+            
             <Button 
               variant="outline"
-              onClick={() => navigate('/features')}
+              onClick={() => navigate(pathWithLang('/features'))}
             >
               {t.ctaSecondary} <Arrow size={18} />
             </Button>

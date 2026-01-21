@@ -17,6 +17,7 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, onLoginClick, cur
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = CONTENT[lang].nav;
   const navigate = useNavigate();
+  const pathWithLang = (path: string) => `/${lang}${path === '/' ? '' : path}`;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,13 +32,13 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, onLoginClick, cur
   };
 
   const navItems = [
-    { label: t.home, to: '/' },
-    { label: t.features, to: '/features' },
-    { label: t.caseStudies, to: '/case-studies' },
-    { label: t.pricing, to: '/pricing' },
-    { label: t.insights, to: '/insights' },
-    { label: t.contact, to: '/contact' },
-    { label: lang === 'en' ? 'About' : 'حول', to: '/about' },
+    { label: t.home, to: pathWithLang('/') },
+    { label: t.features, to: pathWithLang('/features') },
+    { label: t.caseStudies, to: pathWithLang('/case-studies') },
+    { label: t.pricing, to: pathWithLang('/pricing') },
+    { label: t.insights, to: pathWithLang('/insights') },
+    { label: t.contact, to: pathWithLang('/contact') },
+    { label: lang === 'en' ? 'About' : 'حول', to: pathWithLang('/about') },
   ];
 
   const navLinkBase = `text-sm font-medium hover:text-lexcora-gold transition-colors relative group ${
@@ -73,12 +74,15 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, onLoginClick, cur
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8" aria-label="Main Navigation">
           {navItems.map((item) => {
-            const isItemActive = currentPath === item.to || currentPath.startsWith(`${item.to}/`);
+            const isHome = item.to === pathWithLang('/');
+            const isItemActive = isHome
+              ? currentPath === item.to
+              : currentPath === item.to || currentPath.startsWith(`${item.to}/`);
             return (
               <NavLink
                 key={item.to}
                 to={item.to}
-                end={item.to === '/'}
+                end={isHome}
                 className={({ isActive }) => `${navLinkBase} ${isActive || isItemActive ? 'text-lexcora-gold' : ''}`}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -123,7 +127,7 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, onLoginClick, cur
             variant="primary"
             className="!py-2 !px-4"
             aria-label="Start Free Trial"
-            onClick={() => navigate('/free-trial')}
+            onClick={() => navigate(pathWithLang('/free-trial'))}
           >
             {t.freeTrial}
           </Button>
@@ -176,7 +180,7 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, onLoginClick, cur
             aria-label="Start Free Trial"
             onClick={() => {
               setMobileMenuOpen(false);
-              navigate('/free-trial');
+              navigate(pathWithLang('/free-trial'));
             }}
           >
             {t.freeTrial}

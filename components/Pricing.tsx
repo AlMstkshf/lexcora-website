@@ -19,6 +19,7 @@ export const Pricing: React.FC<PricingProps> = ({ lang, onContactClick }) => {
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [isReferralOpen, setIsReferralOpen] = useState(false);
   const navigate = useNavigate();
+  const pathWithLang = (path: string) => `/${lang}${path}`;
   
   const Arrow = lang === 'ar' ? ArrowLeft : ArrowRight;
 
@@ -26,7 +27,7 @@ export const Pricing: React.FC<PricingProps> = ({ lang, onContactClick }) => {
     // Logic to route based on tier type
     if (key === 'starter') {
       // Starter usually redirects to free trial sign up
-      navigate('/free-trial');
+      navigate(pathWithLang('/free-trial'));
     } else if (key === 'professional') {
       // Professional opens payment gateway
       setSelectedTier(tier);
@@ -36,7 +37,7 @@ export const Pricing: React.FC<PricingProps> = ({ lang, onContactClick }) => {
       if (onContactClick) {
         onContactClick();
       } else {
-        navigate('/about');
+        navigate(pathWithLang('/about'));
       }
     }
   };
