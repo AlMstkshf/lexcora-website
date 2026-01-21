@@ -40,5 +40,14 @@
     "allowImportingTsExtensions": true,
     "noEmit": true
   },
-  "exclude": ["server"]
+  "exclude": ["server"],
+  "include": [
+    "api/**/*.ts",
+    "components/**/*.tsx",
+    "services/**/*.ts",
+    "App.tsx",
+    "index.tsx",
+    "types.ts",
+    "constants.tsx"
+  ]
 }
