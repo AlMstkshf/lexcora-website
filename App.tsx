@@ -10,6 +10,7 @@ import { Testimonials } from './components/Testimonials';
 import { About } from './components/About';
 import { NotFound } from './components/NotFound';
 import { PageHelmet } from './components/PageHelmet';
+import { ChatbaseEmbed } from './components/ChatbaseEmbed';
 import { Language } from './types';
 
 // Lazy-load large route/modal components to keep initial bundle small
@@ -352,6 +353,7 @@ const AppContainer: React.FC = () => {
 
   return (
     <>
+      <ChatbaseEmbed />
       <ScrollToTop />
       <AppLayout
         lang={lang}

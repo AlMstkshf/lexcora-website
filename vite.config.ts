@@ -27,6 +27,9 @@ export default defineConfig(({ mode }) => {
         }
       },
 
+      // Allow both Vite- and Next-style public env var prefixes so client embeds can read them
+      envPrefix: ['VITE_', 'NEXT_PUBLIC_'],
+
       // Build optimizations: explicit code-splitting to reduce initial bundle size
       build: {
         rollupOptions: {
