@@ -109,7 +109,7 @@ export function parseGrounding(response: any): Source[] {
 export const getLegalAssistantResponse = async (query: string, lang: 'en' | 'ar'): Promise<AssistantResponse> => {
   try {
     const ai = ensureApi();
-    const stream = await ai.models.generateContentStream({
+    const streamResult = await ai.models.generateContentStream({
       model: 'gemini-3-flash-preview',
       contents: query,
       config: { 
@@ -119,9 +119,19 @@ export const getLegalAssistantResponse = async (query: string, lang: 'en' | 'ar'
       },
     });
 
-    const response = stream.response ? await stream.response : null;
-    const text = response?.text || "No response generated.";
-    return { text, sources: parseGrounding(response) };
+    let text = '';
+    let lastChunk: any = null;
+    const iterable: AsyncIterable<any> = (streamResult as any).stream || (streamResult as any);
+
+    if (iterable) {
+      for await (const chunk of iterable) {
+        lastChunk = chunk;
+        text += extractChunkText(chunk);
+      }
+    }
+
+    const finalText = text || extractChunkText(lastChunk) || "No response generated.";
+    return { text: finalText, sources: parseGrounding(lastChunk) };
   } catch (error) {
     console.error("Assistant Error:", error);
     return { text: "Error connecting to legal database.", sources: [] };
@@ -131,7 +141,7 @@ export const getLegalAssistantResponse = async (query: string, lang: 'en' | 'ar'
 export const analyzeLegalText = async (text: string | undefined, lang: 'en' | 'ar', document?: InlineDocument): Promise<string> => {
   try {
     const ai = ensureApi();
-    const stream = await ai.models.generateContentStream({
+    const streamResult = await ai.models.generateContentStream({
       model: 'gemini-3-pro-preview',
       contents: buildAnalysisParts(text, document),
       config: { 
@@ -139,8 +149,19 @@ export const analyzeLegalText = async (text: string | undefined, lang: 'en' | 'a
         temperature: 0.1
       },
     });
-    const response = stream.response ? await stream.response : null;
-    return response?.text || "Analysis failed.";
+
+    let output = '';
+    let lastChunk: any = null;
+    const iterable: AsyncIterable<any> = (streamResult as any).stream || (streamResult as any);
+
+    if (iterable) {
+      for await (const chunk of iterable) {
+        lastChunk = chunk;
+        output += extractChunkText(chunk);
+      }
+    }
+
+    return output || extractChunkText(lastChunk) || "Analysis failed.";
   } catch (error) {
     return "The document analysis service is temporarily unavailable.";
   }
@@ -162,7 +183,7 @@ export class LexCoraChatSession {
     
     try {
       const ai = ensureApi();
-      const stream = await ai.models.generateContentStream({
+      const streamResult = await ai.models.generateContentStream({
         model: 'gemini-3-pro-preview',
         contents: buildChatContents(this.history, message),
         config: { 
@@ -171,13 +192,24 @@ export class LexCoraChatSession {
           temperature: 0.3
         }
       });
-      const response = stream.response ? await stream.response : null;
-      const text = response?.text || "";
-      const sources = parseGrounding(response);
+
+      let text = '';
+      let lastChunk: any = null;
+      const iterable: AsyncIterable<any> = (streamResult as any).stream || (streamResult as any);
+
+      if (iterable) {
+        for await (const chunk of iterable) {
+          lastChunk = chunk;
+          text += extractChunkText(chunk);
+        }
+      }
+
+      const finalText = text || extractChunkText(lastChunk) || "";
+      const sources = parseGrounding(lastChunk);
       this.history.push({ role: 'user', text: message });
-      this.history.push({ role: 'model', text, sources });
+      this.history.push({ role: 'model', text: finalText, sources });
       return {
-        text,
+        text: finalText,
         sources
       };
     } catch (error) {
@@ -213,19 +245,13 @@ export const streamChat = async (message: string, lang: 'en' | 'ar', history: Ch
 
 export const collectTextFromStream = async (streamResult: any): Promise<string> => {
   let output = '';
-  const iterable: AsyncIterable<any> = (streamResult?.stream || streamResult) as any;
+  let lastChunk: any = null;
+  const iterable: AsyncIterable<any> = (streamResult as any)?.stream || (streamResult as any);
   if (iterable) {
     for await (const chunk of iterable) {
+      lastChunk = chunk;
       output += extractChunkText(chunk);
     }
   }
-  if (streamResult?.response) {
-    try {
-      const final = await streamResult.response;
-      return final?.text || output;
-    } catch {
-      return output;
-    }
-  }
-  return output;
+  return output || extractChunkText(lastChunk) || '';
 };
