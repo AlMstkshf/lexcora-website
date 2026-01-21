@@ -1,4 +1,4 @@
-import { GoogleGenAI, Chat } from "@google/genai";
+import { GoogleGenAI } from "@google/genai";
 
 export interface Source {
   title: string;
@@ -15,6 +15,49 @@ export interface ChatMessage {
   text: string;
   sources?: Source[];
 }
+
+export interface InlineDocument {
+  data: string;
+  mimeType: string;
+  name?: string;
+}
+
+// Normalize streaming chunks into plain text tokens
+export const extractChunkText = (chunk: any): string => {
+  if (!chunk) return '';
+  // New SDK exposes chunk.text, some builds expose chunk.text() helper
+  if (typeof (chunk as any).text === 'string') return (chunk as any).text;
+  if (typeof (chunk as any).text === 'function') return (chunk as any).text() || '';
+  const candidate = (chunk as any).candidates?.[0];
+  const parts = candidate?.content?.parts || [];
+  return parts.map((p: any) => p.text || '').join('');
+};
+
+const ensureApi = () => {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error('API Key not configured.');
+  return new GoogleGenAI({ apiKey });
+};
+
+const buildChatContents = (history: ChatMessage[], nextUserMessage: string) => ([
+  ...history.map(msg => ({
+    role: msg.role,
+    parts: [{ text: msg.text }]
+  })),
+  { role: 'user', parts: [{ text: nextUserMessage }] }
+]);
+
+const buildAnalysisParts = (text: string | undefined, doc?: InlineDocument) => {
+  const parts: any[] = [];
+  if (text) parts.push({ text: `DOCUMENT FOR ANALYSIS:\n\n${text}` });
+  if (doc?.data && doc?.mimeType) {
+    parts.push({ inlineData: { data: doc.data, mimeType: doc.mimeType } });
+  }
+  if (parts.length === 0) {
+    parts.push({ text: 'Analyze the attached document.' });
+  }
+  return parts;
+};
 
 const LEXCORA_KNOWLEDGE_BASE = `
 IDENTITY: You are 'Rased' (راصد), the Senior Virtual Associate for LEXCORA.
@@ -64,12 +107,9 @@ export function parseGrounding(response: any): Source[] {
 }
 
 export const getLegalAssistantResponse = async (query: string, lang: 'en' | 'ar'): Promise<AssistantResponse> => {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return { text: "Service configuration missing.", sources: [] };
-
   try {
-    const ai = new GoogleGenAI({ apiKey });
-    const response = await ai.models.generateContent({
+    const ai = ensureApi();
+    const stream = await ai.models.generateContentStream({
       model: 'gemini-3-flash-preview',
       contents: query,
       config: { 
@@ -79,71 +119,113 @@ export const getLegalAssistantResponse = async (query: string, lang: 'en' | 'ar'
       },
     });
 
-    return {
-      text: response.text || "No response generated.",
-      sources: parseGrounding(response)
-    };
+    const response = stream.response ? await stream.response : null;
+    const text = response?.text || "No response generated.";
+    return { text, sources: parseGrounding(response) };
   } catch (error) {
     console.error("Assistant Error:", error);
     return { text: "Error connecting to legal database.", sources: [] };
   }
 };
 
-export const analyzeLegalText = async (text: string, lang: 'en' | 'ar'): Promise<string> => {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return "API Key not configured.";
-
+export const analyzeLegalText = async (text: string | undefined, lang: 'en' | 'ar', document?: InlineDocument): Promise<string> => {
   try {
-    const ai = new GoogleGenAI({ apiKey });
-    const response = await ai.models.generateContent({
+    const ai = ensureApi();
+    const stream = await ai.models.generateContentStream({
       model: 'gemini-3-pro-preview',
-      contents: `DOCUMENT FOR ANALYSIS:\n\n${text}`,
+      contents: buildAnalysisParts(text, document),
       config: { 
         systemInstruction: getSystemInstruction(lang, 'analysis'),
         temperature: 0.1
       },
     });
-    return response.text || "Analysis failed.";
+    const response = stream.response ? await stream.response : null;
+    return response?.text || "Analysis failed.";
   } catch (error) {
     return "The document analysis service is temporarily unavailable.";
   }
 };
 
 export class LexCoraChatSession {
-  private chat: Chat | null = null;
   private lang: 'en' | 'ar';
+  private history: ChatMessage[];
+  private apiKey: string | null = null;
 
   constructor(lang: 'en' | 'ar', history: ChatMessage[] = []) {
     this.lang = lang;
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (apiKey) {
-      const ai = new GoogleGenAI({ apiKey });
-      this.chat = ai.chats.create({
-        model: 'gemini-3-pro-preview',
-        config: { 
-          systemInstruction: getSystemInstruction(lang),
-          tools: [{ googleSearch: {} }],
-          temperature: 0.3
-        },
-        history: history.map(msg => ({
-          role: msg.role,
-          parts: [{ text: msg.text }]
-        }))
-      });
-    }
+    this.history = history;
+    this.apiKey = process.env.GEMINI_API_KEY || null;
   }
 
   async sendMessage(message: string): Promise<AssistantResponse> {
-    if (!this.chat) return { text: "Chat initialization failed.", sources: [] };
+    if (!this.apiKey) return { text: "Chat initialization failed.", sources: [] };
     
     try {
-      const result = await this.chat.sendMessage({ message });
+      const ai = ensureApi();
+      const stream = await ai.models.generateContentStream({
+        model: 'gemini-3-pro-preview',
+        contents: buildChatContents(this.history, message),
+        config: { 
+          systemInstruction: getSystemInstruction(this.lang),
+          tools: [{ googleSearch: {} }],
+          temperature: 0.3
+        }
+      });
+      const response = stream.response ? await stream.response : null;
+      const text = response?.text || "";
+      const sources = parseGrounding(response);
+      this.history.push({ role: 'user', text: message });
+      this.history.push({ role: 'model', text, sources });
       return {
-        text: result.text || "",
-        sources: parseGrounding(result)
+        text,
+        sources
       };
     } catch (error) {
       return { text: "Protocol error in chat session.", sources: [] };
     }
   }
 }
+
+export const streamAnalyze = async (text: string | undefined, lang: 'en' | 'ar', document?: InlineDocument) => {
+  const ai = ensureApi();
+  return ai.models.generateContentStream({
+    model: 'gemini-3-pro-preview',
+    contents: buildAnalysisParts(text, document),
+    config: { 
+      systemInstruction: getSystemInstruction(lang, 'analysis'),
+      temperature: 0.1
+    },
+  });
+};
+
+export const streamChat = async (message: string, lang: 'en' | 'ar', history: ChatMessage[] = []) => {
+  const ai = ensureApi();
+  return ai.models.generateContentStream({
+    model: 'gemini-3-pro-preview',
+    contents: buildChatContents(history, message),
+    config: { 
+      systemInstruction: getSystemInstruction(lang),
+      tools: [{ googleSearch: {} }],
+      temperature: 0.3
+    }
+  });
+};
+
+export const collectTextFromStream = async (streamResult: any): Promise<string> => {
+  let output = '';
+  const iterable: AsyncIterable<any> = (streamResult?.stream || streamResult) as any;
+  if (iterable) {
+    for await (const chunk of iterable) {
+      output += extractChunkText(chunk);
+    }
+  }
+  if (streamResult?.response) {
+    try {
+      const final = await streamResult.response;
+      return final?.text || output;
+    } catch {
+      return output;
+    }
+  }
+  return output;
+};

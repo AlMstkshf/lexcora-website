@@ -6,7 +6,7 @@ import Redis from 'ioredis';
 import RedisStore from 'rate-limit-redis';
 import { body, validationResult } from 'express-validator';
 import { apiKeyAuth } from './middleware/auth';
-import { getLegalAssistantResponse, analyzeLegalText, LexCoraChatSession } from './genaiService';
+import { getLegalAssistantResponse, analyzeLegalText, LexCoraChatSession, streamAnalyze, streamChat, extractChunkText, parseGrounding } from './genaiService';
 import { Request, Response, RequestHandler } from 'express';
 
 dotenv.config();
@@ -62,6 +62,42 @@ const limiterOptions: any = {
 
 let apiLimiter: any;
 
+const wantsStream = (req: Request) => {
+  const accept = (req.headers.accept || '').toLowerCase();
+  return accept.includes('text/event-stream') || accept.includes('application/x-ndjson') || req.query.stream === '1' || req.headers['x-lexcora-stream'] === '1';
+};
+
+const sendNdjsonStream = async (res: Response, streamResult: any, includeSources = false) => {
+  res.setHeader('Content-Type', 'application/x-ndjson');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  (res as any).flushHeaders?.();
+  const iterable: AsyncIterable<any> = (streamResult?.stream || streamResult) as any;
+  try {
+    if (iterable) {
+      for await (const chunk of iterable) {
+        const text = extractChunkText(chunk);
+        if (text) res.write(JSON.stringify({ text }) + '\n');
+      }
+    }
+    let sources: any[] = [];
+    if (includeSources && streamResult?.response) {
+      try {
+        const final = await streamResult.response;
+        sources = parseGrounding(final);
+      } catch {
+        sources = [];
+      }
+    }
+    res.write(JSON.stringify({ done: true, sources }) + '\n');
+    res.end();
+  } catch (err) {
+    console.error('Stream piping error:', err);
+    res.write(JSON.stringify({ error: 'stream_error' }) + '\n');
+    res.end();
+  }
+};
+
 if (process.env.NODE_ENV === 'test') {
   limiterOptions.store = createTestStore();
   apiLimiter = rateLimit(limiterOptions);
@@ -96,6 +132,10 @@ apiRouter.post('/assistant',
 
     const { query, lang = 'en' } = req.body;
     try {
+      if (wantsStream(req)) {
+        const stream = await streamChat(query, lang, []);
+        return sendNdjsonStream(res, stream, true);
+      }
       const result = await getLegalAssistantResponse(query, lang);
       res.json(result);
     } catch (err) {
@@ -107,16 +147,32 @@ apiRouter.post('/assistant',
 
 apiRouter.post('/analyze',
   [
-    body('text').isString().trim().isLength({ min: 1, max: 5000 }),
+    body('text').optional().isString().trim().isLength({ min: 1, max: 5000 }),
+    body('document.data').optional().isString(),
+    body('document.mimeType').optional().isString(),
+    body('document.name').optional().isString(),
     body('lang').optional().isIn(['en', 'ar'])
   ],
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-    const { text, lang = 'en' } = req.body;
+    const { text, lang = 'en', document } = req.body;
+    if (!text && !(document?.data && document?.mimeType)) {
+      return res.status(400).json({ error: 'Provide text or document for analysis.' });
+    }
+    const inlineDoc = document?.data && document?.mimeType ? {
+      data: document.data,
+      mimeType: document.mimeType,
+      name: document.name
+    } : undefined;
+
     try {
-      const result = await analyzeLegalText(text, lang);
+      if (wantsStream(req)) {
+        const stream = await streamAnalyze(text, lang, inlineDoc);
+        return sendNdjsonStream(res, stream);
+      }
+      const result = await analyzeLegalText(text, lang, inlineDoc);
       res.json({ text: result });
     } catch (err) {
       console.error('Analyze error:', err);
@@ -139,6 +195,10 @@ apiRouter.post('/chat',
 
     const { message, lang = 'en', history } = req.body;
     try {
+      if (wantsStream(req)) {
+        const stream = await streamChat(message, lang, history || []);
+        return sendNdjsonStream(res, stream, true);
+      }
       const session = new LexCoraChatSession(lang, history || []);
       const result = await session.sendMessage(message);
       res.json(result);

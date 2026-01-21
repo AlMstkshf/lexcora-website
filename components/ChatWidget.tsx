@@ -71,28 +71,50 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({ lang }) => {
 
     const userMessage = input.trim();
     setInput('');
-    setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
+    const baseIndex = messages.length;
+    setMessages(prev => [...prev, { role: 'user', text: userMessage }, { role: 'model', text: '', sources: [] }]);
     setIsLoading(true);
 
-    if (chatSessionRef.current) {
-      const response = await chatSessionRef.current.sendMessage(userMessage);
-      setMessages(prev => [...prev, { 
-        role: 'model', 
-        text: response.text,
-        sources: response.sources
-      }]);
-    } else {
-      // Fallback if ref is somehow null
-      chatSessionRef.current = new LexCoraChatSession(lang, messages);
-      const response = await chatSessionRef.current.sendMessage(userMessage);
-       setMessages(prev => [...prev, { 
-        role: 'model', 
-        text: response.text,
-        sources: response.sources
-      }]);
+    const ensureSession = () => {
+      if (!chatSessionRef.current) {
+        chatSessionRef.current = new LexCoraChatSession(lang, messages);
+      }
+      return chatSessionRef.current;
+    };
+
+    try {
+      const response = await ensureSession().sendMessage(userMessage, (partial, sources) => {
+        setMessages(prev => {
+          const next = [...prev];
+          const modelIndex = baseIndex + 1;
+          if (next[modelIndex]) {
+            next[modelIndex] = { ...next[modelIndex], text: partial, sources: sources || next[modelIndex].sources };
+          }
+          return next;
+        });
+      });
+
+      setMessages(prev => {
+        const next = [...prev];
+        const modelIndex = baseIndex + 1;
+        if (next[modelIndex]) {
+          next[modelIndex] = { role: 'model', text: response.text, sources: response.sources };
+        }
+        return next;
+      });
+    } catch (error) {
+      console.error('Chat streaming error', error);
+      setMessages(prev => {
+        const next = [...prev];
+        const modelIndex = baseIndex + 1;
+        if (next[modelIndex]) {
+          next[modelIndex] = { role: 'model', text: 'Chat service error.', sources: [] };
+        }
+        return next;
+      });
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsLoading(false);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {

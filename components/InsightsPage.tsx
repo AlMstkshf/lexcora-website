@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Language, ArticleRecord } from '../types';
 import { CONTENT } from '../constants';
-import { Search, Clock, Calendar, ArrowRight, ArrowLeft, Sparkles, FileText, BrainCircuit, Loader2, Scale } from 'lucide-react';
+import { Search, Clock, Calendar, ArrowRight, ArrowLeft, Sparkles, FileText, BrainCircuit, Loader2, Scale, Upload, XCircle } from 'lucide-react';
 import { Button } from './Button';
 import { analyzeLegalText } from '../services/geminiService';
 import { getArticles } from '../services/articleService';
@@ -21,20 +21,49 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ lang, onArticleClick
   const [analysisInput, setAnalysisInput] = useState('');
   const [analysisResult, setAnalysisResult] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [documentFile, setDocumentFile] = useState<{ name: string; base64: string; mimeType: string } | null>(null);
+  const [uploadError, setUploadError] = useState('');
 
   const Arrow = lang === 'ar' ? ArrowLeft : ArrowRight;
+  const hasAnalysisInput = analysisInput.trim().length > 0 || !!documentFile;
 
   const handleAnalyze = async () => {
-    if (!analysisInput.trim()) return;
+    if (!hasAnalysisInput) return;
     setIsAnalyzing(true);
     setAnalysisResult('');
+    setUploadError('');
     try {
-      const result = await analyzeLegalText(analysisInput, lang);
+      const result = await analyzeLegalText(analysisInput.trim() || undefined, lang, {
+        document: documentFile || undefined,
+        onToken: (partial) => setAnalysisResult(partial)
+      });
       setAnalysisResult(result);
     } catch (e) {
       setAnalysisResult("Analysis failed. Please try again.");
     }
     setIsAnalyzing(false);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.type !== 'application/pdf') {
+      setUploadError(lang === 'en' ? 'Please upload a PDF file.' : '???? ?????? ????? PDF.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      const base64 = result.split(',')[1];
+      if (base64) {
+        setDocumentFile({ name: file.name, base64, mimeType: file.type });
+        setUploadError('');
+      } else {
+        setUploadError(lang === 'en' ? 'Unable to read PDF contents.' : '??? ????? ?????? ?? ???? PDF.');
+      }
+    };
+    reader.readAsDataURL(file);
   };
 
   const filteredArticles = articles.filter((article: ArticleRecord) => {
@@ -79,18 +108,54 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ lang, onArticleClick
 
               <textarea 
                 className="w-full h-64 bg-slate-900/50 border border-slate-700 rounded-xl p-4 text-slate-300 text-sm focus:outline-none focus:border-lexcora-gold transition-colors font-mono resize-none"
-                placeholder={lang === 'en' ? "Paste legal text here for instant analysis..." : "الصق النص القانوني هنا للتحليل الفوري..."}
+                placeholder={lang === 'en' ? "Paste legal text here for instant analysis or attach a PDF..." : "الصق النص القانوني هنا للتحليل الفوري أو أرفق ملف PDF..."}
                 value={analysisInput}
                 onChange={(e) => setAnalysisInput(e.target.value)}
               />
 
+
+
+              <div className="mt-4 flex items-start gap-3 flex-col md:flex-row md:items-center md:justify-between">
+                <label className="flex items-center gap-3 px-4 py-3 bg-slate-900/30 border border-slate-700 rounded-lg cursor-pointer hover:border-lexcora-gold transition-colors w-full md:w-auto">
+                  <div className="w-10 h-10 rounded-full bg-lexcora-gold/20 flex items-center justify-center text-lexcora-gold">
+                    <Upload size={18} />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-white text-sm font-semibold">{lang === 'en' ? 'Upload PDF' : 'تحميل PDF'}</span>
+                    <span className="text-[11px] text-slate-500">{lang === 'en' ? 'Optional: extract text automatically' : 'اختياري: استخراج النص تلقائياً'}</span>
+                  </div>
+                  <input type="file" accept="application/pdf" className="hidden" onChange={handleFileChange} />
+                </label>
+                {documentFile && (
+                  <button
+                    onClick={() => setDocumentFile(null)}
+                    className="flex items-center gap-2 text-xs text-slate-400 hover:text-white transition-colors"
+                  >
+                    <XCircle size={14} /> {lang === 'en' ? 'Remove PDF' : 'إزالة ملف PDF'}
+                  </button>
+                )}
+              </div>
+
+              {documentFile && (
+                <div className="mt-3 text-xs text-slate-300 bg-slate-900/40 border border-slate-800 rounded-lg p-3 flex items-center justify-between">
+                  <div>
+                    <p className="font-semibold">{documentFile.name}</p>
+                    <p className="text-[10px] text-slate-500">{lang === 'en' ? 'Attached for analysis' : 'مرفق للتحليل'}</p>
+                  </div>
+                  <span className="px-2 py-1 bg-lexcora-gold/20 text-lexcora-gold rounded text-[10px]">PDF</span>
+                </div>
+              )}
+
+              {uploadError && (
+                <p className="mt-2 text-xs text-red-300">{uploadError}</p>
+              )}
               <div className="mt-6 flex justify-between items-center">
                 <p className="text-[10px] text-slate-500 max-w-[200px]">
                   {lang === 'en' ? "Gemini 3 Pro handles high-reasoning legal tasks." : "جيمناي ٣ برو يعالج المهام القانونية المعقدة."}
                 </p>
                 <Button 
                   onClick={handleAnalyze} 
-                  disabled={isAnalyzing || !analysisInput.trim()}
+                  disabled={isAnalyzing || !hasAnalysisInput}
                   className="!px-8"
                 >
                   {isAnalyzing ? <Loader2 className="animate-spin" size={20} /> : <><Sparkles size={18} /> {lang === 'en' ? 'Run Analysis' : 'تشغيل التحليل'}</>}
@@ -119,7 +184,7 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ lang, onArticleClick
                     ))}
                   </div>
                   <div className="mt-6 pt-6 border-t border-white/10 flex gap-4">
-                    <Button variant="outline" className="!py-2 !text-xs" onClick={() => { setAnalysisResult(''); setAnalysisInput(''); }}>
+                    <Button variant="outline" className="!py-2 !text-xs" onClick={() => { setAnalysisResult(''); setAnalysisInput(''); setDocumentFile(null); }}>
                       Clear
                     </Button>
                     <Button variant="outline" className="!py-2 !text-xs" onClick={() => navigator.clipboard.writeText(analysisResult)}>

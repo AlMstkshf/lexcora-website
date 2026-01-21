@@ -12,9 +12,19 @@ import { Request, Response, NextFunction } from 'express';
 jest.mock('../genaiService', () => ({
   getLegalAssistantResponse: jest.fn(async (q: string) => ({ text: `echo:${q}`, sources: [] })),
   analyzeLegalText: jest.fn(async (t: string) => `analysis:${t}`),
+  streamAnalyze: jest.fn(async (t: string) => ({
+    response: Promise.resolve({ text: `analysis:${t}` }),
+    [Symbol.asyncIterator]: async function* () { yield { text: `analysis:${t}` }; }
+  })),
   LexCoraChatSession: jest.fn().mockImplementation(() => ({
     sendMessage: jest.fn(async (m: string) => ({ text: `chat:${m}`, sources: [] }))
-  }))
+  })),
+  streamChat: jest.fn(async (m: string) => ({
+    response: Promise.resolve({ text: `chat:${m}` }),
+    [Symbol.asyncIterator]: async function* () { yield { text: `chat:${m}` }; }
+  })),
+  extractChunkText: (chunk: any) => chunk.text || '',
+  parseGrounding: jest.fn(() => [])
 }));
 
 describe('API endpoints', () => {

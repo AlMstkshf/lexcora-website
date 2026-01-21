@@ -3,9 +3,14 @@ import { parseGrounding, getLegalAssistantResponse, analyzeLegalText, LexCoraCha
 jest.mock('@google/genai', () => ({
   GoogleGenAI: jest.fn().mockImplementation(() => ({
     models: {
-      generateContent: jest.fn(async () => ({
-        text: 'mock reply',
-        candidates: [{ groundingMetadata: { groundingChunks: [{ web: { title: 'T', uri: 'http://u' } }] } }]
+      generateContentStream: jest.fn(async () => ({
+        response: Promise.resolve({
+          text: 'mock reply',
+          candidates: [{ groundingMetadata: { groundingChunks: [{ web: { title: 'T', uri: 'http://u' } }] } }]
+        }),
+        [Symbol.asyncIterator]: async function* () {
+          yield { text: 'mock reply' };
+        }
       }))
     },
     chats: {
@@ -55,6 +60,6 @@ describe('genaiService utilities', () => {
     process.env.GEMINI_API_KEY = 'key';
     const s = new LexCoraChatSession('en', []);
     const r = await s.sendMessage('hello');
-    expect(r.text).toBe('chat reply');
+    expect(r.text).toBe('mock reply');
   });
 });
