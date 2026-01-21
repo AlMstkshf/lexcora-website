@@ -34,78 +34,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              lexcora: {
-                blue: '#0F172A', 
-                gold: '#D4AF37', 
-                goldLight: '#F3E5AB',
-                charcoal: '#36454F',
-                paper: '#F8FAFC',
-              }
-            },
-            fontFamily: {
-              sans: ['Inter', 'Cairo', 'sans-serif'],
-              serif: ['Playfair Display', 'Times New Roman', 'serif'],
-              arabic: ['Cairo', 'sans-serif'],
-            },
-            animation: {
-              'fade-in': 'fadeIn 0.8s ease-out forwards',
-              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-              'marquee': 'marquee 30s linear infinite',
-            },
-            keyframes: {
-              fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
-              fadeInUp: {
-                '0%': { opacity: '0', transform: 'translateY(20px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              },
-              marquee: {
-                '0%': { transform: 'translateX(0%)' },
-                '100%': { transform: 'translateX(-50%)' }
-              }
-            }
-          }
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@^19.2.1",
+          "react-dom/": "https://esm.sh/react-dom@^19.2.1/",
+          "react/": "https://esm.sh/react@^19.2.1/",
+          "lucide-react": "https://esm.sh/lucide-react@^0.560.0",
+          "@google/genai": "https://esm.sh/@google/genai@^1.33.0"
         }
       }
     </script>
-    <style>
-      html { scroll-behavior: smooth; }
-      ::-webkit-scrollbar { width: 8px; }
-      ::-webkit-scrollbar-track { background: #0F172A; }
-      ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-      ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
-      
-      .prose p { margin-bottom: 1.5em; line-height: 1.8; }
-      
-      [dir="rtl"] .font-sans { font-family: 'Cairo', sans-serif !important; }
-      [dir="rtl"] .font-serif { font-family: 'Cairo', serif !important; }
-      
-      /* Smooth Animation Utilities */
-      .stagger-1 { animation-delay: 100ms; }
-      .stagger-2 { animation-delay: 200ms; }
-      .stagger-3 { animation-delay: 300ms; }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.1",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.1/",
-    "react/": "https://esm.sh/react@^19.2.1/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.560.0",
-    "@google/genai": "https://esm.sh/@google/genai@^1.33.0"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
-</head>
+  </head>
   <body class="bg-gray-50 text-slate-800 antialiased selection:bg-lexcora-gold selection:text-white">
     <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <script type="module" src="/index.tsx"></script>
+  </body>
 </html>
