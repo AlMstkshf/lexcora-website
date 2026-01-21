@@ -1,23 +1,25 @@
-import React, { useEffect } from 'react';
-import { Language, InsightArticle } from '../types';
+import React, { useEffect, useMemo } from 'react';
+import { Language } from '../types';
 import { CONTENT } from '../constants';
 import { ArrowLeft, ArrowRight, Calendar, Clock, User, Share2, Printer, Bookmark } from 'lucide-react';
 import { Button } from './Button';
 import { PageHelmet } from './PageHelmet';
+import { getArticleBySlug } from '../services/articleService';
+import type { ArticleRecord } from '../types';
 
 interface ArticleDetailProps {
   lang: Language;
-  articleId: string;
+  articleSlug: string;
   onBack: () => void;
 }
 
-export const ArticleDetail: React.FC<ArticleDetailProps> = ({ lang, articleId, onBack }) => {
+export const ArticleDetail: React.FC<ArticleDetailProps> = ({ lang, articleSlug, onBack }) => {
   const t = CONTENT[lang].insightsPage;
-  const article = t.items.find(item => item.id === articleId);
+  const article = useMemo<ArticleRecord | undefined>(() => getArticleBySlug(articleSlug, lang), [articleSlug, lang]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [articleId]);
+  }, [articleSlug]);
 
   const handleSubscribeClick = () => {
     const footer = document.getElementById('footer');

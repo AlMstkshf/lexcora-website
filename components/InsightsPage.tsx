@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
-import { Language, InsightArticle } from '../types';
+import React, { useMemo, useState } from 'react';
+import { Language, ArticleRecord } from '../types';
 import { CONTENT } from '../constants';
-import { Search, Clock, Calendar, ArrowRight, ArrowLeft, Tag, Sparkles, FileText, BrainCircuit, Loader2, Scale } from 'lucide-react';
+import { Search, Clock, Calendar, ArrowRight, ArrowLeft, Sparkles, FileText, BrainCircuit, Loader2, Scale } from 'lucide-react';
 import { Button } from './Button';
 import { analyzeLegalText } from '../services/geminiService';
+import { getArticles } from '../services/articleService';
 
 interface InsightsPageProps {
   lang: Language;
-  onArticleClick?: (id: string) => void;
+  onArticleClick?: (slug: string) => void;
 }
 
 export const InsightsPage: React.FC<InsightsPageProps> = ({ lang, onArticleClick }) => {
   const t = CONTENT[lang].insightsPage;
   const [activeCategory, setActiveCategory] = useState(t.categories[0]);
   const [searchQuery, setSearchQuery] = useState('');
+  const articles = useMemo<ArticleRecord[]>(() => getArticles(lang), [lang]);
   
   // AI Lab State
   const [analysisInput, setAnalysisInput] = useState('');
@@ -35,7 +37,7 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ lang, onArticleClick
     setIsAnalyzing(false);
   };
 
-  const filteredArticles = t.items.filter((article: InsightArticle) => {
+  const filteredArticles = articles.filter((article: ArticleRecord) => {
     const matchesCategory = activeCategory === t.categories[0] || article.category === activeCategory;
     const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
@@ -168,12 +170,12 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ lang, onArticleClick
 
         {/* Articles Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredArticles.map((article, idx) => (
+          {filteredArticles.map((article) => (
             <article 
-              key={article.id} 
+              key={article.slug} 
               className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group border border-slate-100 flex flex-col h-full"
             >
-              <div className="h-48 overflow-hidden relative cursor-pointer" onClick={() => onArticleClick?.(article.id)}>
+              <div className="h-48 overflow-hidden relative cursor-pointer" onClick={() => onArticleClick?.(article.slug)}>
                  <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                  <span className="absolute top-4 left-4 z-20 bg-lexcora-blue text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                   {article.category}
@@ -184,13 +186,13 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ lang, onArticleClick
                   <span className="flex items-center gap-1"><Calendar size={12} /> {article.date}</span>
                   <span className="flex items-center gap-1"><Clock size={12} /> {article.readTime}</span>
                 </div>
-                <h3 className="font-serif text-xl font-bold text-lexcora-blue mb-3 group-hover:text-lexcora-gold transition-colors cursor-pointer" onClick={() => onArticleClick?.(article.id)}>
+                <h3 className="font-serif text-xl font-bold text-lexcora-blue mb-3 group-hover:text-lexcora-gold transition-colors cursor-pointer" onClick={() => onArticleClick?.(article.slug)}>
                   {article.title}
                 </h3>
                 <p className="text-slate-600 text-sm leading-relaxed mb-4 flex-1">{article.excerpt}</p>
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                   <div className="text-xs font-semibold text-slate-500">By <span className="text-lexcora-blue">{article.author}</span></div>
-                  <button onClick={() => onArticleClick?.(article.id)} className="text-sm font-bold text-lexcora-gold hover:text-yellow-500 flex items-center gap-1 transition-colors">
+                  <button onClick={() => onArticleClick?.(article.slug)} className="text-sm font-bold text-lexcora-gold hover:text-yellow-500 flex items-center gap-1 transition-colors">
                     {t.readMore} <Arrow size={16} />
                   </button>
                 </div>

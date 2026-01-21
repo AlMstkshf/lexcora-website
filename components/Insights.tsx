@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Language } from '../types';
+import React, { useEffect, useState } from 'react';
+import { Language, ArticleRecord } from '../types';
 import { CONTENT } from '../constants';
 import { Button } from './Button';
 import { getLegalAssistantResponse, AssistantResponse } from '../services/geminiService';
@@ -8,7 +8,7 @@ import { Search, Loader2, Sparkles, ExternalLink, Scale } from 'lucide-react';
 interface InsightsProps {
   lang: Language;
   onViewAll: () => void;
-  onArticleClick?: (id: string) => void;
+  onArticleClick?: (slug: string) => void;
 }
 
 export const Insights: React.FC<InsightsProps> = ({ lang, onViewAll, onArticleClick }) => {
@@ -16,6 +16,20 @@ export const Insights: React.FC<InsightsProps> = ({ lang, onViewAll, onArticleCl
   const [query, setQuery] = useState('');
   const [response, setResponse] = useState<AssistantResponse | null>(null);
   const [loading, setLoading] = useState(false);
+  const [articles, setArticles] = useState<ArticleRecord[]>([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    import('../services/articleService').then(({ getFeaturedArticles }) => {
+      const featured = getFeaturedArticles(lang);
+      if (isMounted) {
+        setArticles(featured);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [lang]);
 
   const handleAsk = async () => {
     if (!query.trim()) return;
@@ -26,9 +40,9 @@ export const Insights: React.FC<InsightsProps> = ({ lang, onViewAll, onArticleCl
     setLoading(false);
   };
 
-  const handleArticleClick = (id: string) => {
+  const handleArticleClick = (slug: string) => {
     if (onArticleClick) {
-      onArticleClick(id);
+      onArticleClick(slug);
     } else {
       onViewAll();
     }
@@ -57,11 +71,11 @@ export const Insights: React.FC<InsightsProps> = ({ lang, onViewAll, onArticleCl
           
           {/* Articles */}
           <div className="lg:col-span-2 grid md:grid-cols-2 gap-8">
-            {t.articles.map((article, idx) => (
-              <article key={idx} className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow group border border-slate-100 flex flex-col">
+            {articles.map((article) => (
+              <article key={article.slug} className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow group border border-slate-100 flex flex-col">
                 <div 
                   className="h-48 overflow-hidden relative cursor-pointer" 
-                  onClick={() => handleArticleClick(article.id)}
+                  onClick={() => handleArticleClick(article.slug)}
                 >
                   <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
@@ -72,13 +86,13 @@ export const Insights: React.FC<InsightsProps> = ({ lang, onViewAll, onArticleCl
                   </div>
                   <h3 
                     className="font-serif text-xl font-bold text-lexcora-blue mb-2 leading-snug cursor-pointer hover:text-lexcora-gold transition-colors"
-                    onClick={() => handleArticleClick(article.id)}
+                    onClick={() => handleArticleClick(article.slug)}
                   >
                     {article.title}
                   </h3>
                   <div className="mt-auto">
                     <button 
-                      onClick={() => handleArticleClick(article.id)}
+                      onClick={() => handleArticleClick(article.slug)}
                       className="inline-block mt-2 text-sm font-semibold text-slate-500 hover:text-lexcora-blue underline decoration-lexcora-gold/50 bg-transparent border-none p-0 cursor-pointer"
                       aria-label={`Read analysis about ${article.title}`}
                     >

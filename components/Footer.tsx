@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Language } from '../types';
 import { CONTENT } from '../constants';
@@ -12,14 +12,46 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
   const t = CONTENT[lang].footer;
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [message, setMessage] = useState('');
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const emailRegex = useMemo(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/, []);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      // Mock subscription logic
+    if (!email || !emailRegex.test(email)) {
+      setStatus('error');
+      setMessage(lang === 'en' ? 'Please enter a valid email.' : '???? ????? ????? ??????? ??????.');
+      return;
+    }
+
+    setStatus('loading');
+    setMessage('');
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.message || 'Subscription failed');
+      }
+
       setSubscribed(true);
+      setStatus('success');
+      setMessage(data?.message || t.newsletter.success || 'Welcome to the club!');
       setEmail('');
-      setTimeout(() => setSubscribed(false), 3000);
+      setTimeout(() => {
+        setSubscribed(false);
+        setStatus('idle');
+        setMessage('');
+      }, 4000);
+    } catch (err: any) {
+      setStatus('error');
+      setMessage(err?.message || 'Something went wrong. Please try again.');
     }
   };
 
@@ -34,30 +66,42 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
             <p className="text-slate-400">{t.newsletter.description}</p>
           </div>
           <div className="lg:w-1/2 w-full max-w-md">
-            {subscribed ? (
+            {subscribed || status === 'success' ? (
               <div className="flex items-center gap-2 text-green-400 bg-green-500/10 p-4 rounded-lg border border-green-500/20 animate-fade-in" role="alert">
                 <CheckCircle2 size={20} />
-                <span className="font-semibold">{t.newsletter.success}</span>
+                <span className="font-semibold">{message || t.newsletter.success || 'Welcome to the club!'}</span>
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
-                <input 
-                  type="email" 
-                  placeholder={t.newsletter.placeholder}
-                  className="flex-1 bg-slate-900/50 border border-slate-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-lexcora-gold transition-colors"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  aria-label={t.newsletter.placeholder}
-                />
-                <button 
-                  type="submit" 
-                  className="bg-lexcora-gold text-lexcora-blue font-bold px-6 py-3 rounded-lg hover:bg-yellow-400 transition-colors flex items-center justify-center gap-2 whitespace-nowrap"
-                  aria-label={t.newsletter.button}
-                >
-                  {t.newsletter.button} <Send size={18} />
-                </button>
-              </form>
+              <>
+                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
+                  <input 
+                    type="email" 
+                    placeholder={t.newsletter.placeholder}
+                    className="flex-1 bg-slate-900/50 border border-slate-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-lexcora-gold transition-colors"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (status === 'error') {
+                        setStatus('idle');
+                        setMessage('');
+                      }
+                    }}
+                    required
+                    aria-label={t.newsletter.placeholder}
+                  />
+                  <button 
+                    type="submit" 
+                    className="bg-lexcora-gold text-lexcora-blue font-bold px-6 py-3 rounded-lg hover:bg-yellow-400 transition-colors flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
+                    disabled={status === 'loading'}
+                    aria-label={t.newsletter.button}
+                  >
+                    {status === 'loading' ? (lang === 'en' ? 'Subscribing...' : '??????...') : t.newsletter.button} <Send size={18} />
+                  </button>
+                </form>
+                {message && status === 'error' && (
+                  <p className="text-sm text-red-300 mt-3" role="alert">{message}</p>
+                )}
+              </>
             )}
           </div>
         </div>

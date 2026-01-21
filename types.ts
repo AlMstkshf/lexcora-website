@@ -42,7 +42,7 @@ export interface CaseStudyItem {
 }
 
 export interface InsightArticle {
-  id: string;
+  slug: string;
   category: string;
   title: string;
   excerpt: string;
@@ -52,6 +52,10 @@ export interface InsightArticle {
   image: string;
   tags: string[];
   content: string[]; // Array of paragraphs for full content
+}
+
+export interface ArticleRecord extends InsightArticle {
+  lang: Language;
 }
 
 export interface PricingTier {
@@ -147,9 +151,8 @@ export interface ContentDictionary {
     demoTitle: string;
     demoPlaceholder: string;
     demoButton: string;
-    // Homepage summary articles
-    articles: Array<{
-      id: string;
+    articles?: Array<{
+      slug: string;
       category: string;
       title: string;
       date: string;
@@ -163,7 +166,7 @@ export interface ContentDictionary {
     categories: string[];
     readMore: string;
     backButton: string;
-    items: InsightArticle[];
+    items?: InsightArticle[];
   };
   pricing: {
     pageTitle: string;

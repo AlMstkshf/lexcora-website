@@ -72,7 +72,7 @@ const HomePage: React.FC<{ lang: Language; onContactClick: () => void }> = ({ la
       <Insights
         lang={lang}
         onViewAll={() => navigate('/insights')}
-        onArticleClick={(id) => navigate(`/insights/${id}`)}
+        onArticleClick={(slug) => navigate(`/insights/${slug}`)}
       />
     </>
   );
@@ -213,23 +213,23 @@ const InsightsRoute: React.FC<{ lang: Language }> = ({ lang }) => {
         }
       />
       <Suspense fallback={<div className="p-8">Loading insights...</div>}>
-        <InsightsPage lang={lang} onArticleClick={(id) => navigate(`/insights/${id}`)} />
+        <InsightsPage lang={lang} onArticleClick={(slug) => navigate(`/insights/${slug}`)} />
       </Suspense>
     </>
   );
 };
 
 const ArticleRoute: React.FC<{ lang: Language }> = ({ lang }) => {
-  const { articleId } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
 
-  if (!articleId) {
+  if (!slug) {
     return <NotFound lang={lang} />;
   }
 
   return (
     <Suspense fallback={<div className="p-8">Loading article...</div>}>
-      <ArticleDetail lang={lang} articleId={articleId} onBack={() => navigate('/insights')} />
+      <ArticleDetail lang={lang} articleSlug={slug} onBack={() => navigate('/insights')} />
     </Suspense>
   );
 };
@@ -264,7 +264,7 @@ const AppLayout: React.FC<{
           <Route path="/contact" element={<ContactRoute lang={lang} />} />
           <Route path="/privacy" element={<PrivacyPage lang={lang} />} />
           <Route path="/insights" element={<InsightsRoute lang={lang} />} />
-          <Route path="/insights/:articleId" element={<ArticleRoute lang={lang} />} />
+          <Route path="/insights/:slug" element={<ArticleRoute lang={lang} />} />
           <Route path="*" element={<NotFound lang={lang} />} />
         </Routes>
       </main>
