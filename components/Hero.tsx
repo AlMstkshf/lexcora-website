@@ -4,7 +4,6 @@ import { Language } from '../types';
 import { CONTENT } from '../constants';
 import { Button } from './Button';
 import { ArrowRight, ArrowLeft, CheckCircle, Phone, Award } from 'lucide-react';
-import heroImage from '../dist/assets/hero-image.png';
 
 interface HeroProps {
   lang: Language;
@@ -91,7 +90,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onContactClick }) => {
         >
           <div className="relative w-full max-w-2xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden transform rotate-1 hover:rotate-0 transition-transform duration-500 bg-white">
             <img 
-              src={heroImage} 
+              src="/hero-image.png" 
               alt="LEXCORA dashboard preview" 
               className="w-full h-full object-cover"
               loading="lazy"
