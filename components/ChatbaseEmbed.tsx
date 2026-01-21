@@ -8,6 +8,11 @@ declare global {
 
 export const ChatbaseEmbed: React.FC = () => {
   useEffect(() => {
+    const enabled = (import.meta.env.VITE_ENABLE_CHATBASE ?? 'true') !== 'false';
+    if (!enabled) {
+      return;
+    }
+
     const host = (import.meta.env.NEXT_PUBLIC_CHATBASE_HOST || 'https://www.chatbase.co/').replace(/\/+$/, '');
     const chatbotId = import.meta.env.NEXT_PUBLIC_CHATBOT_ID;
 

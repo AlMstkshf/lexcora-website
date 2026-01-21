@@ -11,6 +11,7 @@ import { About } from './components/About';
 import { NotFound } from './components/NotFound';
 import { PageHelmet } from './components/PageHelmet';
 import { ChatbaseEmbed } from './components/ChatbaseEmbed';
+import { CheckoutReturn } from './components/CheckoutReturn';
 import { Language } from './types';
 
 // Lazy-load large route/modal components to keep initial bundle small
@@ -280,6 +281,7 @@ const AppLayout: React.FC<{
           <Route path={pathWithLang('/about')} element={<About lang={lang} />} />
           <Route path={pathWithLang('/free-trial')} element={<TrialPage lang={lang} />} />
           <Route path={`${langPrefix}/trial`} element={<Navigate to={pathWithLang('/free-trial')} replace />} />
+          <Route path={pathWithLang('/checkout/return')} element={<CheckoutReturn lang={lang} />} />
           <Route path={pathWithLang('/contact')} element={<ContactRoute lang={lang} />} />
           <Route path={pathWithLang('/privacy')} element={<PrivacyPage lang={lang} />} />
           <Route path={pathWithLang('/insights')} element={<InsightsRoute lang={lang} />} />
