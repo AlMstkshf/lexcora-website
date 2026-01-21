@@ -34,7 +34,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         <p>A new referral was generated.</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Referral Code:</strong> ${referralCode}</p>
-        <p>Shareable link: https://lexcora.com/signup?ref=${referralCode}</p>
+        <p>Shareable link: https://lexcora-mbh.com/signup?ref=${referralCode}</p>
       `,
     });
 

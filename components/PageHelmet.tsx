@@ -10,7 +10,7 @@ interface PageHelmetProps {
 }
 
 const BRAND_OG_IMAGE = '/og/lexcora-og.png';
-const BASE_DOMAIN = 'https://lexcora.ae';
+const BASE_DOMAIN = 'https://lexcora-mbh.com';
 const KEYWORDS = [
   'Lexcora ERP',
   'Best Law Firm Management System',

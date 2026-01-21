@@ -14,7 +14,7 @@ const generateReferralCode = () => {
   return `LEX-${suffix}`;
 };
 
-const buildReferralLink = (code: string) => `https://lexcora.com/signup?ref=${code}`;
+const buildReferralLink = (code: string) => `https://lexcora-mbh.com/signup?ref=${code}`;
 
 interface ReferralModalProps {
   isOpen: boolean;
@@ -100,7 +100,7 @@ export const ReferralModal: React.FC<ReferralModalProps> = ({ isOpen, onClose, l
       text: lang === 'en' 
         ? `Use my referral code ${referralCode} to get 15% off your first month on LEXCORA!` 
         : `استخدم رمز الإحالة الخاص بي ${referralCode} للحصول على خصم 15% على شهرك الأول في ليكسكورا!`,
-      url: referralLink || 'https://lexcora.com/signup',
+      url: referralLink || 'https://lexcora-mbh.com/signup',
     };
 
     try {
@@ -120,7 +120,7 @@ export const ReferralModal: React.FC<ReferralModalProps> = ({ isOpen, onClose, l
   };
 
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(
-    referralLink || 'https://lexcora.com/signup'
+    referralLink || 'https://lexcora-mbh.com/signup'
   )}&color=0F172A`;
 
   // Content Dictionary for this component

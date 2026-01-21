@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lexcora.com/sitemap.xml
+Sitemap: https://lexcora-mbh.com/sitemap.xml
