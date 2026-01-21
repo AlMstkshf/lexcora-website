@@ -1,7 +1,20 @@
-import React, { useState } from 'react';
-import { X, Copy, Share2, Gift, QrCode, CheckCircle2, ArrowRight, Loader2, Mail } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { X, Copy, Share2, Gift, CheckCircle2, ArrowRight, Loader2, Mail } from 'lucide-react';
 import { Button } from './Button';
 import { Language } from '../types';
+
+const REFERRAL_STORAGE_KEY = 'lexcora-referral';
+
+const generateReferralCode = () => {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let suffix = '';
+  for (let i = 0; i < 4; i += 1) {
+    suffix += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return `LEX-${suffix}`;
+};
+
+const buildReferralLink = (code: string) => `https://lexcora.com/signup?ref=${code}`;
 
 interface ReferralModalProps {
   isOpen: boolean;
@@ -16,24 +29,67 @@ export const ReferralModal: React.FC<ReferralModalProps> = ({ isOpen, onClose, l
   const [referralCode, setReferralCode] = useState('');
   const [copied, setCopied] = useState(false);
 
+  const referralLink = referralCode ? buildReferralLink(referralCode) : '';
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const stored = localStorage.getItem(REFERRAL_STORAGE_KEY);
+    if (!stored) return;
+
+    try {
+      const parsed = JSON.parse(stored) as { email?: string; referralCode?: string };
+      if (parsed.referralCode) {
+        setReferralCode(parsed.referralCode);
+        if (parsed.email) setEmail(parsed.email);
+        setStep(2);
+      }
+    } catch (err) {
+      console.error('Failed to read referral from storage', err);
+    }
+  }, []);
+
   if (!isOpen) return null;
 
-  const handleGenerate = (e: React.FormEvent) => {
+  const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    
+
     setLoading(true);
-    // Simulate API delay and code generation
-    setTimeout(() => {
-      const uniqueSuffix = Math.random().toString(36).substring(2, 6).toUpperCase();
-      setReferralCode(`LEX-${uniqueSuffix}`);
+    setCopied(false);
+
+    const newCode = generateReferralCode();
+
+    try {
+      setReferralCode(newCode);
       setStep(2);
+
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(
+          REFERRAL_STORAGE_KEY,
+          JSON.stringify({ email, referralCode: newCode })
+        );
+      }
+
+      await fetch('/api/referral', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, referralCode: newCode }),
+      }).then((response) => {
+        if (!response.ok) {
+          console.error('Referral API responded with an error', response.status);
+        }
+      });
+    } catch (err) {
+      console.error('Referral submission failed', err);
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(`https://lexcora.ae/signup?ref=${referralCode}`);
+    if (!referralLink) return;
+
+    navigator.clipboard.writeText(referralLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -44,7 +100,7 @@ export const ReferralModal: React.FC<ReferralModalProps> = ({ isOpen, onClose, l
       text: lang === 'en' 
         ? `Use my referral code ${referralCode} to get 15% off your first month on LEXCORA!` 
         : `استخدم رمز الإحالة الخاص بي ${referralCode} للحصول على خصم 15% على شهرك الأول في ليكسكورا!`,
-      url: `https://lexcora.ae/signup?ref=${referralCode}`,
+      url: referralLink || 'https://lexcora.com/signup',
     };
 
     try {
@@ -59,12 +115,13 @@ export const ReferralModal: React.FC<ReferralModalProps> = ({ isOpen, onClose, l
   };
 
   const handleClose = () => {
-    setStep(1);
-    setEmail('');
+    setCopied(false);
     onClose();
   };
 
-  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://lexcora.ae/signup?ref=${referralCode}&color=0F172A`;
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(
+    referralLink || 'https://lexcora.com/signup'
+  )}&color=0F172A`;
 
   // Content Dictionary for this component
   const t = {
