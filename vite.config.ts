@@ -8,14 +8,7 @@ export default defineConfig(({ mode }) => {
     return {
       server: {
         port: 3000,
-        host: '0.0.0.0',
-        proxy: {
-          '/api': {
-            target: 'http://localhost:4000',
-            changeOrigin: true,
-            secure: false,
-          }
-        }
+        host: '0.0.0.0'
       },
 
       plugins: (() => {
@@ -42,8 +35,6 @@ export default defineConfig(({ mode }) => {
               if (id.includes('node_modules')) {
                 // Group React into its own vendor chunk
                 if (id.includes('react')) return 'react-vendor';
-                // Keep large third-party libs separate to cache independently
-                if (id.includes('@google/genai')) return 'genai';
                 if (id.includes('lucide-react')) return 'icons';
                 // Fallback vendor chunk
                 return 'vendor';

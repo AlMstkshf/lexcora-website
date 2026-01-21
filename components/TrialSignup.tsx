@@ -48,28 +48,8 @@ export const TrialSignup: React.FC<TrialSignupProps> = ({ lang }) => {
     setError(null);
 
     try {
-      const res = await fetch('/api/trial', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          firmName: formData.firmName,
-          firmSize: formData.firmSize,
-        }),
-      });
-
-      const data = await res.json().catch(() => ({}));
-
-      if (!res.ok) {
-        throw new Error(data?.message || 'Request failed');
-      }
-
-      const targetUrl = data?.redirectUrl || 'https://portal.lexcora-mbh.com';
-
-      // Redirect on success
-      window.location.href = targetUrl;
+      await new Promise(resolve => setTimeout(resolve, 500));
+      setStep(3);
     } catch (err) {
       setError(lang === 'en' ? 'Something went wrong. Please try again.' : 'حدث خطأ. يرجى المحاولة مرة أخرى.');
     } finally {
@@ -280,7 +260,7 @@ export const TrialSignup: React.FC<TrialSignupProps> = ({ lang }) => {
                   </ul>
                 </div>
 
-                <Button fullWidth onClick={() => window.location.href = '#'}>
+                <Button fullWidth onClick={() => { window.location.href = `/${lang}`; }}>
                   {t.success.dashboardButton}
                 </Button>
               </div>

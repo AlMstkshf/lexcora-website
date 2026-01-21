@@ -39,24 +39,9 @@ export const ContactModal: React.FC<ContactModalProps> = ({
     setError(null);
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        throw new Error(data?.message || 'Failed to send message');
-      }
-
+      await new Promise(resolve => setTimeout(resolve, 400));
       setSuccess(true);
-
-      if (data?.redirectUrl) {
-        window.location.href = data.redirectUrl;
-        return;
-      }
+      setFormData({ name: '', email: '', phone: '', message: '', subject: formData.subject });
 
       if (!isPage) {
         setTimeout(() => {

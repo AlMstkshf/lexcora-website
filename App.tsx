@@ -21,7 +21,6 @@ const Pricing = React.lazy(() => import('./components/Pricing').then(m => ({ def
 const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy').then(m => ({ default: m.PrivacyPolicy })));
 const LoginModal = React.lazy(() => import('./components/LoginModal').then(m => ({ default: m.LoginModal })));
 const ContactModal = React.lazy(() => import('./components/ContactModal').then(m => ({ default: m.ContactModal })));
-const ChatWidget = React.lazy(() => import('./components/ChatWidget').then(m => ({ default: m.ChatWidget })));
 const buildLangPath = (lang: Language, path: string = '/') => {
   const normalized = path === '/' ? '' : path.startsWith('/') ? path : `/${path}`;
   return `/${lang}${normalized}`;
@@ -70,8 +69,8 @@ const HomePage: React.FC<{ lang: Language; onContactClick: () => void }> = ({ la
         }
         description={
           isEnglish
-            ? 'Lexcora ERP delivers GCC-ready legal workflows, bilingual client portals, trust accounting, and AI compliance tailored for Middle East law firms.'
-            : 'ليكسورا ERP يقدم مسارات عمل قانونية جاهزة للخليج، بوابة عملاء ثنائية اللغة، إدارة القضايا والفوترة، وذكاءً للامتثال مصمم خصيصًا لمكاتب المحاماة في الشرق الأوسط.'
+            ? 'Lexcora ERP delivers GCC-ready legal workflows, bilingual client portals, trust accounting, and compliance tailored for Middle East law firms.'
+            : 'ليكسورا ERP يقدم مسارات عمل قانونية جاهزة للخليج، بوابة عملاء ثنائية اللغة، إدارة القضايا والفوترة، وحوكمة مصممة خصيصاً لمكاتب المحاماة في الشرق الأوسط.'
         }
         lang={lang}
       />
@@ -159,8 +158,8 @@ const TrialPage: React.FC<{ lang: Language }> = ({ lang }) => (
       title={lang === 'en' ? 'Start your trial | Lexcora' : 'ابدأ تجربتك | ليكسورا'}
       description={
         lang === 'en'
-          ? 'Start a guided Lexcora trial to experience UAE-first legal workflows, secure client portal, and AI insights.'
-          : 'ابدأ تجربة موجهة لليكسورا لتجربة تدفقات العمل القانونية الأولى في الإمارات وبوابة العملاء الآمنة ورؤى الذكاء الاصطناعي.'
+          ? 'Start a guided Lexcora trial to experience UAE-first legal workflows, a secure client portal, and real-time operational insights.'
+          : 'ابدأ تجربة موجهة لليكسورا لتجربة تدفقات العمل القانونية الأولى في الإمارات وبوابة العملاء الآمنة ورؤى تشغيلية مباشرة.'
       }
       lang={lang}
     />
@@ -362,9 +361,6 @@ const AppContainer: React.FC = () => {
 
       <Suspense fallback={null}>
         <LoginModal isOpen={loginOpen} onClose={() => setLoginOpen(false)} lang={lang} />
-      </Suspense>
-      <Suspense fallback={null}>
-        <ChatWidget lang={lang} />
       </Suspense>
     </>
   );

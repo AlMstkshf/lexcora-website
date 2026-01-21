@@ -5,10 +5,9 @@ What I changed
 - Added rollup `manualChunks` in `vite.config.ts` to split major vendor code from app code:
   - `react-vendor` (React + react-dom)
   - `icons` (lucide-react)
-  - `genai` (if `@google/genai` is included in client code)
   - fallback `vendor` chunk for other node_modules
 - Lazy-loaded several heavy route/modal components using `React.lazy` + `Suspense` in `App.tsx`:
-  - `InsightsPage`, `ArticleDetail`, `CaseStudies`, `TrialSignup`, `Pricing`, `PrivacyPolicy`, `LoginModal`, `ContactModal`, `ChatWidget`.
+  - `InsightsPage`, `ArticleDetail`, `CaseStudies`, `TrialSignup`, `Pricing`, `PrivacyPolicy`, `LoginModal`, `ContactModal`.
 - Added the `rollup-plugin-visualizer` plugin (disabled by default) to generate `dist/stats.html` when running the analyze script.
 - Added an `analyze` npm script to produce a visual bundle report on Windows:
   - `npm run analyze` (Windows) — sets `ANALYZE=true` and runs `vite build` which generates `dist/stats.html`.

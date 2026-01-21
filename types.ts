@@ -148,9 +148,6 @@ export interface ContentDictionary {
   insights: {
     title: string;
     subtitle: string;
-    demoTitle: string;
-    demoPlaceholder: string;
-    demoButton: string;
     articles?: Array<{
       slug: string;
       category: string;
@@ -203,13 +200,6 @@ export interface ContentDictionary {
       text: string;
       email: string;
     };
-  };
-  chatbot: {
-    title: string;
-    placeholder: string;
-    welcome: string;
-    send: string;
-    disclaimer: string;
   };
   footer: {
     about: string;

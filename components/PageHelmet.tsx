@@ -129,7 +129,7 @@ export const PageHelmet: React.FC<PageHelmetProps> = ({ title, description, lang
         'Case management',
         'Client portal',
         'Middle East compliance',
-        'AI insights',
+        'Operational insights',
         'Secure document storage',
       ],
       softwareHelp: canonicalUrl,

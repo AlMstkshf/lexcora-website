@@ -12,12 +12,10 @@
     "start:server": "cd server && npm run start"
   },
   "dependencies": {
-    "@google/genai": "^1.33.0",
     "lucide-react": "^0.560.0",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
-    "react-router-dom": "^7.6.0",
-    "resend": "^3.4.0"
+    "react-router-dom": "^7.6.0"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

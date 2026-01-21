@@ -192,7 +192,7 @@ export const CONTENT: Record<'en' | 'ar', ContentDictionary> = {
           highlight: true,
           features: [
             "All Features from STARTER",
-            "AI-powered intelligent legal assistant (200 queries)",
+            "Guided legal knowledge search (200 queries)",
             "Advanced chart of accounts + reports",
             "Full HR management",
             "Asset management",
@@ -214,7 +214,7 @@ export const CONTENT: Record<'en' | 'ar', ContentDictionary> = {
           minUsers: "Minimum: 20 Users",
           features: [
             "All Features from PROFESSIONAL",
-            "Unlimited AI-powered intelligent assistant",
+            "Unlimited legal knowledge search",
             "Unlimited storage",
             "Full API (WhatsApp Business + Google + M365)",
             "Custom reports on demand",
@@ -341,9 +341,6 @@ export const CONTENT: Record<'en' | 'ar', ContentDictionary> = {
     insights: {
       title: "Legal Insights & Market Commentary",
       subtitle: "Stay ahead with updates from the UAE legal landscape.",
-      demoTitle: "Experience Our Smart Assistant",
-      demoPlaceholder: "Ask about UAE Labour Law (e.g., 'What is the gratuity calculation?')",
-      demoButton: "Ask Assistant",
       articles: []
     },
     insightsPage: {
@@ -354,13 +351,6 @@ export const CONTENT: Record<'en' | 'ar', ContentDictionary> = {
       readMore: "Read Full Article",
       backButton: "Back to Insights Hub",
       items: []
-    },
-    chatbot: {
-      title: "Rased Virtual Associate",
-      placeholder: "Ask about UAE Law or Firm Management...",
-      welcome: "Welcome. I am Rased, your Senior Virtual Associate. I am here to assist with queries regarding UAE Federal Law, judicial procedures, or the optimization of your firm's practice through LEXCORA. How may I serve your professional requirements today?",
-      send: "Send",
-      disclaimer: "Legal Disclaimer: My responses are for informational and operational guidance only and do not constitute formal legal advice."
     },
     footer: {
       about: "LEXCORA by ALMSTKSHF Co. The definitive ERP for UAE legal excellence.",
@@ -702,9 +692,6 @@ export const CONTENT: Record<'en' | 'ar', ContentDictionary> = {
     insights: {
       title: "رؤى قانونية وتعليقات السوق",
       subtitle: "ابق في المقدمة مع تحديثات المشهد القانوني في الإمارات.",
-      demoTitle: "جرب مساعدنا الذكي",
-      demoPlaceholder: "اسأل عن قانون العمل الإماراتي (مثلاً: 'ما هو حساب مكافأة نهاية الخدمة؟')",
-      demoButton: "اسأل المساعد",
       articles: []
     },
     insightsPage: {
@@ -715,13 +702,6 @@ export const CONTENT: Record<'en' | 'ar', ContentDictionary> = {
       readMore: "اقرأ المقال كاملاً",
       backButton: "العودة لمركز الرؤى",
       items: []
-    },
-    chatbot: {
-      title: "راصد - المساعد الافتراضي",
-      placeholder: "اسأل عن القانون الإماراتي أو إدارة المكتب...",
-      welcome: "مرحباً بكم. أنا 'راصد'، مساعدكم الافتراضي الأول. أنا هنا لمساعدتكم في الاستفسارات المتعلقة بالقانون الاتحادي الإماراتي، أو الإجراءات القضائية، أو تحسين ممارسة مكتبكم عبر نظام ليكسكورا. كيف يمكنني تلبية متطلباتكم المهنية اليوم؟",
-      send: "إرسال",
-      disclaimer: "تنويه قانوني: ردودي هي للإرشاد المعلوماتي والتشغيلي فقط ولا تشكل مشورة قانونية رسمية."
     },
     footer: {
       about: "ليكسكورا من شركة المستكشف. نظام تخطيط الموارد الأمثل للتميز القانوني في الإمارات.",

@@ -1,9 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Language, ArticleRecord } from '../types';
 import { CONTENT } from '../constants';
-import { Search, Clock, Calendar, ArrowRight, ArrowLeft, Sparkles, FileText, BrainCircuit, Loader2, Scale, Upload, XCircle } from 'lucide-react';
-import { Button } from './Button';
-import { analyzeLegalText } from '../services/geminiService';
+import { Search, Clock, Calendar, ArrowRight, ArrowLeft, FileText } from 'lucide-react';
 import { getArticles } from '../services/articleService';
 
 interface InsightsPageProps {
@@ -16,55 +14,8 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ lang, onArticleClick
   const [activeCategory, setActiveCategory] = useState(t.categories[0]);
   const [searchQuery, setSearchQuery] = useState('');
   const articles = useMemo<ArticleRecord[]>(() => getArticles(lang), [lang]);
-  
-  // AI Lab State
-  const [analysisInput, setAnalysisInput] = useState('');
-  const [analysisResult, setAnalysisResult] = useState('');
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [documentFile, setDocumentFile] = useState<{ name: string; base64: string; mimeType: string } | null>(null);
-  const [uploadError, setUploadError] = useState('');
 
   const Arrow = lang === 'ar' ? ArrowLeft : ArrowRight;
-  const hasAnalysisInput = analysisInput.trim().length > 0 || !!documentFile;
-
-  const handleAnalyze = async () => {
-    if (!hasAnalysisInput) return;
-    setIsAnalyzing(true);
-    setAnalysisResult('');
-    setUploadError('');
-    try {
-      const result = await analyzeLegalText(analysisInput.trim() || undefined, lang, {
-        document: documentFile || undefined,
-        onToken: (partial) => setAnalysisResult(partial)
-      });
-      setAnalysisResult(result);
-    } catch (e) {
-      setAnalysisResult("Analysis failed. Please try again.");
-    }
-    setIsAnalyzing(false);
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    if (file.type !== 'application/pdf') {
-      setUploadError(lang === 'en' ? 'Please upload a PDF file.' : '???? ?????? ????? PDF.');
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result as string;
-      const base64 = result.split(',')[1];
-      if (base64) {
-        setDocumentFile({ name: file.name, base64, mimeType: file.type });
-        setUploadError('');
-      } else {
-        setUploadError(lang === 'en' ? 'Unable to read PDF contents.' : '??? ????? ?????? ?? ???? PDF.');
-      }
-    };
-    reader.readAsDataURL(file);
-  };
 
   const filteredArticles = articles.filter((article: ArticleRecord) => {
     const matchesCategory = activeCategory === t.categories[0] || article.category === activeCategory;
@@ -76,11 +27,9 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ lang, onArticleClick
   return (
     <div className="pt-24 pb-16 bg-slate-50 min-h-screen">
       <div className="container mx-auto px-6">
-        
-        {/* Header Section */}
         <div className="text-center mb-12 max-w-3xl mx-auto">
           <span className="text-lexcora-gold font-bold tracking-widest text-sm uppercase mb-2 block">
-            {lang === 'en' ? 'Intelligence Hub' : 'مركز الذكاء'}
+            {lang === 'en' ? 'Intelligence Hub' : 'مركز المعرفة'}
           </span>
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-lexcora-blue mb-6">
             {t.pageTitle}
@@ -90,119 +39,6 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ lang, onArticleClick
           </p>
         </div>
 
-        {/* AI Lab - New Feature */}
-        <div className="mb-16 bg-lexcora-blue rounded-3xl overflow-hidden shadow-2xl relative border border-white/10">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-lexcora-gold/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-          
-          <div className="grid lg:grid-cols-2">
-            <div className="p-8 md:p-12 border-r border-white/10">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-2xl bg-lexcora-gold/20 flex items-center justify-center text-lexcora-gold">
-                   <BrainCircuit size={24} />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-serif font-bold text-white">AI Document Intelligence</h2>
-                  <p className="text-slate-400 text-sm">Analyze contracts or briefs using Gemini 3 Pro reasoning.</p>
-                </div>
-              </div>
-
-              <textarea 
-                className="w-full h-64 bg-slate-900/50 border border-slate-700 rounded-xl p-4 text-slate-300 text-sm focus:outline-none focus:border-lexcora-gold transition-colors font-mono resize-none"
-                placeholder={lang === 'en' ? "Paste legal text here for instant analysis or attach a PDF..." : "الصق النص القانوني هنا للتحليل الفوري أو أرفق ملف PDF..."}
-                value={analysisInput}
-                onChange={(e) => setAnalysisInput(e.target.value)}
-              />
-
-
-
-              <div className="mt-4 flex items-start gap-3 flex-col md:flex-row md:items-center md:justify-between">
-                <label className="flex items-center gap-3 px-4 py-3 bg-slate-900/30 border border-slate-700 rounded-lg cursor-pointer hover:border-lexcora-gold transition-colors w-full md:w-auto">
-                  <div className="w-10 h-10 rounded-full bg-lexcora-gold/20 flex items-center justify-center text-lexcora-gold">
-                    <Upload size={18} />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-white text-sm font-semibold">{lang === 'en' ? 'Upload PDF' : 'تحميل PDF'}</span>
-                    <span className="text-[11px] text-slate-500">{lang === 'en' ? 'Optional: extract text automatically' : 'اختياري: استخراج النص تلقائياً'}</span>
-                  </div>
-                  <input type="file" accept="application/pdf" className="hidden" onChange={handleFileChange} />
-                </label>
-                {documentFile && (
-                  <button
-                    onClick={() => setDocumentFile(null)}
-                    className="flex items-center gap-2 text-xs text-slate-400 hover:text-white transition-colors"
-                  >
-                    <XCircle size={14} /> {lang === 'en' ? 'Remove PDF' : 'إزالة ملف PDF'}
-                  </button>
-                )}
-              </div>
-
-              {documentFile && (
-                <div className="mt-3 text-xs text-slate-300 bg-slate-900/40 border border-slate-800 rounded-lg p-3 flex items-center justify-between">
-                  <div>
-                    <p className="font-semibold">{documentFile.name}</p>
-                    <p className="text-[10px] text-slate-500">{lang === 'en' ? 'Attached for analysis' : 'مرفق للتحليل'}</p>
-                  </div>
-                  <span className="px-2 py-1 bg-lexcora-gold/20 text-lexcora-gold rounded text-[10px]">PDF</span>
-                </div>
-              )}
-
-              {uploadError && (
-                <p className="mt-2 text-xs text-red-300">{uploadError}</p>
-              )}
-              <div className="mt-6 flex justify-between items-center">
-                <p className="text-[10px] text-slate-500 max-w-[200px]">
-                  {lang === 'en' ? "Gemini 3 Pro handles high-reasoning legal tasks." : "جيمناي ٣ برو يعالج المهام القانونية المعقدة."}
-                </p>
-                <Button 
-                  onClick={handleAnalyze} 
-                  disabled={isAnalyzing || !hasAnalysisInput}
-                  className="!px-8"
-                >
-                  {isAnalyzing ? <Loader2 className="animate-spin" size={20} /> : <><Sparkles size={18} /> {lang === 'en' ? 'Run Analysis' : 'تشغيل التحليل'}</>}
-                </Button>
-              </div>
-            </div>
-
-            <div className="p-8 md:p-12 bg-white/5 backdrop-blur-sm min-h-[400px]">
-              {isAnalyzing ? (
-                <div className="h-full flex flex-col items-center justify-center text-center">
-                  <div className="relative mb-6">
-                    <div className="w-16 h-16 border-4 border-lexcora-gold/20 border-t-lexcora-gold rounded-full animate-spin"></div>
-                    <Sparkles className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-lexcora-gold" size={20} />
-                  </div>
-                  <h3 className="text-white font-bold mb-2">Gemini is Processing</h3>
-                  <p className="text-slate-400 text-sm">Cross-referencing UAE statutes and identifying risks...</p>
-                </div>
-              ) : analysisResult ? (
-                <div className="h-full flex flex-col animate-fade-in">
-                  <div className="flex items-center gap-2 mb-6 text-lexcora-gold font-bold uppercase text-xs tracking-widest">
-                    <Scale size={14} /> Analysis Report
-                  </div>
-                  <div className="flex-1 text-slate-200 text-sm leading-relaxed overflow-y-auto max-h-[400px] prose prose-invert prose-sm">
-                    {analysisResult.split('\n').map((line, i) => (
-                      <p key={i} className="mb-2">{line}</p>
-                    ))}
-                  </div>
-                  <div className="mt-6 pt-6 border-t border-white/10 flex gap-4">
-                    <Button variant="outline" className="!py-2 !text-xs" onClick={() => { setAnalysisResult(''); setAnalysisInput(''); setDocumentFile(null); }}>
-                      Clear
-                    </Button>
-                    <Button variant="outline" className="!py-2 !text-xs" onClick={() => navigator.clipboard.writeText(analysisResult)}>
-                      Copy Report
-                    </Button>
-                  </div>
-                </div>
-              ) : (
-                <div className="h-full flex flex-col items-center justify-center text-center opacity-40">
-                  <FileText size={48} className="text-slate-500 mb-4" />
-                  <p className="text-slate-400 text-sm">Results will appear here after analysis.</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Search & Filter */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-12">
           <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
             <div className="relative w-full md:w-1/3">
@@ -233,38 +69,44 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ lang, onArticleClick
           </div>
         </div>
 
-        {/* Articles Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredArticles.map((article) => (
-            <article 
-              key={article.slug} 
-              className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group border border-slate-100 flex flex-col h-full"
-            >
-              <div className="h-48 overflow-hidden relative cursor-pointer" onClick={() => onArticleClick?.(article.slug)}>
-                 <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                 <span className="absolute top-4 left-4 z-20 bg-lexcora-blue text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
-                  {article.category}
-                </span>
-              </div>
-              <div className="p-6 flex-1 flex flex-col">
-                <div className="flex items-center gap-4 text-xs text-slate-400 mb-3">
-                  <span className="flex items-center gap-1"><Calendar size={12} /> {article.date}</span>
-                  <span className="flex items-center gap-1"><Clock size={12} /> {article.readTime}</span>
+        {filteredArticles.length === 0 ? (
+          <div className="bg-white p-10 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center text-slate-500">
+            <FileText size={40} className="mb-3 text-slate-300" />
+            {lang === 'en' ? 'No articles match your filters.' : 'لا توجد مقالات مطابقة للبحث.'}
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredArticles.map((article) => (
+              <article 
+                key={article.slug} 
+                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group border border-slate-100 flex flex-col h-full"
+              >
+                <div className="h-48 overflow-hidden relative cursor-pointer" onClick={() => onArticleClick?.(article.slug)}>
+                   <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                   <span className="absolute top-4 left-4 z-20 bg-lexcora-blue text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+                    {article.category}
+                  </span>
                 </div>
-                <h3 className="font-serif text-xl font-bold text-lexcora-blue mb-3 group-hover:text-lexcora-gold transition-colors cursor-pointer" onClick={() => onArticleClick?.(article.slug)}>
-                  {article.title}
-                </h3>
-                <p className="text-slate-600 text-sm leading-relaxed mb-4 flex-1">{article.excerpt}</p>
-                <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <div className="text-xs font-semibold text-slate-500">By <span className="text-lexcora-blue">{article.author}</span></div>
-                  <button onClick={() => onArticleClick?.(article.slug)} className="text-sm font-bold text-lexcora-gold hover:text-yellow-500 flex items-center gap-1 transition-colors">
-                    {t.readMore} <Arrow size={16} />
-                  </button>
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="flex items-center gap-4 text-xs text-slate-400 mb-3">
+                    <span className="flex items-center gap-1"><Calendar size={12} /> {article.date}</span>
+                    <span className="flex items-center gap-1"><Clock size={12} /> {article.readTime}</span>
+                  </div>
+                  <h3 className="font-serif text-xl font-bold text-lexcora-blue mb-3 group-hover:text-lexcora-gold transition-colors cursor-pointer" onClick={() => onArticleClick?.(article.slug)}>
+                    {article.title}
+                  </h3>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-4 flex-1">{article.excerpt}</p>
+                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <div className="text-xs font-semibold text-slate-500">{lang === 'en' ? 'By' : 'بقلم'} <span className="text-lexcora-blue">{article.author}</span></div>
+                    <button onClick={() => onArticleClick?.(article.slug)} className="text-sm font-bold text-lexcora-gold hover:text-yellow-500 flex items-center gap-1 transition-colors">
+                      {t.readMore} <Arrow size={16} />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
-        </div>
+              </article>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

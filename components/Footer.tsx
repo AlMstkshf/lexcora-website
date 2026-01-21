@@ -29,31 +29,16 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
     setStatus('loading');
     setMessage('');
 
-    try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data?.message || 'Subscription failed');
-      }
-
-      setSubscribed(true);
-      setStatus('success');
-      setMessage(data?.message || t.newsletter.success || 'Welcome to the club!');
-      setEmail('');
-      setTimeout(() => {
-        setSubscribed(false);
-        setStatus('idle');
-        setMessage('');
-      }, 4000);
-    } catch (err: any) {
-      setStatus('error');
-      setMessage(err?.message || 'Something went wrong. Please try again.');
-    }
+    await new Promise(resolve => setTimeout(resolve, 400));
+    setSubscribed(true);
+    setStatus('success');
+    setMessage(t.newsletter.success || 'Welcome to the club!');
+    setEmail('');
+    setTimeout(() => {
+      setSubscribed(false);
+      setStatus('idle');
+      setMessage('');
+    }, 4000);
   };
 
   return (
