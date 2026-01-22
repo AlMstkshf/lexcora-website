@@ -1,0 +1,14 @@
+{
+  "packageManager": "pnpm@10.28.1",
+  "type": "module",
+  "scripts": {
+    "start": "tsx index.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/gateway": "^3.0.22",
+    "@types/node": "^25.0.10",
+    "ai": "^6.0.48",
+    "dotenv": "^17.2.3",
+    "tsx": "^4.21.0"
+  }
+}
