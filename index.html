@@ -13,6 +13,7 @@
     <meta name="geo.region" content="AE" />
     <meta name="geo.placename" content="Dubai" />
     <meta name="robots" content="index, follow" />
+    <link rel="amphtml" href="https://lexcora-mbh.com/amp/en/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -44,6 +45,24 @@
           "lucide-react": "https://esm.sh/lucide-react@^0.560.0"
         }
       }
+    </script>
+    <script>
+      (function() {
+        try {
+          var lang = (location.pathname.split('/').filter(Boolean)[0] || 'en');
+          var ampHref = lang === 'ar'
+            ? 'https://lexcora-mbh.com/amp/ar/'
+            : 'https://lexcora-mbh.com/amp/en/';
+          var link = document.querySelector('link[rel="amphtml"]') || document.createElement('link');
+          link.rel = 'amphtml';
+          link.href = ampHref;
+          if (!link.parentNode) {
+            document.head.appendChild(link);
+          }
+        } catch (e) {
+          // no-op to avoid blocking render
+        }
+      })();
     </script>
   </head>
   <body class="bg-gray-50 text-slate-800 antialiased selection:bg-lexcora-gold selection:text-white">

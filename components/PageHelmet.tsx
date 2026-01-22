@@ -7,6 +7,9 @@ interface PageHelmetProps {
   description: string;
   lang: Language;
   imageUrl?: string;
+  schemaType?: 'SoftwareApplication' | 'ProfessionalService';
+  operatingSystem?: string;
+  faqs?: { question: string; answer: string }[];
 }
 
 const BRAND_OG_IMAGE = '/og/lexcora-og.png';
@@ -21,6 +24,46 @@ const KEYWORDS = [
   'Middle East legal workflows',
 ];
 const STRUCTURED_DATA_ID = 'lexcora-softwareapp-jsonld';
+const DEFAULT_FAQS: Record<'en' | 'ar', { question: string; answer: string }[]> = {
+  en: [
+    {
+      question: 'What is Lexcora ERP?',
+      answer:
+        'Lexcora ERP is a cloud-based practice management suite for law firms, built for GCC compliance, bilingual client experiences, and trust accounting.',
+    },
+    {
+      question: 'Which operating systems does Lexcora support?',
+      answer: 'Lexcora runs in any modern browser on Windows or macOS and is fully responsive for tablets and mobile devices.',
+    },
+    {
+      question: 'How long does implementation take?',
+      answer: 'Most firms launch within 10–14 days with guided onboarding, data migration, and user training included.',
+    },
+    {
+      question: 'Is Lexcora secure and compliant in the UAE?',
+      answer: 'Yes. Lexcora applies role-based access, encryption in transit and at rest, audit logs, and workflows aligned to UAE data governance.',
+    },
+  ],
+  ar: [
+    {
+      question: 'ما هو ليكسورا ERP؟',
+      answer:
+        'ليكسورا ERP هو منصة سحابية لإدارة مكاتب المحاماة، مصممة للامتثال في الخليج، وتجارب عملاء ثنائية اللغة، وحسابات أمانات موثوقة.',
+    },
+    {
+      question: 'ما هي أنظمة التشغيل التي يدعمها ليكسورا؟',
+      answer: 'يعمل ليكسورا على أي متصفح حديث في ويندوز أو ماك، وهو متجاوب بالكامل للأجهزة اللوحية والهواتف.',
+    },
+    {
+      question: 'كم يستغرق التنفيذ؟',
+      answer: 'تطلق معظم الشركات المنصة خلال 10 إلى 14 يوماً مع إعداد موجه، وترحيل بيانات، وتدريب للمستخدمين.',
+    },
+    {
+      question: 'هل ليكسورا آمن ومتوافق في الإمارات؟',
+      answer: 'نعم، يعتمد ليكسورا صلاحيات وصول حسب الدور، وتشفيراً أثناء النقل والتخزين، وسجلات تدقيق، ومسارات عمل متوافقة مع حوكمة البيانات في الإمارات.',
+    },
+  ],
+};
 
 const resolveBaseUrl = () => {
   if (typeof window !== 'undefined' && window.location.origin) {
@@ -69,8 +112,20 @@ const ensureJsonLd = (data: Record<string, unknown>) => {
   script.textContent = JSON.stringify(data);
 };
 
-export const PageHelmet: React.FC<PageHelmetProps> = ({ title, description, lang, imageUrl }) => {
+export const PageHelmet: React.FC<PageHelmetProps> = ({
+  title,
+  description,
+  lang,
+  imageUrl,
+  schemaType = 'SoftwareApplication',
+  operatingSystem = 'Web (browser-based)',
+  faqs,
+}) => {
   const location = useLocation();
+  const localizedFaqs = faqs && faqs.length ? faqs : DEFAULT_FAQS[lang];
+  const inLanguage = lang === 'ar' ? 'ar-SA' : 'en-US';
+  const localizedName =
+    lang === 'ar' ? 'Lexcora ERP لإدارة مكاتب المحاماة' : 'Lexcora ERP for Law Firms';
 
   useEffect(() => {
     document.title = title;
@@ -106,17 +161,18 @@ export const PageHelmet: React.FC<PageHelmetProps> = ({ title, description, lang
     ensureLinkTag('alternate', alternateEn, 'en-US');
     ensureLinkTag('alternate', alternateAr, 'ar-SA');
 
-    ensureJsonLd({
+    const softwareNode = {
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
-      name: lang === 'ar' ? 'Lexcora ERP لإدارة مكاتب المحاماة' : 'Lexcora ERP for Law Firms',
+      '@id': `${canonicalUrl}#lexcora-software`,
+      name: localizedName,
       alternateName: 'Lexcora Legal Cloud',
       applicationCategory: 'BusinessApplication',
       applicationSubCategory: 'LegalPracticeManagementSoftware',
-      operatingSystem: 'Web',
+      operatingSystem,
       url: canonicalUrl,
       image: ogImage,
-      inLanguage: lang === 'ar' ? 'ar-SA' : 'en-US',
+      inLanguage,
       description,
       keywords: KEYWORDS,
       offers: {
@@ -143,8 +199,60 @@ export const PageHelmet: React.FC<PageHelmetProps> = ({ title, description, lang
         name: 'Lexcora',
         url: baseUrl,
       },
+    };
+
+    const professionalServiceNode =
+      schemaType === 'ProfessionalService'
+        ? {
+            '@context': 'https://schema.org',
+            '@type': 'ProfessionalService',
+            '@id': `${canonicalUrl}#lexcora-service`,
+            name: localizedName,
+            description,
+            serviceType: lang === 'ar' ? 'خدمة تخطيط موارد المؤسسة لمكاتب المحاماة' : 'Law Firm ERP implementation and support',
+            areaServed: ['United Arab Emirates', 'Saudi Arabia', 'Qatar', 'Bahrain'],
+            provider: { '@type': 'Organization', name: 'Lexcora', url: baseUrl },
+            url: canonicalUrl,
+            image: ogImage,
+            inLanguage,
+            hasProduct: { '@id': softwareNode['@id'] },
+          }
+        : null;
+
+    const faqNode = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      '@id': `${canonicalUrl}#faqs`,
+      inLanguage,
+      mainEntity: localizedFaqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer,
+        },
+      })),
+    };
+
+    const graph = professionalServiceNode
+      ? [professionalServiceNode, softwareNode, faqNode]
+      : [softwareNode, faqNode];
+
+    ensureJsonLd({
+      '@context': 'https://schema.org',
+      '@graph': graph,
     });
-  }, [title, description, lang, imageUrl, location.pathname]);
+  }, [
+    title,
+    description,
+    lang,
+    imageUrl,
+    schemaType,
+    operatingSystem,
+    localizedFaqs,
+    location.pathname,
+    localizedName,
+  ]);
 
   return null;
 };
