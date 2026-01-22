@@ -92,7 +92,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           
           {/* Brand */}
           <div className="space-y-6">
@@ -163,8 +163,39 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
                   Pricing
                 </Link>
               </li>
+              <li>
+                <Link to={pathWithLang('/case-studies')} className="hover:text-white transition-colors text-left block">
+                  Case Studies
+                </Link>
+              </li>
+              <li>
+                <Link to={pathWithLang('/free-trial')} className="hover:text-white transition-colors text-left block">
+                  Free Trial
+                </Link>
+              </li>
             </ul>
           </div>
+
+           <div>
+            <h3 className="text-white font-bold mb-6">Resources</h3>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link to={pathWithLang('/insights')} className="hover:text-white transition-colors text-left block">
+                  Insights & Blog
+                </Link>
+              </li>
+              <li>
+                <Link to={pathWithLang('/about')} className="hover:text-white transition-colors text-left block">
+                  About Lexcora
+                </Link>
+              </li>
+              <li>
+                <Link to={pathWithLang('/contact')} className="hover:text-white transition-colors text-left block">
+                  Contact / Demo
+                </Link>
+              </li>
+            </ul>
+           </div>
 
            {/* Legal */}
            <div>

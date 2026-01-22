@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, Suspense, useMemo } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate, useParams, Navigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import { Header } from './components/Header';
@@ -13,6 +13,8 @@ import { PageHelmet } from './components/PageHelmet';
 import { ChatbaseEmbed } from './components/ChatbaseEmbed';
 import { CheckoutReturn } from './components/CheckoutReturn';
 import { Language } from './types';
+import { RelatedNav } from './components/RelatedNav';
+import { getFeaturedArticles } from './services/articleService';
 
 // Lazy-load large route/modal components to keep initial bundle small
 const InsightsPage = React.lazy(() => import('./components/InsightsPage').then(m => ({ default: m.InsightsPage })));
@@ -90,6 +92,17 @@ const HomePage: React.FC<{ lang: Language; onContactClick: () => void }> = ({ la
 
 const FeaturesPage: React.FC<{ lang: Language }> = ({ lang }) => {
   const isEnglish = lang === 'en';
+  const popularReads = useMemo(
+    () =>
+      getFeaturedArticles(lang, 3).map((article) => ({
+        title: article.title,
+        href: buildLangPath(lang, `/insights/${article.slug}`),
+        description: article.excerpt,
+        tag: isEnglish ? 'Insights' : 'الرؤى',
+      })),
+    [isEnglish, lang],
+  );
+
   return (
     <div className="pt-24 pb-16 bg-slate-50">
       <PageHelmet
@@ -115,6 +128,13 @@ const FeaturesPage: React.FC<{ lang: Language }> = ({ lang }) => {
         </p>
       </div>
       <Features lang={lang} />
+      <div className="container mx-auto px-6 max-w-5xl">
+        <RelatedNav
+          heading={isEnglish ? 'Popular reads' : 'قراءات شائعة'}
+          items={popularReads}
+          ariaLabel={isEnglish ? 'Popular reads navigation' : 'تنقل القراءات الشائعة'}
+        />
+      </div>
       <Testimonials lang={lang} />
     </div>
   );

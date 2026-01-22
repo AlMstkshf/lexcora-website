@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Language } from '../types';
 import { CONTENT } from '../constants';
 import { Button } from './Button';
@@ -71,6 +71,16 @@ export const Hero: React.FC<HeroProps> = ({ lang, onContactClick }) => {
             >
               {t.ctaSecondary} <Arrow size={18} />
             </Button>
+          </div>
+
+          <div className="text-sm text-slate-600 flex flex-wrap gap-4 items-center">
+            <Link to={pathWithLang('/pricing')} className="font-semibold text-lexcora-blue hover:text-lexcora-gold underline-offset-4 hover:underline">
+              {lang === 'en' ? 'View pricing' : 'عرض الأسعار'}
+            </Link>
+            <span className="text-slate-300" aria-hidden="true">•</span>
+            <Link to={pathWithLang('/case-studies')} className="font-semibold text-lexcora-blue hover:text-lexcora-gold underline-offset-4 hover:underline">
+              {lang === 'en' ? 'See case studies' : 'عرض دراسات الحالة'}
+            </Link>
           </div>
 
           <div 

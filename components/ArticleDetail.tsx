@@ -4,8 +4,10 @@ import { CONTENT } from '../constants';
 import { ArrowLeft, ArrowRight, Calendar, Clock, User, Share2, Printer, Bookmark } from 'lucide-react';
 import { Button } from './Button';
 import { PageHelmet } from './PageHelmet';
-import { getArticleBySlug } from '../services/articleService';
+import { getArticleBySlug, getArticles } from '../services/articleService';
 import type { ArticleRecord } from '../types';
+import { Link } from 'react-router-dom';
+import { RelatedNav } from './RelatedNav';
 
 interface ArticleDetailProps {
   lang: Language;
@@ -16,6 +18,19 @@ interface ArticleDetailProps {
 export const ArticleDetail: React.FC<ArticleDetailProps> = ({ lang, articleSlug, onBack }) => {
   const t = CONTENT[lang].insightsPage;
   const article = useMemo<ArticleRecord | undefined>(() => getArticleBySlug(articleSlug, lang), [articleSlug, lang]);
+  const relatedArticles = useMemo(
+    () =>
+      getArticles(lang)
+        .filter((item) => item.slug !== articleSlug)
+        .slice(0, 4)
+        .map((item) => ({
+          title: item.title,
+          href: `/${lang}/insights/${item.slug}`,
+          description: item.excerpt,
+          tag: lang === 'en' ? 'Insights' : 'الرؤى',
+        })),
+    [articleSlug, lang],
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -55,7 +70,26 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({ lang, articleSlug,
       <div className="container mx-auto px-6 max-w-4xl">
         
         {/* Navigation */}
-        <button 
+        <nav aria-label="Breadcrumb" className="text-sm text-slate-500 mb-4">
+          <ol className="flex items-center gap-2">
+            <li>
+              <Link to={`/${lang}`} className="hover:text-lexcora-blue underline-offset-4 hover:underline">
+                {lang === 'en' ? 'Home' : 'الرئيسية'}
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link to={`/${lang}/insights`} className="hover:text-lexcora-blue underline-offset-4 hover:underline">
+                {lang === 'en' ? 'Insights' : 'الرؤى'}
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" className="text-slate-700 font-semibold truncate">
+              {article.title}
+            </li>
+          </ol>
+        </nav>
+        <button
           onClick={onBack}
           className="group flex items-center gap-2 text-slate-500 hover:text-lexcora-blue transition-colors mb-8 font-medium"
         >
@@ -135,6 +169,12 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({ lang, articleSlug,
             </div>
           )}
         </div>
+
+        <RelatedNav
+          heading={lang === 'en' ? 'Related Articles' : 'مقالات ذات صلة'}
+          items={relatedArticles}
+          ariaLabel={lang === 'en' ? 'Related Insights navigation' : 'تنقل المقالات ذات الصلة'}
+        />
 
         {/* Footer / Call to Action */}
         <div className="mt-16 bg-lexcora-blue rounded-2xl p-8 md:p-12 text-center text-white relative overflow-hidden">

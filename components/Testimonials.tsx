@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Language } from '../types';
 import { CONTENT } from '../constants';
 import { Quote, ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface TestimonialsProps {
   lang: Language;
@@ -108,6 +109,16 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ lang }) => {
               ))}
             </div>
 
+          </div>
+
+          <div className="mt-10 text-center">
+            <Link
+              to={`/${lang}/case-studies`}
+              className="inline-flex items-center gap-2 text-sm font-semibold text-lexcora-gold hover:text-yellow-400 underline-offset-4 hover:underline"
+            >
+              {lang === 'en' ? 'Read full case studies' : 'اقرأ دراسات الحالة الكاملة'}
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </div>
       </div>

@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import { Language, FeatureSection } from '../types';
 import { CONTENT } from '../constants';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface FeaturesProps {
   lang: Language;
 }
 
-const FeatureBlock: React.FC<{ section: FeatureSection; index: number; id?: string }> = ({ section, index, id }) => {
+const FeatureBlock: React.FC<{ section: FeatureSection; index: number; id?: string; lang: Language }> = ({
+  section,
+  index,
+  id,
+  lang,
+}) => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -38,14 +44,34 @@ const FeatureBlock: React.FC<{ section: FeatureSection; index: number; id?: stri
           {section.items.map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div key={idx} className="bg-slate-50 p-5 rounded-lg border border-slate-100 hover:border-lexcora-gold/50 transition-colors duration-300 group hover:bg-white hover:shadow-sm">
+              <div
+                key={idx}
+                className="bg-slate-50 p-5 rounded-lg border border-slate-100 hover:border-lexcora-gold/50 transition-colors duration-300 group hover:bg-white hover:shadow-sm"
+              >
                 <div className="w-12 h-12 bg-lexcora-blue text-lexcora-gold rounded-lg flex items-center justify-center mb-4 transition-all duration-300 ease-out group-hover:scale-110 group-hover:bg-lexcora-gold group-hover:text-lexcora-blue group-hover:shadow-lg group-hover:shadow-lexcora-gold/20">
                   <Icon size={24} className="transition-transform duration-300 group-hover:rotate-3" />
                 </div>
                 <h4 className="font-semibold text-lg text-lexcora-blue mb-2">{item.title}</h4>
                 <p className="text-sm text-slate-600 leading-relaxed">{item.description}</p>
+                <div className="mt-3 flex flex-wrap gap-3 text-sm font-semibold text-lexcora-blue">
+                  <Link
+                    to={`/${lang}/pricing`}
+                    className="hover:text-lexcora-gold underline-offset-4 hover:underline"
+                  >
+                    {lang === 'en' ? 'See pricing' : 'عرض الأسعار'}
+                  </Link>
+                  <span className="text-slate-300" aria-hidden="true">
+                    •
+                  </span>
+                  <Link
+                    to={`/${lang}/case-studies`}
+                    className="hover:text-lexcora-gold underline-offset-4 hover:underline"
+                  >
+                    {lang === 'en' ? 'View case studies' : 'عرض دراسات الحالة'}
+                  </Link>
+                </div>
               </div>
-            )
+            );
           })}
         </div>
       )}
@@ -75,7 +101,7 @@ export const Features: React.FC<FeaturesProps> = ({ lang }) => {
 
         <div className="space-y-8">
           {featureList.map((item, idx) => (
-            <FeatureBlock key={idx} section={item.data} index={idx} id={item.id} />
+            <FeatureBlock key={idx} section={item.data} index={idx} id={item.id} lang={lang} />
           ))}
         </div>
       </div>
