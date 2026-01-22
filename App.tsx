@@ -10,7 +10,7 @@ import { Testimonials } from './components/Testimonials';
 import { About } from './components/About';
 import { NotFound } from './components/NotFound';
 import { PageHelmet } from './components/PageHelmet';
-import { ChatbaseEmbed } from './components/ChatbaseEmbed';
+import { FakeChatButton } from './components/FakeChatButton';
 import { CheckoutReturn } from './components/CheckoutReturn';
 import { Language } from './types';
 import { RelatedNav } from './components/RelatedNav';
@@ -375,7 +375,7 @@ const AppContainer: React.FC = () => {
 
   return (
     <>
-      <ChatbaseEmbed />
+      <FakeChatButton />
       <ScrollToTop />
       <AppLayout
         lang={lang}
