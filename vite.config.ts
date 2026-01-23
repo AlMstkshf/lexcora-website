@@ -30,23 +30,5 @@ export default defineConfig(({ mode }) => {
       // Allow both Vite- and Next-style public env var prefixes so client embeds can read them
       envPrefix: ['VITE_', 'NEXT_PUBLIC_'],
 
-      // Build optimizations: explicit code-splitting to reduce initial bundle size
-      build: {
-        rollupOptions: {
-          output: {
-            manualChunks(id: string) {
-              if (id.includes('node_modules')) {
-                // Group React into its own vendor chunk
-                if (id.includes('react')) return 'react-vendor';
-                if (id.includes('lucide-react')) return 'icons';
-                // Fallback vendor chunk
-                return 'vendor';
-              }
-              // Explicitly return undefined when not matching to satisfy strict checks
-              return undefined as any;
-            }
-          }
-        }
-      }
     };
 });

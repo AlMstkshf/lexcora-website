@@ -3,6 +3,7 @@ import { Language, ArticleRecord } from '../types';
 import { CONTENT } from '../constants';
 import { Button } from './Button';
 import { ArrowRight, Calendar, Clock } from 'lucide-react';
+import { getFeaturedArticles } from '../services/articleService';
 
 interface InsightsProps {
   lang: Language;
@@ -16,10 +17,8 @@ export const Insights: React.FC<InsightsProps> = ({ lang, onViewAll, onArticleCl
 
   useEffect(() => {
     let isMounted = true;
-    import('../services/articleService').then(({ getFeaturedArticles }) => {
-      const featured = getFeaturedArticles(lang);
-      if (isMounted) setArticles(featured);
-    });
+    const featured = getFeaturedArticles(lang);
+    if (isMounted) setArticles(featured);
     return () => {
       isMounted = false;
     };

@@ -10,7 +10,9 @@
     "analyze": "set \"ANALYZE=true\" && vite build",
     "dev:server": "cd server && npm run dev",
     "start:server": "cd server && npm run start",
-    "build:amp": "node scripts/generate-amp.mjs"
+    "build:amp": "node scripts/generate-amp.mjs",
+    "build:sitemap": "node scripts/generate-sitemap.mjs",
+    "indexnow": "node scripts/indexnow-submit.mjs"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^5.4.1",

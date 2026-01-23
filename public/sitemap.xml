@@ -4,55 +4,130 @@
     <loc>https://lexcora-mbh.com/en</loc>
   </url>
   <url>
-    <loc>https://lexcora-mbh.com/en/features</loc>
-  </url>
-  <url>
-    <loc>https://lexcora-mbh.com/en/pricing</loc>
-  </url>
-  <url>
-    <loc>https://lexcora-mbh.com/en/case-studies</loc>
-  </url>
-  <url>
-    <loc>https://lexcora-mbh.com/en/about</loc>
-  </url>
-  <url>
-    <loc>https://lexcora-mbh.com/en/free-trial</loc>
-  </url>
-  <url>
-    <loc>https://lexcora-mbh.com/en/contact</loc>
-  </url>
-  <url>
-    <loc>https://lexcora-mbh.com/en/privacy</loc>
-  </url>
-  <url>
-    <loc>https://lexcora-mbh.com/en/insights</loc>
-  </url>
-  <url>
     <loc>https://lexcora-mbh.com/ar</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/features</loc>
   </url>
   <url>
     <loc>https://lexcora-mbh.com/ar/features</loc>
   </url>
   <url>
+    <loc>https://lexcora-mbh.com/en/pricing</loc>
+  </url>
+  <url>
     <loc>https://lexcora-mbh.com/ar/pricing</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/case-studies</loc>
   </url>
   <url>
     <loc>https://lexcora-mbh.com/ar/case-studies</loc>
   </url>
   <url>
+    <loc>https://lexcora-mbh.com/en/about</loc>
+  </url>
+  <url>
     <loc>https://lexcora-mbh.com/ar/about</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/free-trial</loc>
   </url>
   <url>
     <loc>https://lexcora-mbh.com/ar/free-trial</loc>
   </url>
   <url>
+    <loc>https://lexcora-mbh.com/en/contact</loc>
+  </url>
+  <url>
     <loc>https://lexcora-mbh.com/ar/contact</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/privacy</loc>
   </url>
   <url>
     <loc>https://lexcora-mbh.com/ar/privacy</loc>
   </url>
   <url>
+    <loc>https://lexcora-mbh.com/en/insights</loc>
+  </url>
+  <url>
     <loc>https://lexcora-mbh.com/ar/insights</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/insights/uae-civil-procedure-law-2025-amendments</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/insights/cybersecurity-essentials-dubai-law-firms</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/insights/enforcement-of-foreign-judgments-2025</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/insights/uae-corporate-tax-guide-law-firms</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/insights/digitizing-case-files-moving-beyond-paper</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/insights/ai-in-arbitration-risks-rewards-regulations</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/insights/boutique-litigation-firms-dubai</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/insights/aml-compliance-new-standards-2026</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/insights/future-of-bilingual-legal-contracts</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/insights/blockchain-arbitration-uae-2026</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/insights/uae-space-law-2026-updates</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/insights/green-litigation-esg-uae-2026</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/en/insights/four-day-work-week-uae-lawyers</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/ar/insights/uae-civil-procedure-law-2025-amendments-ar</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/ar/insights/cybersecurity-essentials-dubai-law-firms-ar</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/ar/insights/enforcement-of-foreign-judgments-2025-ar</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/ar/insights/boutique-litigation-firms-dubai-ar</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/ar/insights/aml-compliance-new-standards-2026-ar</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/ar/insights/future-of-bilingual-legal-contracts-ar</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/ar/insights/metaverse-courts-dubai-2026-ar</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/ar/insights/uae-remote-work-law-2026-ar</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/ar/insights/law-firm-mergers-uae-2026-ar</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/ar/insights/nanotechnology-regulations-uae-2026-ar</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/ar/insights/uae-data-protection-2026-update-ar</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/ar/insights/diac-ai-arbitration-rules-2026-ar</loc>
   </url>
   <url>
     <loc>https://lexcora-mbh.com/amp/en/</loc>
@@ -64,46 +139,46 @@
     <loc>https://lexcora-mbh.com/amp/en/features/</loc>
   </url>
   <url>
-    <loc>https://lexcora-mbh.com/amp/en/pricing/</loc>
-  </url>
-  <url>
-    <loc>https://lexcora-mbh.com/amp/en/case-studies/</loc>
-  </url>
-  <url>
-    <loc>https://lexcora-mbh.com/amp/en/about/</loc>
-  </url>
-  <url>
-    <loc>https://lexcora-mbh.com/amp/en/free-trial/</loc>
-  </url>
-  <url>
-    <loc>https://lexcora-mbh.com/amp/en/contact/</loc>
-  </url>
-  <url>
-    <loc>https://lexcora-mbh.com/amp/en/privacy/</loc>
-  </url>
-  <url>
-    <loc>https://lexcora-mbh.com/amp/en/insights/</loc>
-  </url>
-  <url>
     <loc>https://lexcora-mbh.com/amp/ar/features/</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/amp/en/pricing/</loc>
   </url>
   <url>
     <loc>https://lexcora-mbh.com/amp/ar/pricing/</loc>
   </url>
   <url>
+    <loc>https://lexcora-mbh.com/amp/en/case-studies/</loc>
+  </url>
+  <url>
     <loc>https://lexcora-mbh.com/amp/ar/case-studies/</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/amp/en/about/</loc>
   </url>
   <url>
     <loc>https://lexcora-mbh.com/amp/ar/about/</loc>
   </url>
   <url>
+    <loc>https://lexcora-mbh.com/amp/en/free-trial/</loc>
+  </url>
+  <url>
     <loc>https://lexcora-mbh.com/amp/ar/free-trial/</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/amp/en/contact/</loc>
   </url>
   <url>
     <loc>https://lexcora-mbh.com/amp/ar/contact/</loc>
   </url>
   <url>
+    <loc>https://lexcora-mbh.com/amp/en/privacy/</loc>
+  </url>
+  <url>
     <loc>https://lexcora-mbh.com/amp/ar/privacy/</loc>
+  </url>
+  <url>
+    <loc>https://lexcora-mbh.com/amp/en/insights/</loc>
   </url>
   <url>
     <loc>https://lexcora-mbh.com/amp/ar/insights/</loc>

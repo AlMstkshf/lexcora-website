@@ -1,68 +1,53 @@
 [
   {
     "category": "Regulatory",
-    "title": "UAE Civil Procedure Amendments 2024: What to Know",
-    "excerpt": "A detailed look at the recent changes intended to expedite litigation and modernize courtroom procedures.",
+    "title": "UAE Civil Procedure Amendments 2025: Key Takeaways",
+    "excerpt": "A retrospective look at how the 2025 changes have successfully expedited litigation and modernized UAE courtroom procedures.",
     "author": "Omar Al-Futtaim",
-    "date": "Nov 05, 2023",
-    "readTime": "7 min read",
+    "date": "Nov 05, 2025",
+    "readTime": "4 min read",
     "image": "https://images.unsplash.com/photo-1589578527966-fdac0f44566c?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "Litigation",
-      "Civil Law",
-      "Courts"
-    ],
+    "tags": ["Litigation", "Civil Law", "Courts"],
     "content": [
-      "The UAE's legal landscape is constantly evolving, and the recent amendments to the Civil Procedure Law are a testament to the country's commitment to judicial efficiency. The changes primarily focus on streamlining case management and reducing the backlog in courts.",
-      "One of the most significant changes is the expansion of the Case Management Office's (CMO) powers. The CMO can now attempt mediation and settlement before a case even reaches a judge. This pre-trial phase is mandatory for certain types of commercial disputes, aiming to resolve conflicts amicably and swiftly.",
-      "Additionally, the threshold for final judgments by the Court of First Instance has been raised. This means fewer cases will be eligible for appeal, thereby reducing the caseload of appellate courts and providing faster certainty for litigants in smaller claims.",
-      "Service of process has also been modernized. Electronic notification via email or SMS is now considered the primary method of service, replacing the traditional and often delayed physical courier method. Law firms must ensure their client contact details are meticulously updated in the Case Management System to avoid missed notifications."
+      "The UAE's legal landscape reached a new milestone with the full implementation of the 2025 amendments to the Civil Procedure Law. These changes have significantly enhanced judicial efficiency by streamlining case management and clearing long-standing backlogs.",
+      "The expanded powers of the Case Management Office (CMO) are now a central pillar of the system. By making mediation and settlement attempts mandatory for specific commercial disputes before reaching a judge, the courts have seen a marked increase in amicable resolutions.",
+      "Electronic notification via email and SMS is now the established primary method of service. This transition has eliminated the delays associated with traditional physical couriers."
     ],
-    "slug": "uae-civil-procedure-law-2024-amendments",
+    "slug": "uae-civil-procedure-law-2025-amendments",
     "lang": "en"
   },
   {
     "category": "Practice Management",
     "title": "Cybersecurity Essentials for Dubai Law Firms",
-    "excerpt": "With cyberattacks on legal practices rising by 40%, safeguarding client privilege requires more than just a password.",
+    "excerpt": "With cyberattacks on legal practices rising, safeguarding client privilege in 2026 requires advanced defensive strategies.",
     "author": "Tech Desk",
-    "date": "Oct 28, 2023",
+    "date": "Oct 28, 2025",
     "readTime": "5 min read",
     "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "Security",
-      "Data",
-      "Risk"
-    ],
+    "tags": ["Security", "Data", "Risk"],
     "content": [
-      "Law firms are treasure troves of sensitive data—intellectual property, merger details, and private client information. This makes them prime targets for cybercriminals. In Dubai, where high-value transactions are the norm, the risk profile is even higher.",
-      "The first line of defense is the human firewall. Phishing attacks remain the most common entry point. Regular training for staff on how to identify suspicious emails is non-negotiable. A single click on a malicious link can compromise an entire firm's network.",
-      "Technologically, encryption is king. Data should be encrypted both at rest (on your servers) and in transit (when being emailed). Using secure client portals, like the one offered by LEXCORA, is far safer than sending attachments via standard email.",
-      "Finally, have an Incident Response Plan. If a breach occurs, knowing exactly who to call and how to contain the threat can mean the difference between a minor disruption and a catastrophic reputational loss."
+      "Law firms remain prime targets for cybercriminals due to the sensitive nature of data they handle. The 'human firewall' continues to be the most critical line of defense.",
+      "Modern standards dictate that encryption is mandatory both at rest and in transit. Secure client portals, such as LEXCORA, have effectively replaced standard email attachments.",
+      "Every firm must now operate with a tested Incident Response Plan to prevent minor technical disruptions from turning into catastrophic disasters."
     ],
     "slug": "cybersecurity-essentials-dubai-law-firms",
     "lang": "en"
   },
   {
     "category": "Regulatory",
-    "title": "Enforcement of Foreign Judgments: A 2024 Update",
-    "excerpt": "Analyzing the reciprocity principle and the new streamlined procedures for enforcing international awards in UAE courts.",
+    "title": "Enforcement of Foreign Judgments: 2025 Status Report",
+    "excerpt": "Analyzing the continued impact of the reciprocity principle relaxation and streamlined international award enforcement in the UAE.",
     "author": "Layla Hakim",
-    "date": "Oct 15, 2023",
+    "date": "Oct 15, 2025",
     "readTime": "9 min read",
     "image": "https://images.unsplash.com/photo-1589391886645-d51941baf7fb?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "International Law",
-      "Enforcement",
-      "Courts"
-    ],
+    "tags": ["International Law", "Enforcement", "Courts"],
     "content": [
-      "For decades, enforcing a foreign judgment in UAE courts was a notoriously difficult process, often involving a re-examination of the merits of the case. However, recent legal reforms and circulars from the Ministry of Justice have signaled a pro-enforcement stance.",
-      "The key development is the relaxation of the reciprocity requirement. Previously, UAE courts required proof that the foreign jurisdiction would enforce a UAE judgment. Now, the burden of proof has shifted, and courts are more willing to accept reciprocity based on international conventions.",
-      "Furthermore, the execution judge now has the authority to issue immediate enforcement orders for judgments from jurisdictions with specific treaties, such as the UK (following the recent memorandum). This bypasses the lengthy Court of First Instance ratification process.",
-      "Practitioners must still be wary of the public policy defense, which remains a common ground for challenging enforcement. Ensuring that the foreign judgment does not contravene Sharia principles or UAE public order is essential for success."
+      "The historical difficulty of enforcing foreign judgments in the UAE has largely been mitigated by recent reforms and Ministry of Justice circulars.",
+      "A pivotal development has been the relaxation of strict reciprocity requirements. Courts are now more willing to recognize reciprocity based on international conventions.",
+      "Ensuring that foreign judgments align with UAE public order and Sharia principles remains a critical step for successful enforcement."
     ],
-    "slug": "enforcement-of-foreign-judgments-2024",
+    "slug": "enforcement-of-foreign-judgments-2025",
     "lang": "en"
   },
   {
@@ -70,20 +55,14 @@
     "title": "UAE Corporate Tax for Law Firms: Compliance Guide",
     "excerpt": "Understanding the implications of the 9% corporate tax rate on legal practices and how to structure your firm for compliance.",
     "author": "Dr. Hassan Al-Ali",
-    "date": "Oct 12, 2023",
+    "date": "Oct 12, 2025",
     "readTime": "8 min read",
     "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "Tax Law",
-      "Compliance",
-      "Finance"
-    ],
+    "tags": ["Tax Law", "Compliance", "Finance"],
     "content": [
-      "The implementation of the Federal Decree-Law No. 47 of 2022 on the Taxation of Corporations and Businesses marks a significant shift in the UAE's economic landscape. For law firms, specifically those operating as partnerships or sole establishments, understanding the nuances of this new regime is critical for maintaining profitability and compliance.",
-      "Effective from financial years starting on or after June 1, 2023, the 9% Corporate Tax applies to taxable income exceeding AED 375,000. This threshold is strategically set to support startups and small businesses, but most established legal practices will find themselves within the taxable bracket. The first step for any firm is to conduct a comprehensive financial audit to segregate taxable and non-taxable income streams.",
-      "Crucially, the law provides for certain exemptions and reliefs, particularly for free zone entities that meet the 'Qualifying Income' criteria. However, many mainland law firms will need to restructure their expense reporting. Deductible expenses, such as employee salaries, rent, and software subscriptions (like LEXCORA), play a vital role in calculating the final taxable income. Proper documentation of these expenses is no longer just best practice; it is a regulatory necessity.",
-      "Furthermore, partners in law firms must distinguish between their profit shares and salaries. The Federal Tax Authority (FTA) has issued specific guidelines on how partner remuneration is treated. Failure to adhere to these guidelines could result in penalties or the disallowance of deductions.",
-      "We recommend that all law firms appoint a dedicated tax officer or engage with external consultants to navigate this transition. Integrating an ERP system that automatically categorizes expenses according to tax codes can save hundreds of administrative hours and reduce the risk of human error during tax filing season."
+      "For law firms, understanding the nuances of the 9% corporate tax on taxable income exceeding AED 375,000 is critical for maintaining profitability.",
+      "Mainland firms must meticulously document deductible expenses like employee salaries and software subscriptions. Proper documentation is a regulatory necessity.",
+      "We recommend integrating an ERP system that automatically categorizes expenses according to tax codes to reduce the risk of human error during filing."
     ],
     "slug": "uae-corporate-tax-guide-law-firms",
     "lang": "en"
@@ -91,23 +70,16 @@
   {
     "category": "Practice Management",
     "title": "Digitizing Case Files: Moving Beyond Paper",
-    "excerpt": "A step-by-step framework for transitioning your firm's archives to a secure, cloud-based ERP system without disrupting ongoing litigation.",
+    "excerpt": "A step-by-step framework for transitioning your firm's archives to a secure, cloud-based ERP system.",
     "author": "Sarah Jenkins",
-    "date": "Sep 28, 2023",
+    "date": "Sep 28, 2025",
     "readTime": "6 min read",
     "image": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "Digital Transformation",
-      "Efficiency",
-      "Operations"
-    ],
+    "tags": ["Digital Transformation", "Efficiency", "Operations"],
     "content": [
-      "The era of the physical file room is drawing to a close. With the UAE Ministry of Justice accelerating its adoption of smart court systems and remote hearings, law firms that rely on paper archives are finding themselves at a competitive disadvantage. Digitization is no longer a luxury; it is a prerequisite for modern legal practice.",
-      "However, the prospect of digitizing thousands of archived case files can be daunting. The key to a successful digital transformation lies in a phased approach. Attempting to scan everything at once often leads to operational paralysis. Instead, we propose a 'day-forward' strategy combined with on-demand back-scanning.",
-      "Phase 1: The 'Day-Forward' Policy. Establish a firm-wide rule that all new cases opened after a specific date are born digital. Correspondence, pleadings, and evidence are uploaded directly to the Case Management System (CMS). Physical copies are only kept if legally mandated for original submission.",
-      "Phase 2: Active Case Migration. Identify all currently active files. These should be prioritized for scanning. A dedicated team or external vendor should be tasked with digitizing these files over a set period, ensuring that metadata (case numbers, client names, dates) is accurately indexed.",
-      "Phase 3: Archive Management. For closed cases, digitize only on demand. If a file is requested for reference, it gets scanned. Over time, this organic process reduces the physical footprint without a massive upfront investment.",
-      "Security is paramount during this transition. Cloud-based ERPs like LEXCORA offer bank-grade encryption and granular access controls, ensuring that client confidentiality is maintained—often more securely than in a physical cabinet accessible to anyone with a key."
+      "Digitization is no longer a luxury; it is a prerequisite for modern legal practice as the UAE Ministry of Justice accelerates smart court adoption.",
+      "We propose a 'day-forward' strategy combined with on-demand back-scanning to reduce the physical footprint without a massive upfront investment.",
+      "Cloud-based ERPs like LEXCORA offer bank-grade encryption, ensuring client confidentiality is maintained more securely than in physical cabinets."
     ],
     "slug": "digitizing-case-files-moving-beyond-paper",
     "lang": "en"
@@ -117,20 +89,14 @@
     "title": "AI in Arbitration: Risks, Rewards, and Regulations",
     "excerpt": "Exploring how Artificial Intelligence is being used in dispute resolution within the DIFC and ADGM courts.",
     "author": "Karim Fayed",
-    "date": "Sep 15, 2023",
+    "date": "Sep 15, 2025",
     "readTime": "5 min read",
     "image": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "AI",
-      "Arbitration",
-      "Future Tech"
-    ],
+    "tags": ["AI", "Arbitration", "Future Tech"],
     "content": [
-      "Artificial Intelligence is making waves in international arbitration, and the UAE's leading financial centers, DIFC and ADGM, are at the forefront of this adoption. From predictive analytics to automated document review, AI is reshaping how disputes are resolved.",
-      "One of the most immediate applications is in e-discovery. In complex commercial arbitrations involving terabytes of data, AI algorithms can sift through documents to identify relevant evidence with a speed and accuracy that human teams cannot match. This significantly reduces the time and cost associated with the disclosure phase.",
-      "Predictive justice is another emerging frontier. Tools that analyze past judgments to predict the likelihood of success are becoming increasingly sophisticated. While these tools do not replace legal judgment, they provide valuable data points for strategy formulation and settlement negotiations.",
-      "However, the rise of AI in arbitration raises significant regulatory and ethical questions. The 'black box' problem—where the reasoning behind an AI's conclusion is opaque—poses a challenge to the principles of natural justice and the right to a reasoned award. Furthermore, issues of bias in training data must be addressed to ensure fairness.",
-      "The DIFC Courts have established a Digital Economy Court to specifically handle disputes arising from emerging technologies. As the regulatory framework evolves, arbitrators and counsel must become technologically literate to effectively advocate for their clients in this new digital arena."
+      "Artificial Intelligence is reshaping how disputes are resolved in DIFC and ADGM courts, from predictive analytics to automated document review.",
+      "In e-discovery, AI algorithms identify relevant evidence with speed and accuracy that human teams cannot match, significantly reducing costs.",
+      "The 'black box' problem—where AI reasoning is opaque—poses a challenge to the principles of natural justice and requires new regulatory frameworks."
     ],
     "slug": "ai-in-arbitration-risks-rewards-regulations",
     "lang": "en"
@@ -138,47 +104,35 @@
   {
     "category": "Market Analysis",
     "title": "The Rise of Boutique Litigation Firms in Dubai",
-    "excerpt": "Why specialized boutique firms are gaining market share over large generalist practices in the post-pandemic era.",
+    "excerpt": "Why specialized boutique firms are gaining market share over large generalist practices in 2026.",
     "author": "Market Watch Team",
-    "date": "Aug 30, 2023",
+    "date": "Aug 30, 2025",
     "readTime": "7 min read",
     "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "Trends",
-      "Growth",
-      "Strategy"
-    ],
+    "tags": ["Trends", "Growth", "Strategy"],
     "content": [
-      "The Dubai legal market is witnessing a structural shift. For decades, large international firms and massive local generalist practices dominated the landscape. However, post-pandemic data suggests a significant migration of high-value litigation work to specialized boutique firms.",
-      "Several factors are driving this trend. First is the demand for specialized expertise. In an increasingly complex regulatory environment, clients prefer deep knowledge in specific sectors (e.g., construction disputes, maritime law, or white-collar crime) over the 'one-stop-shop' model.",
-      "Second is conflict of interest. Large firms often face conflict issues due to their vast institutional client bases, preventing them from acting against banks or major developers. Boutique firms, with their leaner client lists, are often conflict-free and can aggressively pursue claims against major entities.",
-      "Third is cost-efficiency and agility. Without the overheads of a global network, boutique firms can offer more competitive fee structures and personalized partner attention. Technology plays a crucial role here; cloud-based ERPs allow a 10-lawyer firm to operate with the same efficiency and infrastructure as a 100-lawyer practice.",
-      "For aspiring legal entrepreneurs, this represents a golden era. The market is rewarding agility, specialization, and technological adoption. The firms that succeed will be those that combine deep subject matter expertise with modern, efficient practice management."
+      "The Dubai legal market is witnessing a shift toward specialized boutique firms that offer deep sector-specific expertise.",
+      "Boutique firms face fewer conflicts of interest than large global firms, allowing them to pursue claims against major entities more aggressively.",
+      "Technology plays a crucial role; cloud-based ERPs allow smaller firms to operate with the same efficiency as massive practices."
     ],
     "slug": "boutique-litigation-firms-dubai",
     "lang": "en"
   },
   {
     "category": "Regulatory",
-    "title": "AML Compliance: New Standards for 2024",
-    "excerpt": "An overview of the updated Anti-Money Laundering regulations enforced by the Ministry of Justice and what they mean for your client onboarding.",
+    "title": "AML Compliance: New Standards for 2026",
+    "excerpt": "An overview of the updated AML regulations and what they mean for client onboarding in UAE law firms.",
     "author": "Fatima Al-Sayed",
-    "date": "Aug 12, 2023",
+    "date": "Aug 12, 2025",
     "readTime": "10 min read",
     "image": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "AML",
-      "Compliance",
-      "Risk"
-    ],
+    "tags": ["AML", "Compliance", "Risk"],
     "content": [
-      "The UAE's commitment to combatting financial crime has led to a rigorous overhaul of Anti-Money Laundering (AML) and Counter-Terrorism Financing (CTF) regulations. For lawyers, who are classified as Designated Non-Financial Businesses and Professions (DNFBPs), the compliance burden has increased significantly.",
-      "The new 2024 standards mandate a risk-based approach to client onboarding. It is no longer sufficient to simply copy a passport. Law firms must conduct enhanced due diligence (EDD) on clients from high-risk jurisdictions or those identified as Politically Exposed Persons (PEPs).",
-      "Furthermore, the reporting mechanism for Suspicious Activity Reports (SARs) has been streamlined through the goAML portal. Failure to report suspicious transactions can lead to severe criminal penalties and license revocation. The Ministry of Justice has intensified its inspection campaigns to ensure adherence.",
-      "Law firms must implement robust internal controls. This includes appointing a compliance officer, conducting regular staff training, and maintaining auditable records of all due diligence activities. Technology is the first line of defense; modern legal ERPs include integrated AML screening tools that automatically check client names against global sanctions lists.",
-      "Compliance should not be viewed merely as a tick-box exercise but as a cornerstone of the firm's reputation. In a global financial hub like Dubai, demonstrating the highest standards of integrity is a competitive advantage."
+      "The 2024-2025 standards mandate a risk-based approach to client onboarding. Law firms must conduct enhanced due diligence on high-risk jurisdictions.",
+      "Reporting mechanisms for Suspicious Activity Reports (SARs) have been streamlined through the goAML portal. Failure to report carries severe penalties.",
+      "Integrity is a competitive advantage in a global financial hub like Dubai, making compliance a cornerstone of any firm's reputation."
     ],
-    "slug": "aml-compliance-new-standards-2024",
+    "slug": "aml-compliance-new-standards-2026",
     "lang": "en"
   },
   {
@@ -186,157 +140,288 @@
     "title": "The Future of Bilingual Legal Contracts",
     "excerpt": "How automated document generation is solving the Arabic-English dual language requirement in UAE courts.",
     "author": "James Wilson",
-    "date": "Jul 22, 2023",
+    "date": "Jul 22, 2025",
     "readTime": "6 min read",
     "image": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "Translation",
-      "Automation",
-      "Contracts"
-    ],
+    "tags": ["Translation", "Automation", "Contracts"],
     "content": [
-      "In the UAE, the duality of language is a fundamental aspect of legal practice. While international business is often conducted in English, the official language of the courts is Arabic. This creates a perpetual bottleneck: the need to translate lengthy contracts and pleadings accurately and quickly.",
-      "Historically, this has been a manual, expensive, and error-prone process. However, the next generation of legal tech is changing the game. Automated document generation tools, integrated into ERP systems, can now produce dual-column bilingual contracts instantly based on pre-approved templates.",
-      "These systems ensure consistency in terminology. Legal terms of art are mapped one-to-one, reducing the risk of a translation discrepancy altering the legal meaning of a clause. This is particularly vital in dispute resolution clauses where ambiguity can be fatal.",
-      "Beyond templates, advances in Neural Machine Translation (NMT) specifically trained on legal corpora are allowing for first-draft translations of bespoke documents that are 80-90% accurate. This shifts the lawyer's role from translator to reviewer, significantly increasing leverage and profitability.",
-      "Firms that master this bilingual automation will dominate the cross-border transactional market, offering faster turnaround times and lower costs to clients who operate in this multicultural jurisdiction."
+      "In the UAE, automated document generation tools integrated into ERP systems can now produce dual-column bilingual contracts instantly.",
+      "Neural Machine Translation (NMT) trained on legal corpora allows for first-draft translations that are highly accurate, increasing firm leverage.",
+      "Consistency in terminology is ensured, reducing the risk of translation discrepancies altering the legal meaning of clauses."
     ],
     "slug": "future-of-bilingual-legal-contracts",
     "lang": "en"
   },
   {
-    "category": "تنظيمي",
-    "title": "تعديلات قانون الإجراءات المدنية الإماراتي ٢٠٢٤",
-    "excerpt": "نظرة تفصيلية على التغييرات الأخيرة التي تهدف إلى تسريع التقاضي وتحديث إجراءات قاعة المحكمة.",
-    "author": "عمر الفطيم",
-    "date": "٥ نوفمبر ٢٠٢٣",
-    "readTime": "٧ دقائق قراءة",
-    "image": "https://images.unsplash.com/photo-1589578527966-fdac0f44566c?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "التقاضي",
-      "القانون المدني",
-      "المحاكم"
-    ],
+    "category": "Legal Tech",
+    "title": "Decentralized Justice: Blockchain Arbitration in 2026",
+    "excerpt": "How UAE firms are using smart contracts to automate dispute resolution in early 2026.",
+    "author": "Sarah Jenkins",
+    "date": "Jan 18, 2026",
+    "readTime": "6 min read",
+    "image": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800",
+    "tags": ["Blockchain", "Smart Contracts", "Arbitration"],
     "content": [
-      "يتطور المشهد القانوني في دولة الإمارات العربية المتحدة باستمرار، وتعد التعديلات الأخيرة على قانون الإجراءات المدنية دليلاً على التزام الدولة بالكفاءة القضائية. تركز التغييرات بشكل أساسي على تبسيط إدارة القضايا وتقليل التراكم في المحاكم.",
-      "أحد أهم التغييرات هو توسيع صلاحيات مكتب إدارة الدعوى (CMO). يمكن للمكتب الآن محاولة الوساطة والتسوية قبل وصول القضية إلى القاضي. هذه المرحلة قبل المحاكمة إلزامية لأنواع معينة من النزاعات التجارية، بهدف حل النزاعات ودياً وبسرعة.",
-      "بالإضافة إلى ذلك، تم رفع الحد الأدنى للأحكام النهائية الصادرة عن المحكمة الابتدائية. وهذا يعني أن عدداً أقل من القضايا سيكون مؤهلاً للاستئناف، مما يقلل من عبء القضايا على محاكم الاستئناف ويوفر يقيناً أسرع للمتقاضين في المطالبات الصغيرة.",
-      "تم تحديث إجراءات الإعلان أيضاً. يعتبر الإخطار الإلكتروني عبر البريد الإلكتروني أو الرسائل النصية القصيرة الآن الطريقة الأساسية للإعلان، بدلاً من الطريقة التقليدية التي غالباً ما تتأخر عبر البريد. يجب على مكاتب المحاماة التأكد من تحديث تفاصيل الاتصال بعملائهم بدقة في نظام إدارة القضايا لتجنب تفويت الإشعارات."
+      "UAE has solidified its position as a blockchain leader. Decentralized platforms allow for automated arbitration through smart contract triggers.",
+      "These systems provide 'on-chain' resolution for minor breaches, where escrow is released based on verified data inputs, bypassing traditional filings.",
+      "The DIFC Courts' recent guidance on digital assets has paved the way for enforceable blockchain-based settlements."
     ],
-    "slug": "uae-civil-procedure-law-2024-amendments",
+    "slug": "blockchain-arbitration-uae-2026",
+    "lang": "en"
+  },
+  {
+    "category": "Regulatory",
+    "title": "UAE Space Law: The 2026 Regulatory Horizon",
+    "excerpt": "A look at the new liability frameworks for private space missions operating out of the UAE.",
+    "author": "Dr. Hassan Al-Ali",
+    "date": "Jan 15, 2026",
+    "readTime": "8 min read",
+    "image": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&q=80&w=800",
+    "tags": ["Space Law", "Liability", "Regulation"],
+    "content": [
+      "The 2026 updates to UAE Space Law provide clear frameworks for liability and resource rights for private entities in the burgeoning space sector.",
+      "New regulations impose strict 'clean space' requirements on operators to manage orbital debris, mirroring international sustainability standards.",
+      "Law firms are seeing a surge in 'Space-Tech' practices advising on satellite launch agreements as the UAE becomes a regional launch hub."
+    ],
+    "slug": "uae-space-law-2026-updates",
+    "lang": "en"
+  },
+  {
+    "category": "Sustainability",
+    "title": "Green Litigation: ESG Disclosure Obligations in 2026",
+    "excerpt": "Mandatory ESG reporting is now a reality for UAE firms, affecting corporate litigation strategies.",
+    "author": "Layla Hakim",
+    "date": "Jan 10, 2026",
+    "readTime": "7 min read",
+    "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800",
+    "tags": ["ESG", "Sustainability", "Litigation"],
+    "content": [
+      "Following COP28, mandatory ESG reporting for large-cap companies has led to the first wave of 'Greenwashing' litigation in 2026.",
+      "Shareholders are using mandatory disclosures to hold boards accountable for climate pledges, with courts developing expertise in carbon data assessment.",
+      "ESG due diligence is now integrated into every M&A transaction as non-compliance poses significant regulatory risks."
+    ],
+    "slug": "green-litigation-esg-uae-2026",
+    "lang": "en"
+  },
+  {
+    "category": "Practice Management",
+    "title": "The 4-Day Work Week in UAE Law Firms",
+    "excerpt": "Analyzing productivity and retention in firms that adopted flexible work models by 2026.",
+    "author": "Market Watch Team",
+    "date": "Jan 05, 2026",
+    "readTime": "5 min read",
+    "image": "https://images.unsplash.com/photo-1506784919141-93330693ec83?auto=format&fit=crop&q=80&w=800",
+    "tags": ["Work Culture", "Productivity", "Human Resources"],
+    "content": [
+      "The 4-day work week has become a standard for top-tier boutique firms in Dubai to attract and retain elite talent in 2026.",
+      "Firms using AI-driven systems have maintained billable output despite shorter hours, shifting focus from hours sat to outcomes delivered.",
+      "Clients have embraced the model as it leads to more focused and less burnt-out counsel, redefining Dubai's legal work culture."
+    ],
+    "slug": "four-day-work-week-uae-lawyers",
+    "lang": "en"
+  },
+  {
+    "category": "تنظيمي",
+    "title": "تعديلات قانون الإجراءات المدنية الإماراتي 2025: ما الذي تحقق؟",
+    "excerpt": "نظرة تحليلية على التغييرات التي دخلت حيز التنفيذ لتبسيط التقاضي وتحديث الإجراءات القضائية في الدولة.",
+    "author": "عمر الفطيم",
+    "date": "5 نوفمبر 2025",
+    "readTime": "4 دقائق قراءة",
+    "image": "https://images.unsplash.com/photo-1589578527966-fdac0f44566c?auto=format&fit=crop&q=80&w=800",
+    "tags": ["التقاضي", "القانون المدني", "المحاكم"],
+    "content": [
+      "شهد المشهد القانوني في دولة الإمارات تحولاً جذرياً مع تطبيق تعديلات 2025، مما أدى لرفع كفاءة المنظومة القضائية وتقليل فترات التقاضي.",
+      "أصبحت محاولات الوساطة عبر مكتب إدارة الدعوى (CMO) إلزامية في النزاعات التجارية، مما أدى لتسوية نسبة كبيرة من القضايا ودياً.",
+      "الإخطار الإلكتروني أصبح الوسيلة الأساسية والمعتمدة قانوناً، مما يسهل إجراءات الإعلان القضائي ويوفر الوقت."
+    ],
+    "slug": "uae-civil-procedure-law-2025-amendments-ar",
     "lang": "ar"
   },
   {
     "category": "إدارة الممارسة",
     "title": "أساسيات الأمن السيبراني لمكاتب المحاماة في دبي",
-    "excerpt": "مع ارتفاع الهجمات السيبرانية على الممارسات القانونية بنسبة ٤٠٪، تتطلب حماية امتياز العميل أكثر من مجرد كلمة مرور.",
+    "excerpt": "مع ارتفاع الهجمات السيبرانية عالمياً، أصبحت حماية بيانات العملاء تتطلب استراتيجيات دفاعية متقدمة في عام 2026.",
     "author": "المكتب التقني",
-    "date": "٢٨ أكتوبر ٢٠٢٣",
-    "readTime": "٥ دقائق قراءة",
+    "date": "28 أكتوبر 2025",
+    "readTime": "5 دقائق قراءة",
     "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "الأمن",
-      "البيانات",
-      "المخاطر"
-    ],
+    "tags": ["الأمن", "البيانات", "المخاطر"],
     "content": [
-      "تعد مكاتب المحاماة كنوزاً من البيانات الحساسة - الملكية الفكرية، وتفاصيل الاندماج، ومعلومات العملاء الخاصة. وهذا يجعلها أهدافاً رئيسية لمجرمي الإنترنت. في دبي، حيث المعاملات عالية القيمة هي القاعدة، فإن ملف المخاطر أعلى.",
-      "خط الدفاع الأول هو جدار الحماية البشري. تظل هجمات التصيد الاحتيالي هي نقطة الدخول الأكثر شيوعاً. التدريب المنتظم للموظفين حول كيفية تحديد رسائل البريد الإلكتروني المشبوهة أمر غير قابل للتفاوض. يمكن للنقر فوق رابط ضار واحد أن يعرض شبكة الشركة بأكملها للخطر.",
-      "تكنولوجياً، التشفير هو الملك. يجب تشفير البيانات سواء كانت في حالة سكون (على خوادمك) أو أثناء النقل (عند إرسالها بالبريد الإلكتروني). يعد استخدام بوابات العملاء الآمنة، مثل تلك التي تقدمها LEXCORA، أكثر أماناً بكثير من إرسال المرفقات عبر البريد الإلكتروني القياسي.",
-      "أخيراً، يجب أن يكون لديك خطة استجابة للحوادث. إذا حدث خرق، فإن معرفة من تتصل به بالضبط وكيفية احتواء التهديد يمكن أن يعني الفرق بين اضطراب طفيف وخسارة كارثية للسمعة."
+      "تعد مكاتب المحاماة في دبي أهدافاً رئيسية نظراً لحساسية البيانات التي تديرها. التدريب المستمر للموظفين هو خط الدفاع الأول.",
+      "التشفير واستخدام بوابات العملاء الآمنة مثل LEXCORA أصبحا بديلاً ضرورياً للبريد الإلكتروني التقليدي لضمان السرية.",
+      "يجب امتلاك خطة استجابة للحوادث لضمان سرعة احتواء أي خرق أمني وتقليل الأضرار القانونية."
     ],
-    "slug": "cybersecurity-essentials-dubai-law-firms",
+    "slug": "cybersecurity-essentials-dubai-law-firms-ar",
     "lang": "ar"
   },
   {
     "category": "تنظيمي",
-    "title": "إنفاذ الأحكام الأجنبية: تحديث ٢٠٢٤",
+    "title": "إنفاذ الأحكام الأجنبية: تحديث 2025",
     "excerpt": "تحليل مبدأ المعاملة بالمثل والإجراءات المبسطة الجديدة لإنفاذ القرارات الدولية في محاكم الإمارات.",
     "author": "ليلى حكيم",
-    "date": "١٥ أكتوبر ٢٠٢٣",
-    "readTime": "٩ دقائق قراءة",
+    "date": "15 أكتوبر 2025",
+    "readTime": "9 دقائق قراءة",
     "image": "https://images.unsplash.com/photo-1589391886645-d51941baf7fb?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "القانون الدولي",
-      "الإنفاذ",
-      "المحاكم"
-    ],
+    "tags": ["القانون الدولي", "الإنفاذ", "المحاكم"],
     "content": [
-      "لعقود من الزمان، كان إنفاذ حكم أجنبي في محاكم الإمارات عملية صعبة للغاية، غالباً ما تتضمن إعادة فحص موضوع القضية. ومع ذلك، أشارت الإصلاحات القانونية الأخيرة والتعاميم الصادرة عن وزارة العدل إلى موقف مؤيد للإنفاذ.",
-      "التطور الرئيسي هو تخفيف متطلبات المعاملة بالمثل. سابقاً، كانت محاكم الإمارات تطلب إثبات أن الولاية القضائية الأجنبية ستنفذ حكماً إماراتياً. الآن، تحول عبء الإثبات، وأصبحت المحاكم أكثر استعداداً لقبول المعاملة بالمثل بناءً على الاتفاقيات الدولية.",
-      "علاوة على ذلك، يتمتع قاضي التنفيذ الآن بسلطة إصدار أوامر إنفاذ فورية للأحكام الصادرة من ولايات قضائية لها معاهدات محددة، مثل المملكة المتحدة (بعد المذكرة الأخيرة). هذا يتجاوز عملية التصديق الطويلة في المحكمة الابتدائية.",
-      "لا يزال يتعين على الممارسين الحذر من دفاع النظام العام، الذي يظل سبباً شائعاً للطعن في الإنفاذ. التأكد من أن الحكم الأجنبي لا يتعارض مع مبادئ الشريعة أو النظام العام الإماراتي ضروري للنجاح."
+      "شهد إنفاذ الأحكام الأجنبية تحولاً كبيراً بفضل الإصلاحات التي تبنت موقفاً مؤيداً للتنفيذ السريع للأحكام الدولية.",
+      "أصبح قاضي التنفيذ يمتلك سلطة إصدار أوامر فورية للأحكام الصادرة من دول تربطها معاهدات بالدولة، مما يختصر الإجراءات.",
+      "التأكد من توافق الحكم الأجنبي مع النظام العام الإماراتي يظل الخطوة الأهم لضمان نجاح التنفيذ."
     ],
-    "slug": "enforcement-of-foreign-judgments-2024",
+    "slug": "enforcement-of-foreign-judgments-2025-ar",
     "lang": "ar"
   },
   {
     "category": "تحليل السوق",
     "title": "صعود شركات التقاضي المتخصصة في دبي",
-    "excerpt": "لماذا تكتسب الشركات المتخصصة حصة سوقية أكبر من الممارسات العامة الكبيرة في مرحلة ما بعد الجائحة.",
+    "excerpt": "لماذا تكتسب الشركات المتخصصة حصة سوقية أكبر من المكاتب العامة الكبيرة في عام 2026.",
     "author": "فريق مراقبة السوق",
-    "date": "٣٠ أغسطس ٢٠٢٣",
-    "readTime": "٧ دقائق قراءة",
+    "date": "30 أغسطس 2025",
+    "readTime": "7 دقائق قراءة",
     "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "اتجاهات",
-      "نمو",
-      "استراتيجية"
-    ],
+    "tags": ["اتجاهات", "نمو", "استراتيجية"],
     "content": [
-      "يشهد سوق دبي القانوني تحولاً هيكلياً. لعقود من الزمان، هيمنت الشركات الدولية الكبيرة والممارسات العامة المحلية الضخمة على المشهد. ومع ذلك، تشير بيانات ما بعد الجائحة إلى هجرة كبيرة لأعمال التقاضي عالية القيمة إلى شركات متخصصة.",
-      "هناك عدة عوامل تقود هذا الاتجاه. الأول هو الطلب على الخبرة المتخصصة. في بيئة تنظيمية متزايدة التعقيد، يفضل العملاء المعرفة العميقة في قطاعات محددة (مثل نزاعات البناء، أو القانون البحري، أو الجرائم المالية) على نموذج 'المتجر الشامل'.",
-      "الثاني هو تضارب المصالح. غالباً ما تواجه الشركات الكبيرة مشاكل تضارب بسبب قواعد عملائها المؤسسية الضخمة، مما يمنعها من العمل ضد البنوك أو كبار المطورين. غالباً ما تكون الشركات المتخصصة، بقوائم عملائها الأصغر، خالية من التضارب ويمكنها متابعة المطالبات بقوة ضد الكيانات الكبرى.",
-      "الثالث هو فعالية التكلفة والمرونة. بدون النفقات العامة لشبكة عالمية، يمكن للشركات المتخصصة تقديم هياكل رسوم أكثر تنافسية واهتمام شخصي من الشركاء. تلعب التكنولوجيا دوراً حاسماً هنا؛ تسمح أنظمة تخطيط موارد المؤسسات القائمة على السحابة لشركة مكونة من ١٠ محامين بالعمل بنفس الكفاءة والبنية التحتية لممارسة تضم ١٠٠ محام.",
-      "بالنسبة لرواد الأعمال القانونيين الطموحين، يمثل هذا عصراً ذهبياً. يكافئ السوق المرونة والتخصص وتبني التكنولوجيا. الشركات التي ستنجح هي تلك التي تجمع بين الخبرة العميقة في الموضوع وإدارة الممارسة الحديثة والفعالة."
+      "يشهد سوق دبي القانوني تحولاً نحو المكاتب المتخصصة (Boutique Firms) التي تركز على قطاعات دقيقة مثل نزاعات البناء.",
+      "تساهم التكنولوجيا في تمكين المكاتب الصغيرة من العمل بكفاءة تضاهي الشركات العالمية مع تقديم تكاليف أقل.",
+      "العملاء الآن يفضلون الخبرة العميقة والاهتمام الشخصي الذي توفره هذه المكاتب المتخصصة."
     ],
-    "slug": "boutique-litigation-firms-dubai",
+    "slug": "boutique-litigation-firms-dubai-ar",
     "lang": "ar"
   },
   {
     "category": "تنظيمي",
-    "title": "معايير امتثال غسل الأموال ٢٠٢٤",
-    "excerpt": "نظرة عامة على لوائح مكافحة غسل الأموال المحدثة التي تفرضها وزارة العدل وما تعنيه لإجراءات قبول العملاء.",
+    "title": "معايير امتثال غسل الأموال 2026",
+    "excerpt": "نظرة عامة على لوائح مكافحة غسل الأموال المحدثة وما تعنيه لإجراءات قبول العملاء في مكاتب المحاماة.",
     "author": "فاطمة السيد",
-    "date": "١٢ أغسطس ٢٠٢٣",
-    "readTime": "١٠ دقائق قراءة",
+    "date": "12 أغسطس 2025",
+    "readTime": "10 دقائق قراءة",
     "image": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "مكافحة غسل الأموال",
-      "الامتثال",
-      "المخاطر"
-    ],
+    "tags": ["مكافحة غسل الأموال", "الامتثال", "المخاطر"],
     "content": [
-      "أدى التزام الإمارات العربية المتحدة بمكافحة الجرائم المالية إلى إصلاح صارم للوائح مكافحة غسل الأموال (AML) وتمويل الإرهاب (CTF). بالنسبة للمحامين، الذين تم تصنيفهم كأعمال ومهن غير مالية محددة (DNFBPs)، زاد عبء الامتثال بشكل كبير.",
-      "تفرض معايير ٢٠٢٤ الجديدة نهجاً قائماً على المخاطر لقبول العملاء. لم يعد كافياً مجرد نسخ جواز سفر. يجب على مكاتب المحاماة إجراء العناية الواجبة المعززة (EDD) على العملاء من الولايات القضائية عالية المخاطر أو أولئك الذين تم تحديدهم كأشخاص معرضين سياسياً (PEPs).",
-      "علاوة على ذلك، تم تبسيط آلية الإبلاغ عن تقارير الأنشطة المشبوهة (SARs) من خلال بوابة goAML. يمكن أن يؤدي الفشل في الإبلاغ عن المعاملات المشبوهة إلى عقوبات جنائية شديدة وإلغاء الترخيص. كثفت وزارة العدل حملاتها التفتيشية لضمان الالتزام.",
-      "يجب على مكاتب المحاماة تنفيذ ضوابط داخلية قوية. ويشمل ذلك تعيين مسؤول امتثال، وإجراء تدريب منتظم للموظفين، والحفاظ على سجلات قابلة للتدقيق لجميع أنشطة العناية الواجبة. التكنولوجيا هي خط الدفاع الأول؛ تتضمن أنظمة تخطيط موارد المؤسسات القانونية الحديثة أدوات فحص مكافحة غسل الأموال المتكاملة التي تتحقق تلقائياً من أسماء العملاء مقابل قوائم العقوبات العالمية.",
-      "لا ينبغي النظر إلى الامتثال مجرد تمرين لوضع علامة في المربع، بل كحجر زاوية لسمعة المكتب. في مركز مالي عالمي مثل دبي، يعد إظهار أعلى معايير النزاهة ميزة تنافسية."
+      "أدى التزام الإمارات بمكافحة الجرائم المالية إلى إصلاحات صارمة تفرض العناية الواجبة المعززة (EDD) على العملاء.",
+      "الإبلاغ عبر بوابة goAML أصبح إلزامياً لأي نشاط مشبوه، مع تكثيف التفتيش لضمان الالتزام الكامل باللوائح.",
+      "تدمج الأنظمة القانونية الحديثة أدوات فحص تلقائية لضمان دقة الامتثال وحماية سمعة المكتب."
     ],
-    "slug": "aml-compliance-new-standards-2024",
+    "slug": "aml-compliance-new-standards-2026-ar",
     "lang": "ar"
   },
   {
     "category": "التكنولوجيا القانونية",
     "title": "مستقبل العقود القانونية ثنائية اللغة",
-    "excerpt": "كيف يحل إنشاء المستندات الآلي متطلبات اللغة المزدوجة العربية والإنجليزية في محاكم الإمارات.",
+    "excerpt": "كيف يحل إنشاء المستندات الآلي متطلبات اللغة المزدوجة في محاكم الإمارات بفاعلية.",
     "author": "جيمس ويلسون",
-    "date": "٢٢ يوليو ٢٠٣",
-    "readTime": "٦ دقائق قراءة",
+    "date": "22 يوليو 2025",
+    "readTime": "6 دقائق قراءة",
     "image": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=800",
-    "tags": [
-      "الترجمة",
-      "الأتمتة",
-      "العقود"
-    ],
+    "tags": ["الترجمة", "الأتمتة", "العقود"],
     "content": [
-      "في الإمارات العربية المتحدة، تعد ازدواجية اللغة جانباً أساسياً من الممارسة القانونية. في حين تتم الأعمال الدولية غالباً باللغة الإنجليزية، فإن اللغة الرسمية للمحاكم هي العربية. يخلق هذا عنق زجاجة دائم: الحاجة إلى ترجمة العقود والمرافعات الطويلة بدقة وبسرعة.",
-      "تاريخياً، كانت هذه عملية يدوية ومكلفة وعرضة للخطأ. ومع ذلك، فإن الجيل القادم من التكنولوجيا القانونية يغير اللعبة. يمكن لأدوات إنشاء المستندات الآلية، المدمجة في أنظمة تخطيط موارد المؤسسات، الآن إنتاج عقود ثنائية اللغة ذات عمودين فوراً بناءً على قوالب معتمدة مسبقاً.",
-      "تضمن هذه الأنظمة الاتساق في المصطلحات. يتم تعيين المصطلحات القانونية الفنية واحداً لواحد، مما يقلل من خطر تباين الترجمة الذي يغير المعنى القانوني لبند ما. هذا أمر حيوي بشكل خاص في بنود حل النزاعات حيث يمكن أن يكون الغموض قاتلاً.",
-      "إلى جانب القوالب، يسمح التقدم في الترجمة الآلية العصبية (NMT) المدربة خصيصاً على المتون القانونية بترجمات المسودة الأولى للمستندات المخصصة بدقة ٨٠-٩٠٪. وهذا يحول دور المحامي من مترجم إلى مراجع، مما يزيد بشكل كبير من الرافعة المالية والربحية.",
-      "الشركات التي تتقن هذه الأتمتة ثنائية اللغة ستهيمن على سوق المعاملات عبر الحدود، وتقدم أوقات استجابة أسرع وتكاليف أقل للعملاء الذين يعملون في هذا الاختصاص القضائي متعدد الثقافات."
+      "تتيح أدوات الأتمتة الحديثة إنتاج عقود ثنائية اللغة فوراً، مما يضمن اتساق المصطلحات القانونية في كلا النصين.",
+      "تقنيات الترجمة الآلية العصبية (NMT) تحول دور المحامي من مترجم إلى مراجع استراتيجي، مما يرفع الإنتاجية.",
+      "المكاتب التي تتبنى هذه التقنيات تقدم خدمات أسرع وتكلفة أقل في سوق المعاملات الدولية."
     ],
-    "slug": "future-of-bilingual-legal-contracts",
+    "slug": "future-of-bilingual-legal-contracts-ar",
+    "lang": "ar"
+  },
+  {
+    "category": "تكنولوجيا قانونية",
+    "title": "القضاء الافتراضي الكامل: محاكم الميتافيرس 2026",
+    "excerpt": "كيف بدأت محاكم دبي في عقد جلسات استماع كاملة في بيئات افتراضية غامرة.",
+    "author": "عمر الفطيم",
+    "date": "20 يناير 2026",
+    "readTime": "5 دقائق قراءة",
+    "image": "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=800",
+    "tags": ["الميتافيرس", "الأصول الرقمية", "التقاضي"],
+    "content": [
+      "في مطلع 2026، أطلقت محاكم دبي مبادرة 'التقاضي الغامر' لنزاعات الملكية الفكرية داخل بيئات افتراضية.",
+      "تسمح هذه التقنية لمعاينة الأدلة الرقمية مثل الـ NFTs في سياقها الأصلي، مما يوفر فهماً أعمق للنزاع.",
+      "تُلغى الحواجز الجغرافية تماماً، مما يسمح للخبراء الدوليين بالشهادة عبر صورهم الرمزية مع التحقق من الهوية الرقمية."
+    ],
+    "slug": "metaverse-courts-dubai-2026-ar",
+    "lang": "ar"
+  },
+  {
+    "category": "تنظيمي",
+    "title": "قانون العمل 2026: تنظيم العمل عن بُعد عبر الحدود",
+    "excerpt": "نظرة على التعديلات التشريعية التي تنظم توظيف الكفاءات العالمية من خارج الدولة.",
+    "author": "فاطمة السيد",
+    "date": "16 يناير 2026",
+    "readTime": "7 دقائق قراءة",
+    "image": "https://images.unsplash.com/photo-1587560699334-cc4ff634909a?auto=format&fit=crop&q=80&w=800",
+    "tags": ["قانون العمل", "العمل عن بعد", "التشريعات"],
+    "content": [
+      "أقرت الإمارات ملحقاً جديداً لقانون العمل ينظم توظيف موظفين يقيمون بشكل دائم في دول أخرى للعمل لدى شركات محلية.",
+      "يحدد القانون جهة الاختصاص القضائي وآلية دفع المساهمات التأمينية، مما يزيل الغموض القانوني للشركات.",
+      "يفرض القانون تحديث عقود العمل لتشمل بنود حماية البيانات والسرية العابرة للحدود."
+    ],
+    "slug": "uae-remote-work-law-2026-ar",
+    "lang": "ar"
+  },
+  {
+    "category": "تحليل السوق",
+    "title": "اندماج المكاتب القانونية: موجة الاندماجات الكبرى 2026",
+    "excerpt": "لماذا تختار المكاتب المتوسطة الاندماج لمواجهة تكاليف التحول الرقمي والذكاء الاصطناعي.",
+    "author": "فريق مراقبة السوق",
+    "date": "12 يناير 2026",
+    "readTime": "6 دقائق قراءة",
+    "image": "https://images.unsplash.com/photo-1521791136364-798a7bc0d262?auto=format&fit=crop&q=80&w=800",
+    "tags": ["اندماج", "استراتيجية", "الذكاء الاصطناعي"],
+    "content": [
+      "يشهد عام 2026 موجة اندماجات كبيرة للمكاتب المحلية لتعزيز القدرات التكنولوجية ومواجهة تكاليف الذكاء الاصطناعي.",
+      "تسعى المكاتب لإنشاء كيانات 'وطنية كبرى' قادرة على منافسة الشركات الدولية في المشاريع الضخمة.",
+      "الهدف الأساسي هو تقاسم تكاليف أنظمة الأمن السيبراني والذكاء الاصطناعي التوليدي القانوني المتقدمة."
+    ],
+    "slug": "law-firm-mergers-uae-2026-ar",
+    "lang": "ar"
+  },
+  {
+    "category": "تنظيمي",
+    "title": "تنظيم تقنيات النانو: التشريعات الجديدة 2026",
+    "excerpt": "الإمارات تضع أول إطار قانوني شامل لاستخدام تكنولوجيا النانو في الصناعات والطب.",
+    "author": "د. حسن العلي",
+    "date": "08 يناير 2026",
+    "readTime": "8 دقائق قراءة",
+    "image": "https://images.unsplash.com/photo-1532187878419-4ba3c6906a2c?auto=format&fit=crop&q=80&w=800",
+    "tags": ["تكنولوجيا النانو", "الصحة", "التشريع"],
+    "content": [
+      "أصدرت وزارة الصناعة لائحة تنظيمية لسلامة منتجات النانو، تفرض متطلبات صارمة على وضع العلامات التعريفية.",
+      "يحدد القانون مسؤوليات المصنعين في حال حدوث أضرار بيئية أو صحية غير متوقعة نتيجة المواد النانوية.",
+      "بدأت المحاكم في اعتماد معايير فنية جديدة لتقييم الضرر في قضايا المسؤولية عن المنتج التقنية المعقدة."
+    ],
+    "slug": "nanotechnology-regulations-uae-2026-ar",
+    "lang": "ar"
+  },
+  {
+    "category": "الامتثال",
+    "title": "قانون حماية البيانات الشخصية 2.0: تحديثات 2026",
+    "excerpt": "تغليظ العقوبات على تسريب البيانات واعتماد معايير صارمة للذكاء الاصطناعي المسؤول.",
+    "author": "ليلى حكيم",
+    "date": "04 يناير 2026",
+    "readTime": "9 دقائق قراءة",
+    "image": "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&q=80&w=800",
+    "tags": ["حماية البيانات", "الخصوصية", "الذكاء الاصطناعي"],
+    "content": [
+      "تحديثات 2026 تركز على تنظيم كيفية معالجة خوارزميات الذكاء الاصطناعي للبيانات الشخصية الحساسة.",
+      "أصبح من حق الأفراد الحصول على 'شرح منطقي' لأي قرار يتم اتخاذه عبر الذكاء الاصطناعي لضمان الشفافية.",
+      "تم رفع سقف الغرامات المالية للشركات التي تفشل في الإبلاغ عن اختراقات البيانات بشكل فوري."
+    ],
+    "slug": "uae-data-protection-2026-update-ar",
+    "lang": "ar"
+  },
+  {
+    "category": "التحكيم",
+    "title": "التحكيم بالذكاء الاصطناعي في مركز دبي (DIAC)",
+    "excerpt": "اعتماد القواعد الجديدة التي تسمح للمحكمين باستخدام المساعدين الرقميين في صياغة القرارات.",
+    "author": "كريم فايد",
+    "date": "01 يناير 2026",
+    "readTime": "6 دقائق قراءة",
+    "image": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800",
+    "tags": ["التحكيم", "DIAC", "الذكاء الاصطناعي"],
+    "content": [
+      "أصدر مركز دبي للتحكيم الدولي دليلاً ينظم استخدام الذكاء الاصطناعي، مع ضرورة الإفصاح الكامل عند استخدامه.",
+      "المسؤولية النهائية عن القرار تقع على عاتق المحكم البشري، مع تشجيع الأدوات الرقمية لمراجعة المستندات الضخمة.",
+      "هذه الخطوة تجعل دبي الوجهة الأكثر جاذبية للتحكيم التقني، حيث توفر سرعة فائقة مع الحفاظ على النزاهة."
+    ],
+    "slug": "diac-ai-arbitration-rules-2026-ar",
     "lang": "ar"
   }
 ]
