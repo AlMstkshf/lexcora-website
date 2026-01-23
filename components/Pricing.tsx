@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Language, PricingTier } from '../types';
 import { CONTENT } from '../constants';
 import { Check, Star, Users, Gift, BadgePercent, ArrowRight, ArrowLeft } from 'lucide-react';
 import { Button } from './Button';
-import { PaymentModal } from './PaymentModal';
-import { ReferralModal } from './ReferralModal';
+
+const PaymentModal = React.lazy(() => import('./PaymentModal').then(m => ({ default: m.PaymentModal })));
+const ReferralModal = React.lazy(() => import('./ReferralModal').then(m => ({ default: m.ReferralModal })));
 
 interface PricingProps {
   lang: Language;
@@ -237,19 +238,21 @@ export const Pricing: React.FC<PricingProps> = ({ lang, onContactClick }) => {
         </div>
       </div>
       
-      <PaymentModal 
-        isOpen={isPaymentOpen}
-        onClose={() => setIsPaymentOpen(false)}
-        tier={selectedTier}
-        billingCycle={billingCycle}
-        lang={lang}
-      />
+      <Suspense fallback={null}>
+        <PaymentModal 
+          isOpen={isPaymentOpen}
+          onClose={() => setIsPaymentOpen(false)}
+          tier={selectedTier}
+          billingCycle={billingCycle}
+          lang={lang}
+        />
 
-      <ReferralModal
-        isOpen={isReferralOpen}
-        onClose={() => setIsReferralOpen(false)}
-        lang={lang}
-      />
+        <ReferralModal
+          isOpen={isReferralOpen}
+          onClose={() => setIsReferralOpen(false)}
+          lang={lang}
+        />
+      </Suspense>
     </div>
   );
 };
