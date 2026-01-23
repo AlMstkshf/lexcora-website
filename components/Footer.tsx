@@ -10,6 +10,9 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ lang }) => {
   const t = CONTENT[lang].footer;
+  const isArabic = lang === 'ar';
+  const alignClass = isArabic ? 'text-right' : 'text-left';
+  const alignItems = isArabic ? 'items-end' : 'items-start';
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -46,7 +49,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
       <div className="container mx-auto px-6">
         
         {/* Newsletter Section */}
-        <div className="bg-white/5 rounded-2xl p-8 mb-16 border border-white/10 flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div className={`bg-white/5 rounded-2xl p-8 mb-16 border border-white/10 flex flex-col lg:flex-row ${alignItems} justify-between gap-8 ${alignClass}`}>
           <div className="lg:w-1/2">
             <h3 className="text-2xl font-serif font-bold text-white mb-2">{t.newsletter.title}</h3>
             <p className="text-slate-400">{t.newsletter.description}</p>
@@ -59,7 +62,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
               </div>
             ) : (
               <>
-                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
+                <form onSubmit={handleSubscribe} className={`flex flex-col sm:flex-row ${isArabic ? 'sm:flex-row-reverse' : ''} gap-3`}>
                   <input 
                     type="email" 
                     placeholder={t.newsletter.placeholder}
@@ -92,7 +95,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
+        <div className={`grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16 ${alignClass}`}>
           
           {/* Brand */}
           <div className="space-y-6">
@@ -121,18 +124,18 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className={alignClass}>
             <h3 className="text-white font-bold mb-6">{t.contact}</h3>
-            <ul className="space-y-4 text-sm">
-              <li className="flex gap-3">
+            <ul className={`space-y-4 text-sm ${alignClass}`}>
+              <li className={`flex gap-3 ${isArabic ? 'flex-row-reverse text-right' : ''}`}>
                 <MapPin size={18} className="text-lexcora-gold shrink-0" aria-hidden="true" />
                 <span>{t.address}</span>
               </li>
-              <li className="flex gap-3">
+              <li className={`flex gap-3 ${isArabic ? 'flex-row-reverse text-right' : ''}`}>
                 <Mail size={18} className="text-lexcora-gold shrink-0" aria-hidden="true" />
                 <span>rased@almstkshf.com</span>
               </li>
-              <li className="flex gap-3">
+              <li className={`flex gap-3 ${isArabic ? 'flex-row-reverse text-right' : ''}`}>
                 <Phone size={18} className="text-lexcora-gold shrink-0" aria-hidden="true" />
                 <span dir="ltr">+971 58 595 2035</span>
               </li>
@@ -140,57 +143,57 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
           </div>
 
           {/* Links 1 */}
-          <div>
+          <div className={alignClass}>
             <h3 className="text-white font-bold mb-6">Product</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link to={pathWithLang('/features#features-productivity')} className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/features#features-productivity')} className={`hover:text-white transition-colors block ${alignClass}`}>
                   Case Management
                 </Link>
               </li>
               <li>
-                <Link to={pathWithLang('/features#features-client')} className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/features#features-client')} className={`hover:text-white transition-colors block ${alignClass}`}>
                   Client Portal
                 </Link>
               </li>
               <li>
-                <Link to={pathWithLang('/features#features-governance')} className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/features#features-governance')} className={`hover:text-white transition-colors block ${alignClass}`}>
                   Security & Governance
                 </Link>
               </li>
               <li>
-                <Link to={pathWithLang('/pricing')} className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/pricing')} className={`hover:text-white transition-colors block ${alignClass}`}>
                   Pricing
                 </Link>
               </li>
               <li>
-                <Link to={pathWithLang('/case-studies')} className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/case-studies')} className={`hover:text-white transition-colors block ${alignClass}`}>
                   Case Studies
                 </Link>
               </li>
               <li>
-                <Link to={pathWithLang('/free-trial')} className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/free-trial')} className={`hover:text-white transition-colors block ${alignClass}`}>
                   Free Trial
                 </Link>
               </li>
             </ul>
           </div>
 
-           <div>
+           <div className={alignClass}>
             <h3 className="text-white font-bold mb-6">Resources</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link to={pathWithLang('/insights')} className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/insights')} className={`hover:text-white transition-colors block ${alignClass}`}>
                   Insights & Blog
                 </Link>
               </li>
               <li>
-                <Link to={pathWithLang('/about')} className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/about')} className={`hover:text-white transition-colors block ${alignClass}`}>
                   About Lexcora
                 </Link>
               </li>
               <li>
-                <Link to={pathWithLang('/contact')} className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/contact')} className={`hover:text-white transition-colors block ${alignClass}`}>
                   Contact / Demo
                 </Link>
               </li>
@@ -198,11 +201,11 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
            </div>
 
            {/* Legal */}
-           <div>
+           <div className={alignClass}>
             <h3 className="text-white font-bold mb-6">Legal</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link to={pathWithLang('/privacy')} className="hover:text-white transition-colors text-left block">
+                <Link to={pathWithLang('/privacy')} className={`hover:text-white transition-colors block ${alignClass}`}>
                   {t.privacy}
                 </Link>
               </li>
@@ -212,10 +215,10 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
           </div>
         </div>
 
-        <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
+        <div className={`border-t border-slate-800 pt-8 flex flex-col ${isArabic ? 'md:flex-row-reverse' : 'md:flex-row'} justify-between items-center text-xs text-slate-500 ${alignClass}`}>
           <p>{t.rights}</p>
-          <div className="flex items-center gap-2 mt-4 md:mt-0">
-             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+          <div className={`flex items-center gap-2 mt-4 md:mt-0 ${isArabic ? 'flex-row-reverse' : ''}`}>
+             <div className="w-2 h-2 bg-green-500 rounded-full" aria-hidden="true"></div>
              <span>Systems Operational</span>
           </div>
         </div>

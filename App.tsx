@@ -10,7 +10,7 @@ import { Testimonials } from './components/Testimonials';
 import { About } from './components/About';
 import { NotFound } from './components/NotFound';
 import { PageHelmet } from './components/PageHelmet';
-import { FakeChatButton } from './components/FakeChatButton';
+import { ChatbaseEmbed } from './components/ChatbaseEmbed';
 import { Language } from './types';
 import { RelatedNav } from './components/RelatedNav';
 import { getFeaturedArticles } from './services/articleService';
@@ -25,7 +25,6 @@ const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy').then
 const LoginModal = React.lazy(() => import('./components/LoginModal').then(m => ({ default: m.LoginModal })));
 const ContactModal = React.lazy(() => import('./components/ContactModal').then(m => ({ default: m.ContactModal })));
 const CheckoutReturnPage = React.lazy(() => import('./components/CheckoutReturn').then(m => ({ default: m.CheckoutReturn })));
-const LazyFakeChatButton = React.lazy(() => import('./components/FakeChatButton').then(m => ({ default: m.FakeChatButton })));
 const buildLangPath = (lang: Language, path: string = '/') => {
   const normalized = path === '/' ? '' : path.startsWith('/') ? path : `/${path}`;
   return `/${lang}${normalized}`;
@@ -335,7 +334,6 @@ const AppContainer: React.FC = () => {
   });
   const [loginOpen, setLoginOpen] = useState(false);
   const [isAppLoading, setIsAppLoading] = useState(true);
-  const [shouldLoadChat, setShouldLoadChat] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -355,25 +353,6 @@ const AppContainer: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => setIsAppLoading(false), 800);
     return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const idleHandle =
-      typeof (window as any).requestIdleCallback === 'function'
-        ? (window as any).requestIdleCallback(() => setShouldLoadChat(true))
-        : null;
-    const timeoutHandle =
-      idleHandle === null ? window.setTimeout(() => setShouldLoadChat(true), 600) : null;
-
-    return () => {
-      if (idleHandle !== null && typeof (window as any).cancelIdleCallback === 'function') {
-        (window as any).cancelIdleCallback(idleHandle);
-      }
-      if (timeoutHandle !== null) {
-        window.clearTimeout(timeoutHandle);
-      }
-    };
   }, []);
 
   useEffect(() => {
@@ -403,11 +382,7 @@ const AppContainer: React.FC = () => {
 
   return (
     <>
-      {shouldLoadChat && (
-        <Suspense fallback={null}>
-          <LazyFakeChatButton />
-        </Suspense>
-      )}
+      <ChatbaseEmbed />
       <ScrollToTop />
       <AppLayout
         lang={lang}
