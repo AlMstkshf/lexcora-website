@@ -68,7 +68,9 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ lang }) => {
                    </p>
 
                    <div className="flex flex-col items-center">
-                     <h4 className="text-lg font-bold text-lexcora-gold">{item.author}</h4>
+                     <p className="text-lg font-bold text-lexcora-gold bg-lexcora-blue/90 px-4 py-2 rounded-full border border-lexcora-gold/30 shadow-lg shadow-black/20 inline-flex items-center gap-2">
+                       {item.author}
+                     </p>
                      <p className="text-sm text-slate-400">{item.role}</p>
                      <p className="text-xs font-semibold text-slate-500 mt-1 uppercase tracking-wider">{item.firm}</p>
                    </div>

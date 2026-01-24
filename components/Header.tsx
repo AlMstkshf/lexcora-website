@@ -56,7 +56,6 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, onLoginClick, cur
         <Link
           to="/"
           className="flex items-center gap-2 group"
-          aria-label="LEXCORA - Go to Homepage"
           onClick={() => setMobileMenuOpen(false)}
         >
           <div className="w-10 h-10 bg-lexcora-gold rounded-sm flex items-center justify-center group-hover:bg-yellow-400 transition-colors">
