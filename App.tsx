@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense, useMemo } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate, useParams, Navigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
+import clarity from '@microsoft/clarity';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Features } from './components/Features';
@@ -336,6 +337,21 @@ const AppContainer: React.FC = () => {
   const [isAppLoading, setIsAppLoading] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const clarityId = import.meta.env.VITE_CLARITY_ID || import.meta.env.NEXT_PUBLIC_CLARITY_ID || 'v69n8cwkw4';
+    if (!clarityId) return;
+    try {
+      // Prefer the SDK's init helper; fall back to the global function signature if needed.
+      if (typeof (clarity as any).init === 'function') {
+        (clarity as any).init(clarityId);
+      } else {
+        (clarity as any)('start', clarityId);
+      }
+    } catch (err) {
+      console.warn('Clarity failed to start', err);
+    }
+  }, []);
 
   useEffect(() => {
     const rootEl = document.getElementById('root');
