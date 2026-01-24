@@ -73,7 +73,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onContactClick }) => {
             </Button>
           </div>
 
-          <div className="text-sm text-slate-600 flex flex-wrap gap-4 items-center">
+          <div className="text-sm text-slate-700 flex flex-wrap gap-4 items-center">
             <Link to={pathWithLang('/pricing')} className="font-semibold text-lexcora-blue hover:text-lexcora-gold underline-offset-4 hover:underline">
               {lang === 'en' ? 'View pricing' : 'عرض الأسعار'}
             </Link>
@@ -84,7 +84,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onContactClick }) => {
           </div>
 
           <div 
-            className="pt-8 border-t border-slate-200 flex flex-wrap gap-6 text-sm font-medium text-slate-500 opacity-0 animate-fade-in-up"
+            className="pt-8 border-t border-slate-200 flex flex-wrap gap-6 text-sm font-medium text-slate-600 opacity-0 animate-fade-in-up"
             style={{ animationDelay: '500ms' }}
           >
              <span className="flex items-center gap-2"><CheckCircle size={16} className="text-lexcora-gold" /> UAE Compliance Ready</span>
@@ -116,7 +116,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onContactClick }) => {
            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 text-center">Powering Industry Leaders Across the Emirates</p>
         </div>
         <div className="flex whitespace-nowrap animate-marquee">
-          <div className="flex items-center gap-16 px-8 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+          <div className="flex items-center gap-16 px-8 grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
              <span className="text-2xl font-serif font-bold text-slate-800">AL MANSOORI & CO</span>
              <span className="text-2xl font-serif font-bold text-slate-800">STERLING LEGAL</span>
              <span className="text-2xl font-serif font-bold text-slate-800">DUBAI COUNSEL</span>
@@ -125,7 +125,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onContactClick }) => {
              <span className="text-2xl font-serif font-bold text-slate-800">EMIRATES LAW GROUP</span>
           </div>
           {/* Duplicate for seamless loop */}
-          <div className="flex items-center gap-16 px-8 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+          <div className="flex items-center gap-16 px-8 grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
              <span className="text-2xl font-serif font-bold text-slate-800">AL MANSOORI & CO</span>
              <span className="text-2xl font-serif font-bold text-slate-800">STERLING LEGAL</span>
              <span className="text-2xl font-serif font-bold text-slate-800">DUBAI COUNSEL</span>

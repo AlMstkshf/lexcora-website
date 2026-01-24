@@ -94,7 +94,7 @@ export const Features: React.FC<FeaturesProps> = ({ lang }) => {
     <section id="features" className="py-24 bg-white relative">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 max-w-3xl mx-auto">
-          <span className="text-lexcora-gold font-bold tracking-widest text-sm uppercase">LEXCORA ERP</span>
+          <span className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-lexcora-gold/15 text-lexcora-blue font-bold tracking-widest text-sm uppercase">LEXCORA ERP</span>
           <h2 className="text-4xl md:text-5xl font-serif font-bold text-lexcora-blue mt-4">{t.sectionTitle}</h2>
           <div className="w-24 h-1 bg-lexcora-gold mx-auto mt-6"></div>
         </div>

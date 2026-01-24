@@ -291,7 +291,7 @@ const AppLayout: React.FC<{
         currentPath={location.pathname}
       />
 
-      <main className="animate-fade-in">
+      <main id="main-content" role="main" className="animate-fade-in">
         <Routes>
           <Route path="/" element={<Navigate to={pathWithLang('/')} replace />} />
           <Route path={pathWithLang('/')} element={<HomePage lang={lang} onContactClick={handleContactClick} />} />
@@ -336,6 +336,13 @@ const AppContainer: React.FC = () => {
   const [isAppLoading, setIsAppLoading] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const rootEl = document.getElementById('root');
+    if (rootEl?.getAttribute('aria-hidden') === 'true') {
+      rootEl.removeAttribute('aria-hidden');
+    }
+  }, []);
 
   useEffect(() => {
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';

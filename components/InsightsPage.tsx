@@ -28,7 +28,7 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ lang, onArticleClick
     <div className="pt-24 pb-16 bg-slate-50 min-h-screen">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12 max-w-3xl mx-auto">
-          <span className="text-lexcora-gold font-bold tracking-widest text-sm uppercase mb-2 block">
+          <span className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-lexcora-gold/15 text-lexcora-blue font-bold tracking-widest text-sm uppercase mb-2">
             {lang === 'en' ? 'Intelligence Hub' : 'مركز المعرفة'}
           </span>
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-lexcora-blue mb-6">
@@ -88,7 +88,7 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ lang, onArticleClick
                   </span>
                 </div>
                 <div className="p-6 flex-1 flex flex-col">
-                  <div className="flex items-center gap-4 text-xs text-slate-400 mb-3">
+                  <div className="flex items-center gap-4 text-xs text-slate-600 font-medium mb-3">
                     <span className="flex items-center gap-1"><Calendar size={12} /> {article.date}</span>
                     <span className="flex items-center gap-1"><Clock size={12} /> {article.readTime}</span>
                   </div>
@@ -97,8 +97,12 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ lang, onArticleClick
                   </h3>
                   <p className="text-slate-600 text-sm leading-relaxed mb-4 flex-1">{article.excerpt}</p>
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <div className="text-xs font-semibold text-slate-500">{lang === 'en' ? 'By' : 'بقلم'} <span className="text-lexcora-blue">{article.author}</span></div>
-                    <button onClick={() => onArticleClick?.(article.slug)} className="text-sm font-bold text-lexcora-gold hover:text-yellow-500 flex items-center gap-1 transition-colors">
+                    <div className="text-xs font-semibold text-slate-700">{lang === 'en' ? 'By' : 'بقلم'} <span className="text-lexcora-blue">{article.author}</span></div>
+                    <button
+                      onClick={() => onArticleClick?.(article.slug)}
+                      className="text-sm font-bold text-lexcora-blue hover:text-lexcora-gold flex items-center gap-1 transition-colors"
+                      aria-label={`${t.readMore} - ${article.title}`}
+                    >
                       {t.readMore} <Arrow size={16} />
                     </button>
                   </div>

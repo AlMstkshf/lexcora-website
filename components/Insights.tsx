@@ -43,7 +43,7 @@ export const Insights: React.FC<InsightsProps> = ({ lang, onViewAll, onArticleCl
           <Button 
             variant="outline" 
             onClick={onViewAll}
-            aria-label="View all insights articles"
+            aria-label={lang === 'en' ? 'View All Insights' : 'عرض جميع الرؤى'}
           >
             {lang === 'en' ? 'View All Insights' : 'عرض جميع الرؤى'}
           </Button>
@@ -70,7 +70,7 @@ export const Insights: React.FC<InsightsProps> = ({ lang, onViewAll, onArticleCl
                   </span>
                 </div>
                 <div className="p-6 flex-1 flex flex-col">
-                  <div className="flex items-center gap-4 text-xs text-slate-400 mb-3">
+                  <div className="flex items-center gap-4 text-xs text-slate-600 font-medium mb-3">
                     <span className="flex items-center gap-1"><Calendar size={12} /> {article.date}</span>
                     <span className="flex items-center gap-1"><Clock size={12} /> {article.readTime}</span>
                   </div>
@@ -82,11 +82,11 @@ export const Insights: React.FC<InsightsProps> = ({ lang, onViewAll, onArticleCl
                   </h3>
                   <p className="text-sm text-slate-600 leading-relaxed mb-4 flex-1">{article.excerpt}</p>
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <div className="text-xs font-semibold text-slate-500">{lang === 'en' ? 'By' : 'بقلم'} <span className="text-lexcora-blue">{article.author}</span></div>
+                    <div className="text-xs font-semibold text-slate-700">{lang === 'en' ? 'By' : 'بقلم'} <span className="text-lexcora-blue">{article.author}</span></div>
                     <button 
                       onClick={() => handleArticleClick(article.slug)}
-                      className="text-sm font-bold text-lexcora-gold hover:text-yellow-500 flex items-center gap-1 transition-colors"
-                      aria-label={`Read ${article.title}`}
+                      className="text-sm font-bold text-lexcora-blue hover:text-lexcora-gold flex items-center gap-1 transition-colors"
+                      aria-label={`${lang === 'en' ? 'Read Article' : 'اقرأ المقال'} - ${article.title}`}
                     >
                       {lang === 'en' ? 'Read Article' : 'اقرأ المقال'} <ArrowRight size={16} />
                     </button>

@@ -101,10 +101,11 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ lang }) => {
                 <button
                   key={idx}
                   onClick={() => setActiveIndex(idx)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    idx === activeIndex ? 'w-8 bg-lexcora-gold' : 'bg-slate-600 hover:bg-slate-500'
+                  className={`h-3 w-3 p-2 rounded-full transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lexcora-gold ${
+                    idx === activeIndex ? 'bg-lexcora-gold' : 'bg-slate-600 hover:bg-slate-500'
                   }`}
                   aria-label={`Go to slide ${idx + 1}`}
+                  aria-pressed={idx === activeIndex}
                 />
               ))}
             </div>

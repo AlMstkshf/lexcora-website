@@ -13,6 +13,27 @@ export const ChatbaseEmbed: React.FC = () => {
       return;
     }
 
+    const ensureAccessibleBubble = () => {
+      const bubble = document.getElementById('chatbase-bubble-button');
+      if (!bubble) return;
+
+      // Bubble sometimes ships with aria-hidden while still being focusable; remove the conflict.
+      if (bubble.getAttribute('aria-hidden') === 'true') {
+        bubble.removeAttribute('aria-hidden');
+      }
+      if (bubble.getAttribute('tabindex') === '-1') {
+        bubble.removeAttribute('tabindex');
+      }
+      if (!bubble.getAttribute('aria-label')) {
+        bubble.setAttribute('aria-label', 'Open chat');
+      }
+
+      bubble.querySelectorAll('[aria-hidden="true"]').forEach((node) => {
+        (node as HTMLElement).removeAttribute('aria-hidden');
+      });
+    };
+
+    let observer: MutationObserver | null = null;
     const host = (import.meta.env.NEXT_PUBLIC_CHATBASE_HOST || 'https://www.chatbase.co/').replace(/\/+$/, '');
     const chatbotId = import.meta.env.NEXT_PUBLIC_CHATBOT_ID;
 
@@ -48,6 +69,7 @@ export const ChatbaseEmbed: React.FC = () => {
         script.id = chatbotId;
         (script as any).domain = 'www.chatbase.co';
         document.body.appendChild(script);
+        ensureAccessibleBubble();
       };
 
       if (document.readyState === 'complete') {
@@ -57,6 +79,10 @@ export const ChatbaseEmbed: React.FC = () => {
         return () => window.removeEventListener('load', onLoad);
       }
 
+      observer = new MutationObserver(() => ensureAccessibleBubble());
+      observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+      ensureAccessibleBubble();
+
       return undefined;
     };
 
@@ -64,6 +90,9 @@ export const ChatbaseEmbed: React.FC = () => {
     return () => {
       if (cleanup) {
         cleanup();
+      }
+      if (observer) {
+        observer.disconnect();
       }
     };
   }, []);

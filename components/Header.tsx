@@ -56,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, onLoginClick, cur
         <Link
           to="/"
           className="flex items-center gap-2 group"
-          aria-label="Go to Homepage"
+          aria-label="LEXCORA - Go to Homepage"
           onClick={() => setMobileMenuOpen(false)}
         >
           <div className="w-10 h-10 bg-lexcora-gold rounded-sm flex items-center justify-center group-hover:bg-yellow-400 transition-colors">
@@ -117,7 +117,7 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, onLoginClick, cur
                 ? '!border-lexcora-blue !text-lexcora-blue hover:!bg-lexcora-blue/5'
                 : '!border-white/60 !text-white hover:!bg-white/10'
             }`}
-            aria-label="Open Client Portal"
+            aria-label={`${t.portal} - Open client portal`}
           >
             <User size={16} />
             {t.portal}
@@ -126,7 +126,7 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, onLoginClick, cur
           <Button
             variant="primary"
             className="!py-2 !px-4"
-            aria-label="Start Free Trial"
+            aria-label={`${t.freeTrial} - Start free trial`}
             onClick={() => navigate(pathWithLang('/free-trial'))}
           >
             {t.freeTrial}
@@ -170,14 +170,14 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, onLoginClick, cur
             target="_blank"
             rel="noopener noreferrer"
             className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md font-semibold border border-white/60 text-white hover:bg-white/10 transition-colors uppercase text-sm"
-            aria-label="Open Client Portal"
+            aria-label={`${t.portal} - Open client portal`}
           >
             {t.portal}
           </a>
           <Button
             variant="primary"
             fullWidth
-            aria-label="Start Free Trial"
+            aria-label={`${t.freeTrial} - Start free trial`}
             onClick={() => {
               setMobileMenuOpen(false);
               navigate(pathWithLang('/free-trial'));

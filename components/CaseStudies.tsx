@@ -19,7 +19,7 @@ export const CaseStudies: React.FC<CaseStudiesProps> = ({ lang, onContactClick }
         
         {/* Header */}
         <div className="text-center mb-16 max-w-4xl mx-auto">
-          <span className="text-lexcora-gold font-bold tracking-widest text-sm uppercase mb-2 block animate-fade-in-up">
+          <span className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-lexcora-gold/15 text-lexcora-blue font-bold tracking-widest text-sm uppercase mb-2 animate-fade-in-up">
             {lang === 'en' ? 'Client Success' : 'نجاح العملاء'}
           </span>
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-lexcora-blue mb-6 animate-fade-in-up" style={{ animationDelay: '100ms' }}>

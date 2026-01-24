@@ -215,11 +215,11 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
           </div>
         </div>
 
-        <div className={`border-t border-slate-800 pt-8 flex flex-col ${isArabic ? 'md:flex-row-reverse' : 'md:flex-row'} justify-between items-center text-xs text-slate-500 ${alignClass}`}>
-          <p>{t.rights}</p>
+        <div className={`border-t border-slate-800 pt-8 flex flex-col ${isArabic ? 'md:flex-row-reverse' : 'md:flex-row'} justify-between items-center text-xs text-slate-400 ${alignClass}`}>
+          <p className="text-slate-300">{t.rights}</p>
           <div className={`flex items-center gap-2 mt-4 md:mt-0 ${isArabic ? 'flex-row-reverse' : ''}`}>
              <div className="w-2 h-2 bg-green-500 rounded-full" aria-hidden="true"></div>
-             <span>Systems Operational</span>
+             <span className="text-slate-200">Systems Operational</span>
           </div>
         </div>
       </div>
